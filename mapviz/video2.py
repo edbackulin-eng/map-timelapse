@@ -813,7 +813,7 @@ class Renderer:
                 if a <= 0.02:
                     continue
                 size = 52 if len(txt) <= 62 else 46
-                T(d, (W // 2, 962), txt, size, fill=WHITE if a > 0.98 else lerp_col((8, 18, 60), WHITE, a), stroke=5, anchor="mm")
+                T(d, (W // 2, 962), txt, size, fill=WHITE if a > 0.98 else tuple(int(v) for v in lerp_col((8, 18, 60), WHITE, a)), stroke=5, anchor="mm")
         if not shown:
             T(d, (W // 2, 972), "DATA: U.S. CENSUS BUREAU  ·  MAP: NATURAL EARTH", 36, fill=(190, 200, 225), stroke=3, anchor="mm")
 
