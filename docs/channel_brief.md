@@ -10,13 +10,22 @@
 
 A free handle can still be taken by someone else before you claim it — claim it in Studio right after choosing.
 
-## 2. Artwork drafts (`branding/drafts/`)
+## 2. Artwork v2 — bright choropleth style (`branding/v2/`, rendered on GitHub by `branding.yml`)
 
-- Thumbnails (1280×720): **A** "AMERICA LIGHTS UP" + curved arrow NY→LA, fire palette; **B** "1790 → 2020 / WHERE AMERICA LIVES", ice palette, ring on the Boston–Washington corridor; **C** "1790 → 2020 / EAST TO WEST", magma palette, straight green arrow. Phone check: `check_thumbs_210x118.png`.
-- Banners (2560×1440, name inside the 1546×423 safe area): **A** centred name over the map; **B** name left, map right; **C** full-width map, name across it. Safe-area check: `check_banners_safe_area.png`. Each banner shows a different name candidate only for preview — the chosen style is re-rendered with the chosen name.
-- Avatars (800×800, check at 98 px: `check_avatars_98.png`): **A** glowing map; **B** monogram over the map (letters follow the chosen name); **C** map + yellow arrow east→west.
+Owner 17.11: name **America Over Time (@AmericaOverTime)**; glowing-dots style rejected.
 
-All map pixels are real data: 2020 Census tract populations (Census Bureau "Centers of Population 2020", 85k tracts) on Census cartographic state boundaries 2023. No AI imagery. Font: Anton (SIL Open Font License, file in `assets/fonts/`).
+- Style: regions fully filled by data, red (low) → orange → yellow → green (high); lightness varies
+  (dark red L*≈29, yellow L*≈87, teal-green L*≈50, green end leans blue) — see `check_colorblind.png`
+  (deuteranopia / protanopia simulation) and `legend_scale.png`. Light-blue ocean, neutral light
+  neighbours (Natural Earth), dark state borders, Anton text with thick dark outline, yellow arrows.
+- Thumbnails: **A** county density 2020 + "AMERICA FILLS UP" + arrow east→west; **B** state density 2020,
+  "331 MILLION", arrow + "NEW JERSEY 1,263 / SQ MI"; **C** close-up of the East (counties), big
+  "1790 → 2020", "EAST TO WEST". Check: `check_thumbs_210x118.png`.
+- Banner: county map + name panel inside the 1546×423 safe area (`check_banner.png`).
+- Avatar: state density map + "AOT" (`check_avatar.png`: 400 / 98 / 48 px circles).
+- Every number is read from Census files at render time: US 331,449,281 and New Jersey density
+  1,263.0 / sq mi (apportionment.csv, 2020); county density = 2020 Census county population
+  (CenPop2020_Mean_CO) / land area in sq mi (2020 Gazetteer).
 
 ## 3. Channel description (paste into Studio → Customization → Basic info)
 
@@ -30,8 +39,14 @@ New maps every Monday and Friday.
 
 animated map, map timelapse, US history map, United States map, US population history, population density map, census data, American history, US map animation, how America grew, railroad history, interstate highway history, largest US cities, US states history, immigration history, data visualization, historical maps, heat map, geography, maps
 
-## 5. Data licences (to be confirmed on each source site before the trial video is rendered)
+## 5. Data licences (checked 17.11.2026 on the source sites)
 
-- US Census Bureau — US Government work, public domain (17 U.S.C. §105). Note: census.gov blocks this PC (Cloudflare 403), so data is fetched on the GitHub runner (`fetch-census.yml`); api.census.gov now requires a free API key — not needed so far (static www2.census.gov files are used).
-- Natural Earth — public domain.
+- **Natural Earth** — naturalearthdata.com/about/terms-of-use: "All versions of Natural Earth raster +
+  vector map data found on this website are in the public domain"; credit optional ("Made with Natural Earth").
+- **US Census Bureau** — Data Stewardship policy DS-027 (www2.census.gov/foia/ds_policies/ds027.pdf):
+  data/works created by Census Bureau employees are generally not subject to copyright in the US;
+  census.gov/about/policies/citation.html asks to cite the Census Bureau as the source (copies of
+  the citation/open-data/terms pages are in `data/census/licences/`). Census API is not used (needs
+  a key, and its attribution notice applies only to API users).
+- Attribution line for every description: "Data: U.S. Census Bureau. Map data: Made with Natural Earth."
 - Music: CC0 only.
