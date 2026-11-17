@@ -1,0 +1,693 @@
+Census Bureau Data Stewardship Program
+
+
+               DS027 – Research Transparency and Public Access
+PURPOSE
+This policy document establishes the U.S. Census Bureau’s commitment to supporting public
+access and equitable delivery of federally funded research results and data. It also supports the
+Census Bureau’s commitment to being transparent in the conduct of its mission while meeting
+its statutory and ethical obligations to protect respondent privacy, confidentiality, information,
+and system security.
+
+This policy promotes the following objectives:
+
+    •   Reaffirm the Census Bureau’s commitments to
+            o promote open science, increase transparency, and support reproducibility;
+            o be transparent with respondents about how their data are used;
+            o protect respondent privacy and confidentiality; and
+            o Increase trust in federal statistics and statistical products.
+    •   Ensure effective access to and reliable preservation of Census Bureau research output
+        (e.g., working papers, peer-reviewed publications, data briefs, etc.) and digital scientific
+        data for use in research, development, education, and scientific discovery.
+    •   Fulfill requirements in the Office of Science and Technology Policy (OSTP’s) August 25,
+        2022, memorandum subject “Ensuring Free, Immediate, and Equitable Access to
+        Federally Funded Research” 1 to develop public access policies..
+                                     0F
+
+
+
+
+BACKGROUND
+The Census Bureau operates under Title 13 U.S.C., 2 which mandates the confidentiality of its
+                                                     1F
+
+
+
+
+data. When information is not confidential, several laws require transparency and openness by
+federal agencies, including the Freedom of Information Act (FOIA) and OPEN Government Data
+Act. Furthermore, laws such as the Privacy Act and Paperwork Reduction Act (PRA) codify the
+American Public’s right to know what data the Federal Government collects from or about
+them, and how the government will safeguard and use that information.
+
+The Census Bureau has long recognized that respecting these rights is both a legal obligation,
+and a key to maintaining the public trust. We have institutionalized these obligations through
+the Privacy Principles 3 that form the backbone of our Data Stewardship Program.
+                      2F
+
+
+
+
+1
+  https://www.whitehouse.gov/wp-content/uploads/2022/08/08-2022-OSTP-Public-Access-Memo.pdf
+2
+  https://www.govinfo.gov/content/pkg/USCODE-2009-title13/html/USCODE-2009-title13.htm
+3
+  https://www2.census.gov/foia/ds_policies/ds0pp.pdf
+
+                                                                                              Page 1
+The Census Bureau also recognizes that transparency is a well-recognized best practice among
+professional and statistical research organizations, 4 and an operational component in fulfilling our
+                                                         3F
+
+
+
+
+mission “to serve as the nation’s leading provider of quality data about its people and economy.”
+We follow statistical policy from the Office of Management and Budget (OMB). As part of following
+statistical policy from OMB, the Census Bureau adheres to Statistical Policy Directive No. 1, 5 and         4F
+
+
+
+
+the corresponding guidance in the Principles and Practices for a Federal Statistical Agency. 6         5F
+
+
+
+
+Statistical Policy Directive No. 1 has identified the following four core principles as informing its
+requirements for Federal Statistical Agencies:
+
+    •   Relevance to Policy Issues
+    •   Credibility Among Data Users
+    •   Trust Among Data Providers
+    •   Independence from Political and Other Undue External Inﬂuence
+
+Along with our sister Federal Statistical Agencies, the Census Bureau has stated its commitment
+to the principle of scientific integrity. 7 The Census Bureau’s Scientific Integrity Policy is related
+                                           6F
+
+
+
+
+to this policy as transparency and inclusivity are hallmarks of scientific integrity. 8       7F
+
+
+
+
+This policy will serve as a foundational document intended to guide the Census Bureau to be
+more transparent, as well as align our transparency efforts to those four core principles.
+
+SCOPE
+This policy does not apply to or permit the public release of information made confidential by
+Title 13 U.S.C; trade secrets; commercial information; or similar information protected under
+law. Also, this policy does not apply to or permit the public release of information, data, or
+other materials that a researcher or employee must hold confidential until they are published,
+such as principal economic indicators and derivative information covered by OMB Statistical
+Policy Directive No. 3 or pre-release statistical products and derivative publications covered by
+OMB Statistical Policy Directive No. 4. This policy does not apply to or permit the public release
+of personnel, medical, or similar information, the disclosure of which would constitute an
+unwarranted invasion of personal privacy.
+
+
+
+4
+  Examples include: National Academies of Sciences, Engineering, and Medicine’s Methods to Foster Transparency
+and Reproducibility of Federal Statistics: Proceedings of a Workshop, https://doi.org/10.17226/25305,
+https://www.nationalacademies.org/our-work/transparency-and-reproducibility-of-federal-statistics-for-the-
+national-center-for-science-and-engineering-statistics (in preparation), as well as the American Association for
+Public Opinion Research’s Transparency Initiative: https://www.aapor.org/Standards-Ethics/Transparency-
+Initiative/FAQs.aspx
+5
+  Codified at 44 U.S.C. § 3563
+6
+  National Academies of Sciences, Engineering, and Medicine, Principles and Practices for a Federal Statistical
+Agency: Seventh Edition, https://doi.org/10.17226/25885
+7
+  https://www.census.gov/about/policies/quality/scientific_integrity.html
+8
+  https://www.census.gov/content/dam/Census/about/about-the-
+bureau/policies_and_notices/scientificintegrity/Census_Bureau_Scientific_Integrity_Policy.pdf
+
+                                                                                                                 Page 2
+This policy document does not apply to or permit the public release of administrative or third-
+party records provided to the Census Bureau under a contract, agreement, or other data
+acquisition instrument. The disclosure of such records is governed by the terms of the contract,
+agreement, or other legal instrument under which they were acquired.
+
+The Census Bureau protects confidentiality and personal privacy and recognizes proprietary
+interests, business confidential information, and intellectual property rights.
+
+Transparency requirements associated with direct data collections are generally met by the
+Census Bureau’s adherence to requirements in the Paperwork Reduction Act 9 and Privacy Act 10   8F                   9F
+
+
+
+
+and related guidance issued from OMB. Direct data collections also carry unique additional
+concerns such as those related to interactions with a respondent covered separately by the
+Policy on Accepting Reimbursable Projects 11 or sensitive topics in dependent interviewing
+                                                        10F
+
+
+
+
+covered by the DS016: Policy on Respondent Identification and Sensitive Topics in Dependent
+Interviewing 12 policy.
+                   11F
+
+
+
+
+POLICY
+Relevance to Policy Issues
+A core part of accomplishing the Census Bureau’s mission is ensuring our data are made
+available for timely, topical, and policy-relevant research. We achieve this goal by producing
+data products that support use by the statistical research community and the public and
+partnering with other agencies to do the same. Furthermore, we encourage our staff to pursue
+approved self-directed statistical research and support external researchers in pursuing
+answers to new and novel statistical research questions. To that end, the Census Bureau is
+committed 13 to supporting the use of its data for any statistical activity 14 that:
+             12F                                                                         13F
+
+
+
+
+     1.   Has statistical merit; 15
+                                  14F
+
+
+
+
+     2.   Meets the requirements of Title 13 U.S.C. § 23(c);
+     3.   Delivers a Title 13 U.S.C. benefit; 16  15F
+
+
+
+
+     4.   Is feasible and based in sound methodology;
+     5.   Has a clearly demonstrated need for confidential data;
+
+
+9
+  44 U.S.C. 3501 et seq.
+10
+   5 U.S.C. §552a (e) (3)
+11
+   DS015: Policy on Accepting Reimbursable Projects: https://www2.census.gov/foia/ds_policies/ds015.pdf
+12
+   https://www2.census.gov/foia/ds_policies/ds016.pdf
+13
+   Subject to the availability of resources, funding, and consistency with mission.
+14
+   While not binding as a Title 13 definition, CIPSEA defines statistical activities as follows: 8) 44 U.S.C. §3501 Sec.
+502(7)- the term "statistical activities"— (A) means the collection, compilation, processing, or analysis of data for
+the purpose of describing or making estimates concerning the whole, or relevant groups or components within,
+the economy, society, or the natural environment; and (B) includes the development of methods or resources that
+support those activities, such as measurement methods, models, statistical classifications, or sampling frames.
+15
+   The Standard Application Process (SAP) Portal encompasses some aspects of “statistical merit” under the
+“feasibility” criteria. See the SAP Policy for more information: https://www.whitehouse.gov/wp-
+content/uploads/2022/12/M-23-04.pdf
+16
+   DS002: Policy on Title 13 Benefit Statements: https://www2.census.gov/foia/ds_policies/ds002.pdf
+
+                                                                                                                Page 3
+     6. Proposes output that can meet the Census Bureau’s statistical disclosure avoidance
+        standards; 17 and
+                     16F
+
+
+
+
+     7. Is consistent with and does not pose undue risk to either the mission or reputation of
+        the Census Bureau.
+
+The Census Bureau will be transparent in its project review and approval process and document
+its decisions thoroughly. The Census Bureau will communicate decisions and any relevant
+details to the submitter(s). Generally, the Census Bureau will not publicly release details
+regarding the review process for any particular project; however, the Census Bureau may make
+the synopsis of the project review available on request.
+
+As necessary, the Data Stewardship Executive Policy Committee (DSEP) and its designated
+subcommittees review and make final determinations, as needed, depending on the sensitivity
+of the project. For more information, refer to the Handbook for Administrative Data Projects. 18              17F
+
+
+
+
+Credibility among Data Users
+The Census Bureau recognizes that transparency in our methods and our decision-making
+processes is essential to maintaining credibility among our data users.
+
+The Census Bureau will publish all Data Stewardship policies, as well as information about DSEP
+and its composition, on the external facing Census.gov website.
+
+The Census Bureau will follow OMB statistical policy for publishing documentation on our data
+products and methods. These standards will also be reflected in our own statistical quality
+standards. 19
+            18F
+
+
+
+
+The Census Bureau acknowledges that a challenge to the credibility of research is withheld
+output. Unless otherwise stipulated by the terms of an agreement, the Census Bureau will not
+withhold output from internal, joint, or reimbursable research projects 20 within the scope of
+                                                                                    19F
+
+
+
+
+this policy 21, the agency only recognizes four legitimate reasons for not publishing statistical
+             20F
+
+
+
+
+output:
+
+     1. The output does not meet the Census Bureau’s Statistical Quality Standards;
+     2. The output is outside the scope of the approved project or approved uses of the data
+        per any applicable agreements;
+     3. The output consists of intermediate or interim results, or otherwise contains
+        unacceptable error;
+
+
+17
+   DS025: Organization of the Disclosure Review Board: https://www2.census.gov/foia/ds_policies/ds025.pdf
+18
+   DS001b Handbook for Administrative Data Projects:
+https://www2.census.gov/foia/ds_policies/ds001_appendices.pdf
+19
+   https://www.census.gov/content/dam/Census/about/about-the-
+bureau/policies_and_notices/quality/statistical-quality-standards/Quality_Standards.pdf
+20
+   Agreements to conduct reimbursable or joint statistical work should include clear, agreed-upon terms regarding
+data delivery and right to review output prior to publication.
+21
+   https://www.osec.doc.gov/opog/dmp/daos/dao219_1.html
+
+                                                                                                          Page 4
+       4. The output presents an unacceptable disclosure risk as determined by the Census
+          Bureau’s Data Stewardship Executive Policy committee or through its delegated
+          authority to the Disclosure Review Board (DRB). 22         21F
+
+
+
+
+Regarding external research projects, the Census Bureau recognizes that the publication process
+can take time and researchers want to present their findings and receive credit for their research.
+However, as a public agency we have an obligation to be transparent with the public as to the
+research carried out using Census Bureau data. Additionally, the Census Bureau realizes the full
+Title 13 benefit from research that uses Census Bureau confidential data occurs only when the
+results have been properly peer reviewed and published in the appropriate disciplinary outlet.
+
+To that end, the Census Bureau will adopt the following measures regarding external projects.
+The agency will take steps to make basic information on all approved projects and submissions
+approved by the Disclosure Review Board publicly available and will make the full content of
+any output that has passed disclosure review available upon request.
+
+In connection with their Disclosure Review submission, the Census Bureau will require Principal
+Investigators (PI) on external projects to agree to the following:
+
+       •   The PI will endeavor to publish any final output from their research as soon as possible,
+           but preferably within 36 months after passing disclosure review.
+       •   The PI will use the Census Bureau’s recommended citation, 23 including the DRB
+                                                                                   22F
+
+
+
+
+           clearance number, when displaying any data output cleared by the DRB.
+       •   The Census Bureau will attempt to tie the researchers’ presentations or paper citations
+           back to project information the Census Bureau has posted on the web.
+       •   As part of their disclosure review submission, the PI will be provided an opportunity to
+           include the following information which the agency will release along with any
+           information about their project if requested by a third party:
+               o The PI’s contact information and affiliation.
+               o Whether the output is intended to be interim or final.
+               o Instructions to credit or contact the PI in the event the results are released
+                   before the PI has had a chance to publish.
+               o A reasonable amount of additional information or comments the PI would like to
+                   include in any release made by the Census Bureau of their research output.
+
+The Census Bureau recognizes the value of reproducibility, replicability, and peer review in
+research. It also recognizes that many leading peer-review journals require the researcher to
+provide a reproducibility/replicability package associated with the proposed article. The Census
+Bureau will work to improve our ability to support peer review and replication where possible
+for our internal, external, and reimbursable research projects.
+
+
+
+22
+     https://www2.census.gov/foia/ds_policies/ds025.pdf
+23
+     A Digital Object Identifier (DOI) may serve in place of a recommended citation if appropriate.
+
+                                                                                                      Page 5
+The Census Bureau will, subject to the availability of funds and resources and the feasibility of
+the proposed methodology, support external research designed to assess the quality of our
+data products and programs and recognizes the implicit value to the agency of this work. This
+support may come in the form of provisioned access to data through the Federal Statistical
+Research Data Center (FSRDC) network for related external projects, joint statistical
+partnerships with other agencies, and internal project support from outside researchers.
+
+The Census Bureau will pursue partnerships with researchers on the cutting edge of statistical,
+social, demographic, and economic research. These partnerships offer the Census Bureau the
+opportunity to explore new methods, create new data products, and provide novel insights into
+the social and economic wellbeing of the Nation. The Census Bureau is committed to being
+transparent about these relationships and the types of work they support.
+
+As a statistical organization, we recognize the value of open innovation. We will support the use
+of our data for the creation of new and novel data products. When we create experimental
+data products, we will inform the public of their uses, including supporting research with their
+release and limitations.
+
+Trust Among Data Providers
+The Census Bureau recognizes that transparency is critical to maintaining trust between the
+agency and our respondents and providers of administrative data. To that end, we are committed
+to meeting obligations under the Privacy Act and the Paperwork Reduction Act to inform the
+public of the information we collect, the purposes for which we collect that information, and how
+we protect that information. Furthermore, we will take steps to maintain an accurate, complete,
+and publicly available data inventory as required under the OPEN Government Act, as well as up-
+to-date information about what data are available to be requested for use in research.
+
+We are committed to negotiating with our data providers and source agencies using
+straightforward and clear language so that they fully understand how the Census Bureau will
+use and safeguard data that they provide to support our programs.
+
+In addition to the Census Bureau’s statutory obligations, such as the required publication of
+System of Records Notices, the agency will take steps to be open with the public about the type
+of data we collect and how we use it. We will be transparent about the types of data we collect,
+our data linkage activities, 24 and secondary uses of collected data. 25 Further, we will continue
+                                  23F                                              24F
+
+
+
+
+to share our research activities as openly and in as much detail as possible and will share
+information with the public regarding new and novel data collection and analysis techniques
+the agency will be using.
+
+
+
+
+24
+     DS014: Data Linkage Policy: https://www2.census.gov/foia/ds_policies/ds014.pdf
+25
+     DS001a: Administrative Data Acquisition, Access, and Use Policy: https://www2.census.gov/foia/ds_policies/ds001.pdf
+
+                                                                                                                Page 6
+Independence from Political and Other Undue External Inﬂuence
+The Census Bureau recognizes the important role of transparency in limiting any undue political
+or other external influences in the fulfillment of our mission and the publication of dependable
+unbiased statistics. The Census Bureau Scientific Integrity Policy directly addresses
+independence from political or other undue external influence 26.         25F
+
+
+
+
+Consistent with law and existing policy, projects must be approved before any access is granted
+to confidential data. Unless prohibited by law, 27 or otherwise inconsistent with legal, policy, or
+                                                      26F
+
+
+
+
+regulatory requirements, 28 the Census Bureau will release information about any approved
+                             27F
+
+
+
+
+project that uses Census Bureau data to the public upon request. The agency will continue to
+take proactive steps to make information about all our internal and external projects publicly
+available, though currently program areas may approach this mandate differently. 29              28F
+
+
+
+
+Any custom tabulations or extracts will be disclosed in accordance with the Policy on Providing
+Custom Tabulations and Custom Extracts Under 13 U.S.C. § 8(b). 30               29F
+
+
+
+
+The Census Bureau may, at times, engage external subject matter experts to support the
+project review process. However, only career Census Bureau staff may make final
+determinations regarding adherence to the seven criteria listed under Relevance to Policy Issues
+above. DSEP is the final arbiter of any disagreement about adherence to the criteria.
+
+The Census Bureau has the discretion to reject any project that presents a specific risk to the
+mission or reputation of the Census Bureau. The Census Bureau alone can and will determine
+whether that risk outweighs the potential public benefit of the project. The Census Bureau will
+make it clear to the researcher that the project was rejected on these grounds, and they will be
+permitted to appeal the decision to DSEP. Note: Standard Application Process (SAP) projects
+may have their own requirements for denials and appeals of a project. 31              30F
+
+
+
+
+Peer-reviewed Scholarly Publication and Associated Data Access for Research Funded Wholly or
+in Part by the Census Bureau
+This section applies to the results of research funded wholly or in part by the Census Bureau,
+presented in peer-reviewed scholarly publications, including book chapters and peer-reviewed
+conference proceedings as appropriate, and “scientific data” as defined in the Office of Science
+
+
+
+26
+   Census Bureau Scientific Integrity Policy
+27
+   For example, certain project metadata may be protected by Title 26 U.S.C.
+28
+   For example, researchers may have certain legally enforceable intellectual property rights related to their
+methodology.
+29
+   Examples include the CES Annual Report: https://www.census.gov/programs-surveys/ces/library/ces-annual-
+report.html, the ADRM Linkage Projects Site: https://www.census.gov/about/adrm/linkage/projects.html, and
+information on external projects using Census Bureau data in the FSRDCs
+https://www.census.gov/about/adrm/fsrdc/about/ongoing-projects.html
+30
+   https://www2.census.gov/foia/ds_policies/ds021.pdf
+31
+   Establishment of Standard Application Process Requirements on Recognized Statistical Agencies and Units
+(whitehouse.gov)
+
+                                                                                                          Page 7
+and Technology Policy (OSTP’s) August 25, 2022, memorandum subject “Ensuring Free,
+Immediate, and Equitable Access to Federally Funded Research.” 32      31F
+
+
+
+
+Research funded wholly or in part by the Census Bureau includes:
+
+     •   Internal research produced by a Census Bureau employee as part of their official duties
+         or external researcher supporting an internal project.
+     •   Joint projects with a federal agency or nonprofit.
+
+Research funded wholly or in part by the Census Bureau excludes:
+
+     •   Research being performed under a reimbursable agreement.
+     •   External research projects done via FSRDC network.
+
+For activities funded by both the Census Bureau and any other source that may have differing
+public access requirements, the provisions of this policy will apply unless otherwise specified by
+the Census Bureau in its agreements, contracts, or cooperative agreements.
+
+All peer-reviewed scholarly publications and associated data arising from research and
+programs funded wholly or in part by the Census Bureau will be freely available to the public in
+a publicly accessible institutional repository. Subject to the same conditions and constraints
+listed in the SCOPE section and/or any other potential restrictions or limitations on data access,
+use, and disclosure, including those defined in terms and conditions of agreements, or that
+convey from a data use agreement or stipulations of an Institutional Review Board, the Census
+Bureau will promote the deposit of scientific data arising from research and programs, funded
+wholly or in part by the Census Bureau, to make it available free of charge unless otherwise
+exempt, in publicly accessible repositories, simultaneously with or before publication of
+associated manuscripts. Other federally funded scientific data that is not associated with peer-
+reviewed scholarly publications, but is expected to be useful to interested parties, will be
+shared. Metadata associated with data will be publicly accessible and reusable.
+
+Publicly accessible versions of narrative and data publications will be machine-readable and
+accessible through assistive devices to the extent possible. Publicly available metadata
+associated with both narrative and data publications will include all author and co-author
+names, affiliations, sources of funding, date of publication, and unique persistent identifiers
+(PIDs) for all authors, institutions/organizations, funders, and research outputs as available.
+Digital persistent identifiers for all authors and co-authors will meet the common/core
+standards of a digital persistent identifier service defined in the NSPM-33 Implementation
+Guidance. 33
+           32F
+
+
+
+
+32
+  https://www.whitehouse.gov/wp-content/uploads/2022/08/08-2022-OSTP-Public-Access-Memo.pdf
+33
+  See Point 5 in the Digital Persistent Identifiers section of the NSPM-33 Implementation Guidance at
+https://www.whitehouse.gov/wp-content/uploads/2022/01/010422-NSPM-33-Implementation-Guidance.pdf
+
+                                                                                                  Page 8
+Data/works created by Census Bureau employees generally are not subject to copyright
+protection within the United States. Census Bureau data or other works may be subject to
+copyright protection in foreign countries. The Census Bureau may also obtain and hold
+copyright in data/works created by non-Census Bureau employees (e.g., contractors) when
+copyright is assigned to the Census Bureau.
+
+All proposals or plans for activities that will generate scientific data using Census Bureau funding
+will be required to (1) adhere to a Census Bureau-approved Data Management Plan (DMP) that
+describes how scientific data generated through the course of the proposed work will be shared
+and preserved or (2) explain why data sharing and/or preservation are not within the scope of
+this plan. The DMP need not be a stand-alone document and may instead be a part of Project
+Plans, including Dissemination Plans and the Census Bureau Statistical Quality Standards. 34    33F
+
+
+
+
+Census Bureau supervisors will be required to ensure staff compliance with the requirements of
+DMPs, including those for preservation and discoverability.
+
+Authors of peer-reviewed scholarly publications will be required to submit to the Census
+Bureau public access repository the author’s accepted version of a final peer-reviewed
+manuscript within the scope of this policy concurrent with publication. Along with this
+manuscript, the author must submit any associated metadata. In lieu of the accepted version of
+the final peer-reviewed manuscript, the Census Bureau will accept the final published article, as
+formatted by the journal.
+
+Reasonable costs associated with publication, including submission, curation, management of
+data, and special handling instructions should be included in project plan budgets for contracts
+and agreements. DMPs of contractors and other individuals with Special Sworn Status and
+budgets for public access activities will be reviewed as part of the contract or project review
+process. Contractors or researchers will specify the data repository or repositories they expect
+to use. Such repositories should be aligned with OSTP guidance. 35 36 Agreements or contracts
+                                                                      34F   35F
+
+
+
+
+will include terms specifying that non-compliance with the repository requirements may result
+in suspension or termination.
+
+Compliance will be monitored and reported consistent with guidance from OMB.
+
+EFFECTIVE DATE
+Upon Signature
+
+LEGAL AUTHORITIES
+   • 44 U.S.C. 3501 et seq., Paperwork Reduction Act
+   • 5 U.S.C. § 552a (e) (3), Privacy Act
+
+
+34
+   https://www.census.gov/about/policies/quality/standards.html
+35
+   https://www.whitehouse.gov/wp-content/uploads/2022/08/08-2022-OSTP-Public-Access-Memo.pdf
+36
+   https://www.whitehouse.gov/wp-content/uploads/2022/05/05-2022-Desirable-Characteristics-of-Data-
+Repositories.pdf
+
+                                                                                                      Page 9
+     •   44 U.S.C. § 3563 - Statistical agencies
+     •   Public Law 115-435, Foundations for Evidence-Based Policymaking Act of 2018
+     •   Public Law 107-347, E-Government Act of 2002, § 207
+     •   Public Law 111-358, America COMPETES Reauthorization Act of 2010, § 103
+     •   Executive Office of the President, Executive Order 13642, Making Open and Machine
+         Readable the New Default for Government Information, 9 May 2013
+     •   Executive Office of the President, Office of Management and Budget (OMB),
+         Memorandum for the Heads of Executive Departments and Agencies (MHEDA), Open
+         Data Policy – Managing Information as an Asset, M-13-13, 9 May 2013
+     •   Executive Office of the President, Office of Science and Technology Policy (OSTP),
+         MHEDA, Ensuring Free, Immediate, and Equitable Access to Federally Funded Research,
+         August 25, 2022
+     •   Executive Office of the President, OSTP, MHEDA, Increasing Access to the Results of
+         Federally Funded Scientific Research, 22 February 2013
+     •   Executive Office of the President, OMB, MHEDA, Open Government Directive, M-10-06,
+         8 December 2009
+     •   Executive Office of the President, MHEDA, Transparency and Open Government, M-09-
+         12, 21 January 2009
+     •   OMB, Circular A-130, Management of Federal Information Resources, 28 July 2016
+     •   Executive Office of the President, OMB, MHEDA, Establishment of Standard Application
+         Process Requirements on Recognized Statistical Agencies and Units, M-24-04, December
+         8, 2022
+
+The authorities listed above do not alter, amend, rescind, or supersede any provision of Title
+13, U.S.C. or any policy or procedure that implements those provisions. Various provision of
+Title 13, U.S.C., direct or authorize the Census Bureau to compile, publish, produce, or furnish
+data or information collected under the survey and data acquisition authorities provided under
+this same Title, subject to the confidentiality provisions of 13 U.S.C. §§ 8 and 9. 37 Any     36F
+
+
+
+
+provisions of the authorities listed above that conflict with or require actions inconsistent with
+the provisions of Title 13 will not be implemented.
+
+This policy does not alter, amend, or rescind any other Department of Commerce or Census
+Bureau policies or guidance and does not alter, amend, or supersede law or regulations,
+including Title 13 U.S.C. 3837F
+
+
+
+
+IMPLEMENTATION
+As of signature, the Census Bureau designated repository has not yet been designated. This
+policy will be revised once a determination is made, the designated repository will be
+
+
+37
+   13 U.S.C. §§ 6, 91, 131, 141, 161, 181, 182, 193, and 301. Under 13 U.S.C. § 8, the Census Bureau may conduct
+reimbursable work for and engage in joint projects with other entities. The release of any federally funded research
+or publications resulting from reimbursable work for another entity will be the responsibility of that entity.
+38
+   This observance extends to any legal or policy requirements placed on the data acquired from another agency or
+other entity (e.g., Federal Tax Information, student records under FERPA, and SSA records).
+
+                                                                                                          Page 10
+announced, and guidance on using the repository and a timeline for implementation will be
+provided. It is expected that the requirements in the “Peer-reviewed Scholarly Publication and
+Associated Data Access for Research Funded Wholly or in Part by the Census Bureau” section of
+this policy will be implemented in two parts consistent with OSTP’s August 25, 2022,
+memorandum: 39 (1) peer-reviewed scholarly publications and the underlying data are available
+                  38F
+
+
+
+
+to the public by December 31, 2025 or sooner and (2) metadata and unique persistent
+identifiers are available to the public by December 31, 2027 or sooner.
+
+POLICY OWNER
+The Policy Coordination Office owns this policy.
+
+SIGNATURE
+
+                                                    Digitally signed by RON
+ RON                                                JARMIN
+                                                    Date: 2024.12.09
+ JARMIN                                             14:28:28 -05'00'
+     Ron S. Jarmin
+     Deputy Director and Chief Operating Officer
+     U.S. Census Bureau
+
+
+
+ Summary Information
+ Policy Title:                                  Research Transparency and Public Access
+ Date Signed:                                   See signature line
+ Last Reviewed:                                 December 2024
+ Intended Audience:                             All Staff and external SSS researchers
+ Policy Owner:                                  Policy Coordination Office
+ Office Responsible for Implementation:         All program areas
+ Office Responsible for Dissemination:          Policy Coordination Office
+ Stakeholder Vetting:                           PCO, CED, CES, ADRM, ERD, OGC, Legal
+
+
+
+
+39
+     https://www.whitehouse.gov/wp-content/uploads/2022/08/08-2022-OSTP-Public-Access-Memo.pdf
+
+                                                                                                 Page 11
+

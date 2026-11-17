@@ -1,0 +1,322 @@
+CENTERS OF POPULATION
+     COMPUTATION
+   for the United States
+       1950 - 2020
+
+
+
+
+      Geography Division
+      U.S. Census Bureau
+      U.S. Department of Commerce
+         Washington, DC 20233
+
+
+
+            November 2021
+Introduction
+The following document describes the procedure used to compute centers of population for the
+United States and for each state and the District of Columbia in 1950, 1960, 1970, 1980, 1990,
+2000, 2010, and 2020, based on counts of population obtained in the corresponding decennial
+censuses. For the two most recent censuses, centers of population were calculated for census
+tracts and block groups as well.
+
+This document provides information for many U.S. Census Bureau data users, some of whom
+have sought this information in unpublished form in the past. It is not meant to promote the
+gravity center of population concept as a pre-eminent measure for analyzing population
+distribution and change. Because there are many ways of measuring distribution, as well as
+change, this documents the method long used by the Census Bureau to determine the center of
+population.
+
+
+                                Computation of Centers
+The concept of the center of population as used by the U.S. Census Bureau is that of a balance
+point. The center of population is the point at which an imaginary, weightless, rigid, and flat (no
+elevation effects) surface representation of the 50 states (or 48 conterminous states for
+calculations made prior to 1960) and the District of Columbia would balance if weights of
+identical size were placed on it so that each weight represented the location of one person.
+More specifically, this calculation is called the mean center of population.
+
+A different center of population, the median center, can be computed by identifying the point
+though which a north-south line and an east-west line each divides the total population of the
+country in half. The Census Bureau computes this point after each census but does not report it
+as the official center of population for the United States. More information is discussed in the
+section Median verses Mean Population Point.
+
+
+Method Used in Determining the 1910 to 1950 Centers of Population
+
+The United States centers of population for the 1910 through the 1950 decennial censuses were
+computed in the following manner: In making the computations for the location of the center of
+population, the assumption was made that the center was at a certain point. Through this point
+a parallel and a meridian were drawn, crossing the entire country. In making the computations
+for the 1950 census, this intersection was assumed to be where the parallel of 39º north latitude
+intersected the meridian of 86º west longitude, which lines were taken as the axes of moments.
+This was the same meridian and parallel used since the 1910 census.
+
+The product of the population of a given area by its distance from the assumed parallel is called
+a north or south moment, and the product of the population of the area by its distance from the
+assumed meridian is called an east or west moment. In calculating north and south moments
+the distances were measured in minutes of arc; in calculating east and west moments miles
+were used due to the unequal length of the degrees and minutes in different latitudes.
+
+The population of the country was grouped by square degrees - that is, by areas included
+between consecutive parallels and meridians - as they were considered convenient units with
+
+                                                 1
+which to work. The population of the cities of 25,000 inhabitants or more then was deducted
+from that of the respective square degrees in which they lay and treated separately. The center
+of population of each square degree was assumed to be at its geographical center except
+where such an assumption is manifestly incorrect; in these cases, the position of the center of
+population of the square degree was estimated as nearly as possible. The population of each
+square degree north and south of the assumed parallel was multiplied by the distance of its
+center from that parallel; a similar calculation is made for the cities of 25,000 inhabitants or
+more; and the sum of the north moments and the sum of the south moments were ascertained.
+The center moves north or south, and east or west, of the assumed parallel and meridian,
+depending upon which product is in excess. The difference between the north and south sums
+(moments or product), divided by the total population of the country, gives the number of
+degrees that the center is north or south of the assumed parallel, while the difference between
+the east and west sums (moments or product), divided by the total population of the country,
+gives the number of miles that the center is east or west of the assumed meridian. The degrees
+of latitude so obtained were reduced to miles and the number of miles to degrees, these results
+being the distance north or south, east or west, of the assumed parallel and meridian which, in
+this instance, were the parallel of 39º north latitude and the meridian of 86º west longitude.
+
+
+Method Used in Determining the 1960 to 2020 Centers of Population
+
+The computation of the center of population by the U.S. Census Bureau in the 1960 through
+2010 decennial censuses was based on the population of small geographic areas (43,000 areas
+in 1960, 250,000 or more areas in 1970 through 1980, over 7,000,000 for 1990, over 8,000,000
+for 2000 and 2020, and more than 11,000,000 for 2010) for which centers of population had
+been estimated1. For 1970, the population centers and the population counts for each of these
+areas were recorded on punched cards and then transferred to magnetic tape for processing
+through an electronic computer. For 1980, the population centers and the population counts
+were recorded on magnetic tape by special coordinate digitizing equipment. For 1990, 2000,
+2010, and 2020, the population counts were recorded in a database2 that already had the
+coordinates for all the geographic areas, including an 'internal point'. In each instance, a
+computer program was executed that controlled the mathematical processes that the computer
+executed.
+
+To avoid unduly complex factors in the computations, the mathematical formulae used were
+those that would be precise for a true sphere. On such a sphere, the north-south distances
+between parallels of latitude are identical and distances in degrees may be used as units of
+distance. On the other hand, distances between meridians on longitude lines, are not constant
+but decrease from the equator toward the poles. However, if the length of one degree along the
+equator is used as the unit of measurement, then the length in degrees of an east-west line at
+any other latitude can be adjusted to the measurement standard by multiplying by the cosine of
+the latitude.
+
+The center of population computed by the Census Bureau is the point whose latitude (𝜙̅) and
+longitude (𝜆̅) satisfy the equations3:
+
+                                                                       𝜋
+                                ∑𝑤 𝜙                   ∑ 𝑤 𝜆 cos(𝜙𝑖 (
+                                                        𝑖 𝑖               ))
+                            𝜙̅ = ∑ 𝑖 𝑖           𝜆̅ = ∑               180
+                                                                      𝜋
+                                     𝑤𝑖                   𝑤𝑖 cos(𝜙𝑖 ( ))
+                                                                     180
+
+where 𝜙𝑖 , 𝜆𝑖 , and 𝑤𝑖 are the latitude, longitude4, and population attached to the basic small
+units of area used in the computation.
+                                                 2
+Stated in less mathematical form, the latitude of the center of population was determined by
+multiplying the population of each unit of area by the latitude of its population center, then
+adding all these products and dividing this total by the total population of the United States. The
+result is the latitude of the population center.
+
+East-west distances were measured, or computed, in substantially the same manner, but with
+the inclusion of a correction for latitude. For these distances, a degree of longitude at the
+equator was the unit of measurement. East-west distances along the equator could be
+measured in degrees, but any east-west degree distance north of the equator -- where all the
+United States is located -- had to be adjusted to recognize the convergence of meridians toward
+the poles. This adjustment required that each east-west distance, stated in degrees of longitude,
+be multiplied by the cosine of the latitude. This mathematical relationship is precise for a sphere
+and a very close approximation for the earth.
+
+The computation required that the longitude of each of the thousands of selected points be
+multiplied by the cosine of the latitude of the point and by the population associated with the
+point. These products were added and divided by the sum of the products for the same
+thousands of points, each of which was obtained by multiplying the cosine of the latitude of a
+point by the appropriate population figure. The result was the longitude of the center of
+population.
+
+
+Method Used in Determining State and County Centers of Population
+
+The same methods and formulae used for determining the center of population for the nation
+were applied to the computation of state and county centers. It is of historical interest that the
+1880 Census of Population was the first to include computations of the centers of the population
+for each of the states.
+
+
+                 Past Centers of Population of the United States
+Table 1 shows the centers of population of the United States from the first Census of Population
+in 1790 to 2020. For ease of use in computer systems, the latitude and longitude positions are
+given in decimal degree equivalents rather than traditional degrees/minutes/seconds.
+
+Table 1. Mean Center of Population of the United States: 1790 - 2020
+Census year North latitude West longitude Approximate location
+United States:
+    2020       37.415725         92.346525       Wright County, MO, 14.6 miles northeast of Hartville.
+    2010       37.517534         92.173096       Texas County, MO, 2.7 miles northeast of Plato.
+    2000        37.69699         91.80957        Phelps County, MO, 2.8 miles east of Edgar Springs.
+    1990        37.87222         91.21528        Crawford County, MO, 9.7 miles southeast of Steelville.
+    1980        38.13694         90.57389        Jefferson County, MO, 1/4 mile west of DeSoto.
+    1970        38.46306         89.70611        St. Clair County, IL, 5 miles east-southeast of
+                                                 Mascoutah.
+    1960        38.59944         89.20972        Clinton County, IL, 6-1/2 miles northwest of Centralia.
+    1950        38.80417         88.36889        Clay County, IL, 3 miles northeast of Louisville.
+Conterminous United Statesa:
+    1950        38.83917         88.15917        Richland County, IL, 8 miles north-northwest of Olney.
+    1940        38.94833         87.37639        Sullivan County, IN, 2 miles southeast by east of
+
+                                                   3
+                                                 Carlisle.
+   1930          39.06250         87.13500       Greene County, IN, 3 miles northeast of Linton.
+   1920          39.17250         86.72083       Owen County, IN, 8 miles south-southeast of Spencer.
+   1910          39.17000         86.53889       Monroe County, IN, in the city of Bloomington.
+   1900          39.16000         85.81500       Bartholomew County, IN, 6 miles southeast of
+                                                 Columbus.
+   1890          39.19889           85.54806     Decatur County, IN, 20 miles east of Columbus.
+   1880          39.06889           84.66111     Boone County, KY, 8 miles west by south of Cincinnati,
+                                                 OH.
+   1870          39.20000           83.59500     Highland County, OH, 48 miles east by north of
+                                                 Cincinnati.
+   1860          39.00667           82.81333     Pike County, OH, 20 miles south by east of Chillcothe.
+   1850          38.98333           81.31667     Wirt County, WV, 23 miles southeast of Parkersburgb.
+   1840          39.03333           80.30000     Upshur County, WV, 16 miles south of Clarksburg.
+                                                 Upshur County was formed from parts of Barbour,
+                                                 Lewis, and Randolph Counties in 1851b.
+   1830          38.96500           79.28167     Grant County, WV, 19 miles west-southwest of
+                                                 Morefiled. Grant County was formed from part of Hardy
+                                                 County in 1866b.
+   1820          39.09500           78.55000     Hardy County, WV, 16 miles east of Moorefieldb.
+   1810          39.19167           77.62000     Loudoun County, VA, 40 miles northwest by west of
+                                                 Washington, DC.
+   1800          39.26833           76.94167     Howard County, MD, 18 miles west of Baltimore.
+                                                 Howard County was formed from part of Anne Arundel
+                                                 County in 1851.
+   1790          39.27500           76.18667     Kent County, MD, 23 miles east of Baltimore.
+a
+ Conterminous United States excludes Alaska and Hawaii
+b
+ West Virginia was set off from Virginia, December 31, 1862, and admitted as a state June 19, 1863
+
+To convert from decimal degrees to degrees/minutes/seconds, use the procedure in following
+example:
+
+   Say you wish to convert the 1990 latitude from 37.87222 to its degrees/minutes/seconds equivalent.
+   First, set the degrees to be the part of the number left of the decimal, e.g., degrees = 37.
+   Then remove the degrees from the decimal value and you are left with the minutes/seconds part.
+   Multiply this remainder by 60 to get the minutes value, e.g., 0.87222 times 60 = 52.3332.
+   Set the minutes to be the part of the number left of the decimal, e.g., minutes = 52.
+   Then, taking the decimal value multiply it by 60 to get the seconds, e.g., 0.3332 * 60 = 19.99.
+   Generally, this is rounded to the nearest whole number; in this case, 20. This is the seconds part.
+
+
+
+                       Median verses Mean Population Point
+There are points different in character that may be termed the "center of population," but at each
+decennial census, the term "center of population" has been applied to the point that may be
+considered as the population center of gravity of the United States. This is sometimes confused
+with another point that is termed the "median point." The median point, which may be described
+as the numerical center of population, is in no sense a center of gravity. In determining the
+median point, distance is not taken into account and the location of the units of population is
+considered only in relation to the intersecting median lines -- as being north or south of the
+median parallel and east or west of the median meridian.
+
+
+
+
+                                                   4
+It is evident that extensive changes in the geographical distribution of the population may take
+place without affecting the position of the median point. In this respect, the median point differs
+essentially from the center of population, which responds to the slightest population change in
+any section of the country. To illustrate, assume the east-west population median meridian goes
+through St. Louis, Missouri. If a million persons moved from Kansas to California, the median
+point would not change, but the mean center of population would shift dramatically to the west.
+
+
+                             Median Center of Population
+The 2020 median center of population is located at 38.297627º north latitude, 87.561798º west
+longitude, in Patoka Township, Gibson County, Indiana, between Princeton and Fort Branch,
+IN. Table 2 lists the median center of population for the United States from 1880 to 2020.
+
+          Table 2. Median Center of Population of the United States: 1880 - 2020
+              Census year            North latitude           West longitude
+          United States:
+                  2020                 38.297627                87.561798
+                  2010                 38.472967                87.410365
+                  2000                  38.75644                86.93074
+                  1990                  38.96528                86.53139
+                  1980                  39.31667                86.13750
+                  1970                  39.79528                85.52861
+                  1960                  39.94028                85.28333
+                  1950                  40.00333                85.03917
+          Conterminous Untied Statesa:
+                  1950                  40.00333                84.94750
+                  1940                  40.07167                84.66973
+                  1930                  40.19778                84.60973
+                  1920                  40.19778                84.73334
+                  1910                  40.12583                85.03333
+                  1900                  40.05889                84.81694
+                  1890                  40.04751                84.66694
+                  1880                  39.95000                84.12000
+          a
+           Conterminous United States excludes Alaska and Hawaii
+
+
+
+                              Geographic Center of Area
+The geographic center of area is the point at which the surface of the United States would
+balance if it were a plane of uniform weight per unit of area. That point, approximately 44.967º
+north latitude and 103.767º west longitude, is located West of Castle Rock in Butte County,
+South Dakota, as it has been since Alaska and Hawaii became States. The geographic center
+of the conterminous United States (48 States and the District of Columbia) is located near
+Lebanon in Smith County, Kansas at approximately 39.833º north latitude and 98.583º west
+longitude.
+
+
+
+
+                                                  5
+                                             References
+Bureau of the Census, Statistical Atlas of the United States, U.S. Department of Commerce,
+Bureau of the Census, Washington, DC, 1925.
+
+Bureau of the Census, Centers of Population for States and Counties, 1950, 1960, and 1970,
+U.S. Department of Commerce, Bureau of the Census, Washington, DC, issued 1974.
+
+U.S. Geological Survey, web site: Elevations and Distances in the United States, April 2005.
+http://egsc.usgs.gov/isb/pubs/booklets/elvadist/elvadist.html
+
+1
+  For 1970 and 1980, the geographic areas used were a combination of census enumeration districts
+outside major urban centers and block groups in the more urban areas. For 1990, 2000, 2010, and
+2020, individual census blocks were used and a point within each block was automatically
+determined by computer program; not, however, related to the population distribution within the
+block.
+2
+  The database was the U.S. Census Bureau's Topologically Integrated Geographic Encoding and
+Referencing (TIGER®) database that contained the coordinates, geographic codes, and names of all the
+geographic features, and all governmental and statistical entities, recognized by the Census Bureau in its
+data tabulations. There were more than seven million blocks in the database.
+3
+  The equations used for calculation of the 1990 center did not include the cosine function. This resulted
+in a slight shift of less than 10 miles from the point that would have been computed if the cosine function
+had been applied.
+4
+  Longitude values in the western hemisphere are reported as negative numbers and longitude values in
+the eastern hemisphere are reported as positive numbers. For these calculations, longitude values in the
+eastern hemisphere (west of 180º) were converted using the following equation:
+         ConvertedLongitude = –180 – (180 – OriginalLongitude)
+For example, 178.5º east longitude was converted to -181.5. This conversion applies only to locations in
+the westernmost Aleutian Islands.
+
+
+
+
+                                                     6
+
