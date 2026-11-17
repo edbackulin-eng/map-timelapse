@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
-# Census "Population of Counties by Decennial Census: 1900 to 1990" (Forstall) - original census.gov files are gone;
-# archived copies at the UNT web archive (end-of-term crawls). Needed for the city zoom scenes.
+# Census "Population of Counties by Decennial Census: 1900 to 1990" (Forstall), one file for all states.
 set -uo pipefail
 mkdir -p data/cencounts && cd data/cencounts
 UA="Mozilla/5.0 (compatible; map-timelapse-research)"
-for s in ny nj ct il in wi ca tx az; do
-  ok=0
-  for u in "https://webarchive.library.unt.edu/eot2008/20081105/http://www.census.gov/population/cencounts/${s}190090.txt" \
-           "https://webarchive.library.unt.edu/eot2008/20080922025207/http://www.census.gov/population/cencounts/${s}190090.txt" \
-           "https://webarchive.library.unt.edu/web/20080920053308/http://www.census.gov/population/cencounts/${s}190090.txt" \
-           "https://webarchive.library.unt.edu/eot2008/2008/http://www.census.gov/population/cencounts/${s}190090.txt"; do
-    if curl -fsSL --max-time 60 -A "$UA" -o ${s}.txt "$u" && [ -s ${s}.txt ] && ! grep -qi "<html" ${s}.txt; then echo "OK $s <- $u"; ok=1; break; fi
-  done
-  [ $ok = 0 ] && { echo "FAIL $s"; rm -f ${s}.txt; }
+for u in https://www.census.gov/population/www/censusdata/cencounts/files/1900-90.txt \
+         https://www2.census.gov/programs-surveys/decennial/tables/time-series/coc1990/1900-90.txt \
+         https://data.nber.org/census/population/cencounts/1900-90.txt; do
+  if curl -fsSL --max-time 90 -A "$UA" -o 1900-90.txt "$u" && [ -s 1900-90.txt ] && ! head -c 400 1900-90.txt | grep -qi "<html"; then echo "OK <- $u"; break; else echo "FAIL $u"; rm -f 1900-90.txt; fi
 done
-ls -la; head -25 ny.txt 2>/dev/null
+curl -fsSL --max-time 60 -o 00-90doc.txt https://data.nber.org/census/population/cencounts/00-90doc.txt && echo "OK doc"
+ls -la; head -30 1900-90.txt
