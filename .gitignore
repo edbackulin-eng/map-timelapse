@@ -1,0 +1,7 @@
+data/raw/
+out/
+.env
+*.token
+client_secret*.json
+token*.json
+__pycache__/
