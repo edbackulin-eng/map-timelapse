@@ -688,7 +688,7 @@ class Renderer:
         ov = ov.resize((RW, RH), Image.LANCZOS)
         img.paste(ov, (RX0, RY0), ov)
         # labels (collision-avoiding), migration captions
-        self.draw_labels(img, i, Z)
+        self.draw_labels(img, (lt if i == 0 else B0 + BLK * (i - 1) + lt), Z)
         if Z < 1.5:
             d2 = ImageDraw.Draw(img, "RGBA")
             for m in self.migs:
@@ -729,27 +729,66 @@ class Renderer:
                     out.append((c, a, 1 - ease(h / 1.0)))
         return out
 
-    def draw_labels(self, img, i, Z):
-        d = ImageDraw.Draw(img, "RGBA")
-        labs = sorted(self._labels, reverse=True)
+    # ---- city labels: planned per 4-second epoch so a label never flickers
+    EP = 4.0
+    FADE_L = 0.3
+
+    def city_geom(self, t):
+        i, lt = self.locate(t)
+        fin = i >= NB
+        vw, Z, _ = self.zoom_view(i, lt) if not fin else (self.base, 1.0, None)
+        run_f = 1.0 if (i == 0 or fin or lt >= RUN) else lt / RUN
+        out = []
+        for c, pop, ap in self.city_state(i, lt, run_f, fin):
+            rad = max(4.5, pop ** 0.4 / 18.0) * (0.55 if Z > 1.5 else 1.0) * ap
+            x, y = vw.px(c["ax"], c["ay"])
+            x, y = float(x), float(y)
+            if not (RX0 - 25 <= x <= RX1 + 25 and RY0 - 25 <= y <= RY1 + 25):
+                continue
+            out.append((pop, c["name"], x, y, rad, ap))
+        return out, Z
+
+    def label_plan(self, e):
+        """name -> (dx, dy, anchor) for epoch e; decided once from the geometry at the epoch midpoint,
+        preferring the previous epoch's placement so labels do not jump."""
+        if not hasattr(self, "_plans"):
+            self._plans = {}
+        if e in self._plans:
+            return self._plans[e]
+        prev = self.label_plan(e - 1) if e > 0 else {}
+        geom, Z = self.city_geom((e + 0.5) * self.EP)
+        ok = None   # a label needs a visible, fully grown circle during the WHOLE epoch
+        obst = {}   # name -> union of the circle boxes over the epoch (circles grow while a decade runs)
+        for c in geom:
+            obst[c[1]] = [(c[2] - c[4] - 5, c[3] - c[4] - 5, c[2] + c[4] + 5, c[3] + c[4] + 5)]
+        for tq in (e * self.EP + 0.02, (e + 1) * self.EP - 0.02):
+            g2, _ = self.city_geom(min(tq, TOTAL_S - 1e-3))
+            for c in g2:
+                obst.setdefault(c[1], []).append((c[2] - c[4] - 5, c[3] - c[4] - 5, c[2] + c[4] + 5, c[3] + c[4] + 5))
+            names = {n for pop, n, x, y, rad, ap in g2 if ap >= 0.6}
+            ok = names if ok is None else ok & names
+        labs = sorted((c for c in geom if c[1] in ok), reverse=True)
         k = 14 if Z > 1.5 else 11
         f = F(26)
-        # all city circles are obstacles for labels
-        circles = [(x - rad - 4, y - rad - 4, x + rad + 4, y + rad + 4) for pop, name, x, y, rad, ap in labs]
-        placed = []; leads = []; texts = []; lpts = []
+        circles = obst
+        rmax = {n: max((b[2] - b[0]) / 2 - 5 for b in obst[n]) for n in circles}
+        placed, lpts, plan = [], [], {}
         hit = lambda a, b: not (a[2] < b[0] or a[0] > b[2] or a[3] < b[1] or a[1] > b[3])
-        for n, (pop, name, x, y, rad, ap) in enumerate(labs[:k]):
+        for pop, name, x, y, rad, ap in labs[:k]:
             if ap < 0.6:
                 continue
-            txt = f"{name}  {int(pop):,}"
-            wd = f.getlength(txt) + 10
+            wd = f.getlength(f"{name}  {int(pop):,}") + 10
             ht = 34
             cands = []
-            for dist in (rad + 8, rad + 34, rad + 70, rad + 110):
+            if name in prev:
+                cands.append(prev[name][:2])
+            for dist in (rmax[name] + 8, rmax[name] + 34, rmax[name] + 70, rmax[name] + 110):
                 for ang in (0, 180, 270, 90, 315, 45, 225, 135, 20, 340, 160, 200):
                     a = math.radians(ang)
-                    cands.append((dist, dist * math.cos(a), dist * math.sin(a) * 0.8))
-            for dist, dx, dy in cands:
+                    cands.append((dist * math.cos(a), dist * math.sin(a) * 0.8))
+            for dx, dy in cands:
+                if any(math.hypot(dx, dy) < rmax[name] + 4 for _ in (0,)):
+                    continue
                 px_, py_ = x + dx, y + dy
                 an = "lm" if dx > 4 else ("rm" if dx < -4 else "mm")
                 x0 = px_ if an[0] == "l" else (px_ - wd if an[0] == "r" else px_ - wd / 2)
@@ -758,32 +797,91 @@ class Renderer:
                     continue
                 if any(hit(rect, r) for r in placed):
                     continue
-                own = (x - rad - 4, y - rad - 4, x + rad + 4, y + rad + 4)
-                if any(hit(rect, c) for c in circles if c != own):
+                if any(hit(rect, c) for n2, cl in circles.items() if n2 != name for c in cl):
                     continue
                 if any(rect[0] - 3 <= qx <= rect[2] + 3 and rect[1] - 3 <= qy <= rect[3] + 3 for qx, qy in lpts):
                     continue
-                lead = None
-                if dist > rad + 20:   # leader line
+                if math.hypot(dx, dy) > rad + 20:
                     ex = rect[0] if an[0] == "l" else (rect[2] if an[0] == "r" else px_)
                     ey = py_ if an[0] != "m" else (rect[1] if dy > 0 else rect[3])
                     nn = max(2, int(math.hypot(ex - x, ey - y) / 6))
-                    pts = [(x + (ex - x) * t / nn, y + (ey - y) * t / nn) for t in range(1, nn)]
+                    pts = [(x + (ex - x) * t_ / nn, y + (ey - y) * t_ / nn) for t_ in range(1, nn)]
                     if any(r[0] - 3 <= qx <= r[2] + 3 and r[1] - 3 <= qy <= r[3] + 3 for qx, qy in pts for r in placed):
                         continue
-                    lead = (ex, ey); lpts.extend(pts)
-                else:
-                    placed.append(rect)
-                if lead:
-                    leads.append(((x, y), lead))
-                texts.append(((px_, py_), txt, an))
-                if lead: placed.append(rect)
+                    lpts.extend(pts)
+                placed.append(rect)
+                plan[name] = (dx, dy, an)
                 break
-        for a_, b_ in leads:
-            d.line([a_, b_], fill=(15, 15, 25, 255), width=5)
-            d.line([a_, b_], fill=(255, 255, 255, 255), width=2)
-        for pos, txt, an in texts:
+        self._plans[e] = plan
+        return plan
+
+    @staticmethod
+    def clamp_label(px_, py_, an, wd):
+        """keep a label inside the map box while the camera moves (zoom in/out)"""
+        x0 = px_ if an[0] == "l" else (px_ - wd if an[0] == "r" else px_ - wd / 2)
+        sx = 0.0
+        if x0 < RX0 + 6: sx = RX0 + 6 - x0
+        elif x0 + wd > W - 6: sx = W - 6 - (x0 + wd)
+        sy = 0.0
+        if py_ - 17 < 6: sy = 6 - (py_ - 17)
+        elif py_ + 17 > RY1 - 6: sy = RY1 - 6 - (py_ + 17)
+        px_, py_ = px_ + sx, py_ + sy
+        x0 += sx
+        return px_, py_, (x0, py_ - 17, x0 + wd, py_ + 17)
+
+    def label_alpha(self, name, t):
+        e = int(t // self.EP)
+        if name not in self.label_plan(e):
+            return 0.0
+        tt = t - e * self.EP
+        a = 1.0
+        if e > 0 and name not in self.label_plan(e - 1):
+            a = min(a, tt / self.FADE_L)
+        if name not in self.label_plan(e + 1):
+            a = min(a, (self.EP - tt) / self.FADE_L)
+        return max(0.0, min(1.0, a))
+
+    def draw_labels(self, img, t, Z):
+        cur = {n: (pop, x, y, rad, ap) for pop, n, x, y, rad, ap in self._labels}
+        plan = self.label_plan(int(t // self.EP))
+        f = F(26)
+        leads, texts = [], []
+        for name, (dx, dy, an) in plan.items():
+            if name not in cur:
+                continue
+            pop, x, y, rad, ap = cur[name]
+            if ap < 0.6:
+                continue
+            al = self.label_alpha(name, t)
+            if al <= 0.01:
+                continue
+            txt = f"{name}  {int(pop):,}"
+            wd = f.getlength(txt) + 10
+            px_, py_, rc = self.clamp_label(x + dx, y + dy, an, wd)
+            lead = None
+            if math.hypot(dx, dy) > rad + 20:
+                x0 = rc[0]
+                ex = x0 if an[0] == "l" else (x0 + wd if an[0] == "r" else px_)
+                ey = py_ if an[0] != "m" else (py_ - 17 if dy > 0 else py_ + 17)
+                lead = ((x, y), (ex, ey))
+            texts.append(((px_, py_), txt, an, al, lead))
+        d = ImageDraw.Draw(img, "RGBA")
+        full = [q for q in texts if q[3] >= 0.999]
+        for pos, txt, an, al, lead in full:
+            if lead:
+                d.line(list(lead), fill=(15, 15, 25, 255), width=5)
+                d.line(list(lead), fill=(255, 255, 255, 255), width=2)
+        for pos, txt, an, al, lead in full:
             T(d, pos, txt, 26, fill=WHITE, stroke=4, anchor=an)
+        for pos, txt, an, al, lead in (q for q in texts if q[3] < 0.999):
+            lay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+            dl = ImageDraw.Draw(lay, "RGBA")
+            if lead:
+                dl.line(list(lead), fill=(15, 15, 25, 255), width=5)
+                dl.line(list(lead), fill=(255, 255, 255, 255), width=2)
+            T(dl, pos, txt, 26, fill=WHITE, stroke=4, anchor=an)
+            lay.putalpha(lay.getchannel("A").point(lambda v, a_=al: int(v * a_)))
+            img.paste(lay, (0, 0), lay)
 
     # ---- left panel
     def draw_panel(self, d, i, lt, Y, ii, fin):

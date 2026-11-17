@@ -1,17 +1,67 @@
 name: video
-# NOT scheduled yet (owner's ok pending). Planned: cron '0 1 * * 0,4' (Sun+Thu 01:00 UTC = 04:00 Kyiv) -> done before the
-# Mon/Fri 18:00 Kyiv upload and far from What If (05:35 UTC+, Tue/Sat) and Closed Tabs (Mon/Thu 17:00 UTC).
+# Scheduled render: Sun+Thu 01:00 UTC (04:00 Kyiv) - far from What If (05:35 UTC+, Tue/Sat) and Closed Tabs (Mon/Thu 17:00 UTC).
+# NO YouTube upload here (the channel does not exist yet). Finished videos go to a DRAFT release `reserve-<slug>`
+# (visible only to repo writers) = the reserve. Upload + Mon/Fri 18:00 Kyiv publishing will be a separate workflow later.
 concurrency:
   group: video-render
   cancel-in-progress: false
+permissions:
+  contents: write
 on:
+  schedule:
+    - cron: "0 1 * * 0,4"
   workflow_dispatch:
     inputs:
       crf:
         description: "x264 CRF"
         default: "22"
+      force:
+        description: "render even if this topic is already in the reserve"
+        default: "false"
+env:
+  SLUG: us-population-1790-2020
 jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.p.outputs.skip }}
+    steps:
+      - id: p
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RES=$(gh release list -R "$GITHUB_REPOSITORY" --limit 100 --json tagName --jq '[.[]|select(.tagName|startswith("reserve-"))]|length')
+          echo "videos in reserve: $RES"
+          if gh release view "reserve-$SLUG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 && [ "${{ inputs.force }}" != "true" ]; then
+            echo "topic $SLUG already in reserve -> skip"; echo "skip=true" >> "$GITHUB_OUTPUT"
+          elif [ "$RES" -ge 4 ]; then
+            echo "reserve full (>=4) -> skip"; echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+  check:
+    needs: plan
+    if: needs.plan.outputs.skip != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install numpy pillow pyshp
+      - name: Sync check (counter = official census figure, colours change at the census year)
+        run: python scripts/sync_check.py
+      - name: Label check (no flicker, no overlaps on the whole video)
+        run: python scripts/label_check.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: checks
+          path: docs/*_report.md
+          retention-days: 7
   render:
+    needs: [plan, check]
+    if: needs.plan.outputs.skip != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
@@ -42,7 +92,8 @@ jobs:
           path: seg${{ matrix.seg }}.mp4
           retention-days: 3
   assemble:
-    needs: render
+    needs: [plan, render]
+    if: needs.plan.outputs.skip != 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -98,3 +149,18 @@ jobs:
             america-over-time_us-population_1790-2020.mp4
             probe.txt
           retention-days: 7
+      - name: Put the video into the reserve (DRAFT release, not public, no YouTube)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          V=america-over-time_us-population_1790-2020.mp4
+          cat > notes.md <<'EOF'
+          Reserve video (not uploaded anywhere). Data: U.S. Census Bureau. Map data: Natural Earth (public domain). Music: Yoiyami, cynicmusic, TAD (CC0), OpenGameArt.org. Sources of every fact: data/sources.json.
+          EOF
+          TAG="reserve-$SLUG"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$V" preview_720p.mp4 probe.txt --clobber
+          else
+            gh release create "$TAG" "$V" preview_720p.mp4 probe.txt --draft --title "RESERVE: $SLUG" --notes-file notes.md
+          fi
+          gh release list --limit 20
