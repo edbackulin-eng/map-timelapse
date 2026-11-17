@@ -356,7 +356,7 @@ class Renderer:
         t = max(RUN + 0.4, busy + 0.3)
         picks = self.facts[i]
         order = [picks[0], picks[1], picks[2]] if len(picks) >= 3 else picks
-        order = [picks[0], picks[1], picks[-1]]
+        order = list(picks) if HOLD > 20 else [picks[0], picks[1], picks[-1]]
         for f in order:
             if t + 4.2 > RUN + HOLD:
                 break
