@@ -1,0 +1,485 @@
+        Population of Counties by Decennial Census:  1900 to 1990
+        Compiled and edited by Richard L. Forstall, Population Division
+        U.S. Bureau of the Census
+
+        April 20, 1995
+
+        INTRODUCTORY NOTE
+
+        This table gives the population of each county or county equivalent
+        from 1900 to 1990 as reported in 10 successive decennial censuses.
+        Generally, the populations are shown as they were published in the
+        reports of each census; corrections to census counts made in later
+        census reports are not reflected.  Changes in counties that have
+        occurred since the 1990 census are not shown.
+
+        Some counties were created after 1900 from parts of others, and
+        many counties have had changes in boundaries during this period.
+        This should be kept in mind in comparing populations at different
+        dates.  The reports of each census give information on boundary
+        changes since the preceding census.  Another good source of
+        information on county boundary changes is "Map Guide to the U.S.
+        Federal Censuses, 1790-1920," by William Thorndale and William
+        Dollarhide (Baltimore, Genealogical Publishing Company, 1987).
+
+        A few counties appear in the table that existed in 1900 or at some
+        census since, but later became parts of other counties.  The notes
+        below specify what happened to them.  For new counties formed since
+        1940, notes specify which counties they were taken from. Notes also
+        explain all cases where the populations in the table for the
+        counties of a State do not sum to the State total.  There also are
+        notes on counties whose names have changed significantly since
+        1900; these appear in the table under their present-day names.
+
+        Each currently existing county has a five-digit code, assigned as
+        part of a Federal Information Processing Standard (FIPS) by the
+        National Institute of Standards and Technology, U.S. Department of
+        Commerce.  The first two digits are for the State, and the last
+        three for the county within the State.  These standard codes appear
+        in the table.  For a few counties that went out of existence before
+        these codes were assigned, this table assigns a code with a decimal
+        to position the county in alphabetical sequence within its State.
+
+        The data file and notes were compiled and edited by Richard L.
+        Forstall.  Further information may be obtained by writing
+        Population Division, Bureau of the Census. Washington, DC 20233, or
+        by calling 301 763-2422.
+
+
+        NOTES FOR INDIVIDUAL STATES AND COUNTIES
+
+        ALASKA
+
+        Alaska has no counties, and the names, boundaries, and designations
+        of the subdivisions reported in the census have evolved considerably
+        over recent decades.  In 1990 and 1980, most of the population of
+        the State lived in entities designated as Boroughs; the remainder
+        was reported by Census Areas (sometimes abbreviated C.A. in the
+        table).  In 1970, the census was reported by Census Divisions,
+        some of which corresponded to boroughs.  In 1960, the census was
+        reported by 24 Election Districts.
+
+        The table lists areas that existed in 1990 with their 1990 names
+        and designations.  In both the table and the notes, areas listed
+        without any designation had ceased to exist by 1990; in 1980 they
+        were Census Areas, in 1970 Census Divisions, and in 1960 Election
+        Districts.
+
+        The name of the Prince of Wales-Outer Ketchikan Census Area is
+        abbreviated in the table as Prince of Wales- Census Area, and the
+        name of the Skagway-Yakutat-Angoon Census Area is abbreviated as
+        Skagway-Yakutat- Census Area.
+
+        For the censuses of 1930 and 1940, Alaska actually was enumerated
+        in the fall of the preceding year (1929, 1939).
+
+        Changes 1960-1990
+
+        The notes below give information on area names used in the 1960-80
+        censuses that differ from those used in 1990.  Formations of
+        boroughs since 1970 also are mentioned, but changes in designations
+        (for example, from Census Division to Census Area) are not
+        specified.  For areas whose boundaries changed between 1980 and 1990
+        sufficiently to affect the 1980 population, the 1980 population in
+        the 1990 territory is given.  There also were many additional
+        boundary changes during the 1960s and 1970s.
+
+        For areas that existed in 1960, 1970, or 1980 but not in 1990, the
+        notes specify the areas of which they became part.  When areas were
+        formed or dissolved, small portions may have come from or gone to
+        other areas not specified.  No designations appear in the table for
+        these extinguished areas; as noted above, in 1980 they were Census
+        Areas, in 1970 Census Divisions, and in 1960 Election Districts.
+
+        Aleutians East Borough: formed from Aleutian Islands Census Area
+        (1987). 1980 population in 1990 area: 1,643.
+
+        Aleutians West Census Area: in 1960-80, Aleutian Islands.  1980
+        population in 1990 area: 6,125.
+
+        Angoon: to Skagway-Yakutat-Angoon Census Area.
+
+        Cordova-McCarthy: to Valdez-Cordova Census Area.
+
+        Dillingham Census Area: in 1960-70, Bristol Bay (Census Division).  
+        1980 population in 1990 area: 3,232.
+
+        Fairbanks North Star Borough: in 1960-70, Fairbanks.
+
+        Haines Borough: formed from Lynn Canal-Icy Straits.
+
+        Kenai Peninsula Borough: in 1960-70, Kenai-Cook Inlet.
+
+        Ketchikan Gateway Borough: in 1960-70, Ketchikan.
+
+        Kodiak Island Borough: in 1960-70, Kodiak.
+
+        Kuskokwim: to Yukon-Koyukuk and Bethel Census Areas.
+
+        Lake and Peninsula Borough: formed from Dillingham Census
+        Area (1989). 1980 population in 1990 area: 1,384.
+
+        Lynn Canal-Icy Straits: to Haines and Skagway-Yakutat.
+
+        Matanuska-Susitna Borough: in 1960-70, Palmer-Wasilla-Talkeetna.
+
+        North Slope Borough: formed 1972, from Barrow, Upper Yukon, and Kobuk
+        (Northwest Arctic).  Populations shown for 1960-70 are for Barrow.
+
+        Northwest Arctic Borough: formed 1986, primarily from Kobuk Census
+        Area.  Populations shown for 1960-80 are for Kobuk.  1980
+        population in 1990 area: 4,831.
+
+        Outer Ketchikan: to Prince of Wales-Outer Ketchikan Census Area.
+
+        Prince of Wales-Outer Ketchikan Census Area: in 1960-70, Prince of Wales.
+
+        Seward: to Kenai Peninsula Borough.
+
+        Skagway-Yakutat-Angoon Census Area: in 1960-70, Skagway-Yakutat.
+
+        Upper Yukon: to Yukon-Koyukuk Census Area, North Slope Borough, and
+        Southeast Fairbanks Census Area.
+
+        Valdez-Cordova Census Area: in 1960-70, Valdez-Chitina-Whittier.
+
+        Changes 1900-1950
+
+        For 1910 through 1950, Alaska Territory was reported by 4 Judicial
+        Divisions.  These corresponded to the areas listed in the table
+        approximately as follows (names are shortened in some cases):
+
+          First Division: Angoon, Haines, Juneau, Ketchikan, Lynn Canal,
+          Outer Ketchikan, Prince of Wales, Sitka, Skagway, and Wrangell.
+
+          Second Division: Barrow, Nome, North Slope, Northwest Arctic, and
+          Wade Hampton.
+
+          Third Division: Aleutians (East and West), Anchorage,
+          Bristol Bay, Dillingham, Cordova, Kenai, Kodiak, Lake and
+          Peninsula, Matanuska, Seward, and Valdez.
+
+          Fourth Division: Bethel, Fairbanks, Kuskokwim, Southeast
+          Fairbanks, Upper Yukon, and Yukon-Koyukuk.
+
+        In 1900, Alaska was reported by 2 Districts.  The Northern District
+        corresponded roughly to Judicial Divisions 2 and 4 of 1910, and the
+        Southern District corresponded roughly to Judicial Divisions 1 and
+        3 of 1910.
+
+        ARIZONA
+
+        The 1900 State total includes 3,065 population in the San Carlos
+        Indian Reservation, not reported by county.
+
+        La Paz County (1980 pop. 12,557) was formed from Yuma County in 1983.
+
+        GEORGIA
+
+        Campbell and Milton Counties were annexed to Fulton County in 1932.
+
+        HAWAII
+
+        Kalawao County was reported as part of Maui County in 1930-1950 and
+        in 1970; the data have been adjusted to show it separately at all
+        dates.
+
+        Midway Is. (1910-1940) and certain other Pacific Islands (1940)
+        were reported as part of Hawaii in those censuses but are not part
+        of the State of Hawaii and have been excluded at all dates.
+
+        IDAHO
+
+        The 1930 State total includes 1 person in the portion of
+        Yellowstone National Park in Idaho, which had no population in
+        1940-60 and was included in Fremont County in 1970-90.  In 1900-
+        1920, any population in this portion of the park was enumerated
+        with the Wyoming portion.
+
+        MINNESOTA
+
+        The 1900 State total includes 3,486 population in the White Earth
+        Indian Reservation, not returned by county.
+
+        MONTANA
+
+        The 1900 State total includes 2,660 population in the Crow Indian
+        Reservation, not reported by county.
+
+        Yellowstone National Park (part): in 1890-1920, any population in the
+        Montana portion of the park was enumerated with the Wyoming portion.
+
+        NEVADA
+
+        Carson City was consolidated with Ormsby County in 1969 and became
+        independent of any county; the populations for 1900-1960 are for
+        Ormsby County.
+
+        NEW MEXICO
+
+        Cibola County (1980 pop. 30,347) was formed from Valencia County in
+        1981.
+
+        Los Alamos County was formed from Sandoval County (primarily) and
+        Santa Fe County in 1949.
+
+        NEW YORK
+
+        Bronx County was formed from New York County in 1914.  Its
+        population in its present-day area was 200,507 in 1900 and 430,980
+        in 1910.
+
+        NORTH DAKOTA
+
+        The 1900 State total includes 2,208 population in the North Dakota
+        portion of the Standing Rock Indian Reservation, not reported by
+        county.
+
+        OKLAHOMA
+
+        The 1900 total is for Oklahoma Territory (398,331) and Indian
+        Territory (392,060).  Indian Territory was not reported by county;
+        Oklahoma Territory included 16,090 population in Indian
+        reservations, not reported by county.
+
+        Day County was annexed to Ellis and Roger Mills Counties before
+        1910.
+
+        SOUTH DAKOTA
+
+        The 1910 State total includes 6,607 population in the Pine Ridge
+        Indian Reservation, not reported by county.
+
+        The 1900 State total includes 16,043 population in the following
+        Indian reservations, which were not reported by county: Cheyenne
+        River (2,357), Pine Ridge (6,827), Rosebud (5,201), and Standing
+        Rock (South Dakota portion; 1,658).
+
+        Armstrong County was annexed to Dewey County in 1954.
+
+        Schnasse and Sterling Counties were annexed to Ziebach County in
+        1911.
+
+        Washabaugh County was annexed to Jackson County in 1979.
+
+        Washington County was annexed to Shannon County in 1943.
+
+        TENNESSEE
+
+        James County was annexed to Hamilton County in 1919.
+
+        TEXAS
+
+        Kenedy County, formed in 1911, was named Willacy County until 1921.
+        The present Willacy County was formed in 1921.
+
+        VIRGINIA
+
+        In Virginia, when a town becomes a city it also becomes independent
+        of its county.  The table for Virginia lists these independent
+        cities separately after the counties.  Many new independent cities
+        have been created since 1900, and there also have been numerous
+        annexations from counties to cities.  Several former counties have
+        disappeared through annexation to cities, or through the whole
+        county becoming a city.  In spite of their names, the counties
+        named Charles City, James City, and (until 1952) Elizabeth City are
+        counties, not independent cities.
+
+        Persons interested in population changes over time often prefer to
+        combine the Virginia independent cities with an adjacent county, to
+        eliminate or reduce the effect of the numerous county/city boundary
+        changes.  At the end of this note is a list of the cities
+        specifying the county from which each city originally was formed,
+        with information on which combinations generally are made.
+
+        Notes on Individual Virginia Counties
+
+        Arlington County, formerly Alexandria County, was renamed in 1920.
+
+        Elizabeth City County was annexed to Hampton city in 1952.
+
+        Nansemond County became Nansemond city in 1972 and then was annexed
+        to Suffolk city in 1974.
+
+        Norfolk County, after many annexations to neighboring cities in the
+        1950s, became part of newly established Chesapeake city in 1963.
+
+        Princess Anne County was annexed to Virginia Beach city in 1963.
+
+        Warwick County became Warwick city in 1952 and then was annexed to
+        Newport News city in 1958.
+
+
+        Notes on Individual Virginia Independent Cities
+
+        Alexandria city: from Alexandria (now Arlington) County; has
+        also annexed much territory from Fairfax County; generally combined
+        with Arlington County.
+
+        Bedford city: from Bedford County (1968).
+
+        Bristol city: from Washington County.
+
+        Buena Vista city: from Rockbridge County.
+
+        Charlottesville city: from Albemarle County.
+
+        Chesapeake city: formed through combination of Norfolk County and
+        South Norfolk city (1963); see Norfolk city.
+
+        Clifton Forge city: from Alleghany County.
+
+        Colonial Heights city: from Chesterfield County (1948), but often
+        combined with adjacent Petersburg city and Dinwiddie County.
+
+        Covington city: from Alleghany County (1952).
+
+        Danville city: from Pittsylvania County.
+
+        Emporia city: from Greensville County (1967).
+
+        Fairfax city: from Fairfax County (1961).
+
+        Falls Church city: from Fairfax County (1948).
+
+        Franklin city: from Southampton County (1961).
+
+        Fredericksburg city: from Spotsylvania County.
+
+        Galax city: formed almost equally from Carroll and Grayson Counties
+        (1953); usually combined with Carroll County.
+
+        Hampton city: from Elizabeth City County.  The remainder of the
+        county was annexed to the city in 1952, so Hampton city usually is
+        not combined with any current county.
+
+        Harrisonburg city: from Rockingham County.
+
+        Hopewell city: from Prince George County.
+
+        Lexington city: from Rockbridge County (1966).
+
+        Lynchburg city: from Campbell County; has annexed some territory
+        from Bedford County.
+
+        Manassas city: from Prince William County (1975).
+
+        Manassas Park city: from Prince William County (1975).
+
+        Manchester city: from Chesterfield County, but annexed to Richmond
+        city in 1910; see Richmond city.
+
+        Martinsville city: from Henry County.
+
+        Newport News city: from Warwick County, with some annexations from
+        Elizabeth City County.  The remainder of Warwick County became
+        Warwick city in 1952 and then was annexed to Newport News city in
+        1958, so this city usually is not combined with any current county.
+
+        Norfolk city: from Norfolk County, with some annexations from
+        Princess Anne County.  The cities of Norfolk, Portsmouth, and
+        Chesapeake and the former Norfolk County and South Norfolk city
+        often are treated as a combination.
+
+        Norton city: from Wise County (1954).
+
+        Petersburg city: mainly from Dinwiddie County, with portions from
+        Chesterfield and Prince George Counties.
+
+        Poquoson city: from York County (1975).
+
+        Portsmouth city: from Norfolk County; see Norfolk city.
+
+        Radford city: from Montgomery County.
+
+        Richmond city: from Henrico County, but has annexed much territory
+        from Chesterfield County; annexed Manchester city (originally
+        formed from Chesterfield County) in 1910.
+
+        Roanoke city: from Roanoke County.
+
+        Salem city: from Roanoke County (1968).
+
+        South Boston city: from Halifax County (1960).
+
+        South Norfolk city: from Norfolk County; with the remainder of
+        Norfolk County, formed Chesapeake city in 1963; see Norfolk city.
+
+        Staunton city: from Augusta County.
+
+        Suffolk city: from Nansemond County.  The remainder of the county
+        became Nansemond city in 1972 and then was annexed to Suffolk city
+        in 1974, so the city usually is not combined with any current
+        county.
+
+        Virginia Beach city: from Princess Anne County (1952).  The
+        remainder of the county was annexed to the city in 1963, so
+        Virginia Beach city usually is not combined with any current
+        county.
+
+        Waynesboro city: from Augusta County (1948).
+
+        Williamsburg city: usually combined with James City County, but
+        also includes territory from York County.
+
+        Winchester city: from Frederick County.
+
+        WISCONSIN
+
+        Menominee County was formed in 1961 from part of Shawano County
+        (1960 pop. 2,345) and part of Oconto County (1960 pop. 261).
+
+        WYOMING
+
+        Yellowstone National Park: in 1900-1920, includes any population
+        enumerated in the Idaho and Montana portions of the park; in 1930-
+        1960, represents the portion of the park in Wyoming; this portion
+        was included in Teton and Park Counties beginning in 1970.
+
+
+
+        RECORD LAYOUT
+
+
+        POPULATION OF COUNTIES BY DECENNIAL CENSUS - 1900 TO 1990
+
+First Cycle
+
+Field
+Location      Length      Field              
+1-2           2           FIPS State code
+3-5           3           FIPS County code
+6             1           Blank
+7-16          10          1990 population
+17-26         10          1980 population
+27-36         10          1970 population
+37-46         10          1960 population
+47-74         28          Area Name
+
+Second Cycle
+Field
+Location      Length      Field              
+1-2           2           FIPS State code
+3-5           3           FIPS County code
+6             1           Blank
+7-16          10          1950 population
+17-26         10          1940 population
+27-36         10          1930 population
+37-46         10          1920 population
+47-74         28          Area Name
+
+Third cycle
+Field
+Location      Length      Field              
+1-2           2           FIPS State code
+3-5           3           FIPS County code
+6             1           Blank
+7-16          10          1910 population
+17-26         10          1900 population
+27-36         10          Blank
+37-46         10          Blank
+47-74         28          Area Name
+
+
+
+                         
