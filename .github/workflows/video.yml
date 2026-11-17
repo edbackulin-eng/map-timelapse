@@ -62,6 +62,15 @@ jobs:
             -map 0:v -map "[aout]" -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart \
             america-over-time_us-population_1790-2020.mp4
           ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,duration:format=duration,size -of default=nw=1 america-over-time_us-population_1790-2020.mp4 | tee probe.txt
+      - name: Small preview (720p) so the 100+ MB master need not be downloaded
+        run: |
+          ffmpeg -y -loglevel error -i america-over-time_us-population_1790-2020.mp4 -vf scale=1280:720 -c:v libx264 -crf 29 -preset veryfast -c:a aac -b:a 96k -movflags +faststart preview_720p.mp4
+          ls -la preview_720p.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview
+          path: preview_720p.mp4
+          retention-days: 7
       - name: Review sheets (frame every 5 s of the final MP4)
         run: |
           mkdir -p review
