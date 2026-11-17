@@ -1,0 +1,305 @@
+{
+ "note": "Topic queue for America Over Time. status: proposed -> approved (owner) -> building -> reserve -> published. Queries from YouTube autocomplete, 17.11.2026.",
+ "topics": [
+  {
+   "id": "sun-belt",
+   "title": "Sun Belt Migration: How Americans Moved South and West",
+   "search_queries": "sun belt migration; rust belt to sunbelt migration",
+   "data": "Census apportionment 1910-2020 + city tables + centers of population (all already in repo)",
+   "licence": "PD, confirmed (Census DS-027)",
+   "engine_fit": "yes",
+   "extra_work": "none",
+   "status": "proposed"
+  },
+  {
+   "id": "13-to-50-states",
+   "title": "US Expansion from 13 to 50 States",
+   "search_queries": "us expansion from 13 to 50 states; us expansion timeline",
+   "data": "Natural Earth states + admission dates (Census / NPS / Library of Congress facts) + state pops (repo)",
+   "licence": "PD (federal facts); page to confirm at build",
+   "engine_fit": "yes",
+   "extra_work": "small: admission layer",
+   "status": "proposed"
+  },
+  {
+   "id": "texas",
+   "title": "Texas Population Growth 1850-2020",
+   "search_queries": "texas population growth",
+   "data": "Census state + county pops (1900-1990 in repo; 2000-2020 county totals to fetch)",
+   "licence": "PD (Census)",
+   "engine_fit": "yes",
+   "extra_work": "small fetch",
+   "status": "proposed"
+  },
+  {
+   "id": "florida",
+   "title": "Florida Population Growth 1830-2020",
+   "search_queries": "florida population growth; florida population boom",
+   "data": "same as Texas",
+   "licence": "PD (Census)",
+   "engine_fit": "yes",
+   "extra_work": "small fetch",
+   "status": "proposed"
+  },
+  {
+   "id": "california",
+   "title": "California Population Growth 1850-2020",
+   "search_queries": "california population; california population decline",
+   "data": "same as Texas",
+   "licence": "PD (Census)",
+   "engine_fit": "yes",
+   "extra_work": "small fetch",
+   "status": "proposed"
+  },
+  {
+   "id": "cities-decline",
+   "title": "American Cities in Decline: Detroit, St. Louis, Cleveland",
+   "search_queries": "american cities in decline",
+   "data": "Census twps0027 city tables 1790-1990 (in repo) + 2000-2020 place counts (repo)",
+   "licence": "PD, confirmed",
+   "engine_fit": "yes",
+   "extra_work": "none",
+   "status": "proposed"
+  },
+  {
+   "id": "mean-center",
+   "title": "The Mean Center of US Population 1790-2020",
+   "search_queries": "mean center of population; change in mean center of population",
+   "data": "Census COP2020 Table 1 (in repo) + counties for zooms",
+   "licence": "PD, confirmed",
+   "engine_fit": "yes",
+   "extra_work": "none",
+   "status": "proposed"
+  },
+  {
+   "id": "density",
+   "title": "US Population Density Over Time (by county)",
+   "search_queries": "us population density over time",
+   "data": "Census county pops 1900-2020 + land area (Gazetteer, in repo)",
+   "licence": "PD, confirmed",
+   "engine_fit": "yes",
+   "extra_work": "small fetch",
+   "status": "proposed"
+  },
+  {
+   "id": "reapportionment",
+   "title": "How Congress Seats Moved: Reapportionment 1910-2020",
+   "search_queries": "reapportionment; apportionment explained (a US-map video query is not confirmed)",
+   "data": "Census apportionment.csv (seats 1910-2020, in repo)",
+   "licence": "PD, confirmed",
+   "engine_fit": "yes",
+   "extra_work": "none; seats 1790-1900: small fetch",
+   "status": "proposed"
+  },
+  {
+   "id": "great-migration",
+   "title": "The Great Migration of Black Americans 1910-1970",
+   "search_queries": "african american migration; american migration history (plain 'great migration' = wildebeest, so the title must say Black Americans)",
+   "data": "Census WP56 (race by state 1790-1990) + WP76 (large cities) + 2000-2020 race counts",
+   "licence": "PD (Census); tables to parse",
+   "engine_fit": "yes",
+   "extra_work": "medium: table parsing",
+   "status": "proposed"
+  },
+  {
+   "id": "immigration",
+   "title": "Immigration to America 1820-2020",
+   "search_queries": "immigration to america; immigration to america 1800s / 1900s",
+   "data": "DHS Yearbook Table 2 (LPR by region/country 1820-2020) + Census WP81 foreign-born by state 1850-2000",
+   "licence": "PD (federal); WP81 state table to confirm",
+   "engine_fit": "partial",
+   "extra_work": "medium: arrows-from-ports layer",
+   "status": "proposed"
+  },
+  {
+   "id": "dust-bowl",
+   "title": "The Dust Bowl: Drought and the Flight from the Plains",
+   "search_queries": "dust bowl",
+   "data": "NOAA nClimDiv PDSI 1895-today + Census county pops 1930-40",
+   "licence": "PD expected (NOAA); no licence text found in search, confirm on NCEI page",
+   "engine_fit": "partial",
+   "extra_work": "medium: climate-division polygons",
+   "status": "proposed"
+  },
+  {
+   "id": "urban",
+   "title": "How America Became Urban 1790-2020",
+   "search_queries": "urbanization (generic; no exact US query confirmed)",
+   "data": "Census urban/rural: urpop0090 (1900-1990 by state), national 1790-1990, 2010/2020 tables",
+   "licence": "PD (Census)",
+   "engine_fit": "yes",
+   "extra_work": "small data",
+   "status": "proposed"
+  },
+  {
+   "id": "hispanic",
+   "title": "Hispanic Population Growth by State 1970-2020",
+   "search_queries": "us hispanic population; us states with most hispanic population",
+   "data": "Census WP56 (1970-1990) + 2000-2020 race/ethnicity counts",
+   "licence": "PD (Census)",
+   "engine_fit": "yes",
+   "extra_work": "small fetch",
+   "status": "proposed"
+  },
+  {
+   "id": "american-indian",
+   "title": "American Indian Population by State 1790-2020",
+   "search_queries": "american indian population",
+   "data": "Census WP56 + 2000-2020",
+   "licence": "PD (Census)",
+   "engine_fit": "yes",
+   "extra_work": "small fetch; careful wording",
+   "status": "proposed"
+  },
+  {
+   "id": "13-colonies",
+   "title": "Population of the 13 Colonies 1650-1780",
+   "search_queries": "13 colonies; 13 colonies every year",
+   "data": "Census 'Historical Statistics of the US, Colonial Times to 1970' (1975, US Govt). NOT the Cambridge HSUS edition (copyrighted)",
+   "licence": "PD if the Census original is used; to verify",
+   "engine_fit": "partial",
+   "extra_work": "small: colonies drawn on modern states, disclosed",
+   "status": "proposed"
+  },
+  {
+   "id": "suffrage",
+   "title": "Women's Suffrage State by State 1869-1920",
+   "search_queries": "women's suffrage; women's suffrage movement",
+   "data": "NARA / NPS / Library of Congress dates (facts)",
+   "licence": "PD (federal)",
+   "engine_fit": "yes",
+   "extra_work": "small: dates timeline, no population counter",
+   "status": "proposed"
+  },
+  {
+   "id": "slavery",
+   "title": "Slavery in the US by State 1790-1860",
+   "search_queries": "us slavery timeline; us slavery history",
+   "data": "Census WP56 / 1860 aggregate (slave vs free by state) - to confirm the table",
+   "licence": "PD (Census)",
+   "engine_fit": "unknown",
+   "extra_work": "check table; sensitive topic",
+   "status": "proposed"
+  },
+  {
+   "id": "national-parks",
+   "title": "National Parks: When Each One Was Created",
+   "search_queries": "us national parks; us national parks ranked",
+   "data": "NPS open data (dates, visits) + park boundaries",
+   "licence": "PD (NPS); its copyright page to confirm",
+   "engine_fit": "partial",
+   "extra_work": "medium: boundaries layer",
+   "status": "proposed"
+  },
+  {
+   "id": "homestead",
+   "title": "The Homestead Act: Giving Away the West",
+   "search_queries": "homestead act; homestead act of 1862 explained",
+   "data": "BLM Public Land Statistics / GLO (acres by state) - not located yet",
+   "licence": "PD (BLM) expected; not verified",
+   "engine_fit": "partial",
+   "extra_work": "needs a data hunt",
+   "status": "proposed"
+  },
+  {
+   "id": "westward",
+   "title": "Westward Expansion: Frontier, Trails, Railroads",
+   "search_queries": "westward expansion; westward expansion map",
+   "data": "Frontier (repo) + NPS National Historic Trails lines",
+   "licence": "PD (NPS), confirm",
+   "engine_fit": "partial",
+   "extra_work": "medium: trails layer",
+   "status": "proposed"
+  },
+  {
+   "id": "interstates",
+   "title": "The Interstate Highway System 1956-1992",
+   "search_queries": "interstate highway system history; interstate highway system",
+   "data": "Natural Earth roads (repo) + FHWA national miles by year (state-by-year table not found)",
+   "licence": "PD (FHWA; Natural Earth confirmed)",
+   "engine_fit": "partial",
+   "extra_work": "opening order stays schematic, disclosed",
+   "status": "proposed"
+  },
+  {
+   "id": "territory",
+   "title": "US Territory Over Time 1783-1959",
+   "search_queries": "us territory over time; us territorial expansion; us expansion map",
+   "data": "Census SIS 'territorial-acquisitions.pdf' (map, PD) + own clip polygons on Natural Earth",
+   "licence": "PD",
+   "engine_fit": "no",
+   "extra_work": "large: new clipping layer",
+   "status": "proposed"
+  },
+  {
+   "id": "louisiana",
+   "title": "The Louisiana Purchase: What Became of It",
+   "search_queries": "louisiana purchase map",
+   "data": "as Territory + Census pops of the purchase area",
+   "licence": "PD",
+   "engine_fit": "no",
+   "extra_work": "large: shares the Territory layer",
+   "status": "proposed"
+  },
+  {
+   "id": "city-race",
+   "title": "Biggest US Cities Over Time: Top 10 Every Decade",
+   "search_queries": "us cities population over time; us cities ranked",
+   "data": "Census twps0027 top-100 tables (repo)",
+   "licence": "PD, confirmed",
+   "engine_fit": "no",
+   "extra_work": "large: new bar-race scene type",
+   "status": "proposed"
+  },
+  {
+   "id": "state-race",
+   "title": "US States by Population Over Time",
+   "search_queries": "us states population over time; top us states by population 1790 to 2050",
+   "data": "Census (repo)",
+   "licence": "PD, confirmed",
+   "engine_fit": "no",
+   "extra_work": "large: bar-race scene type",
+   "status": "proposed"
+  },
+  {
+   "id": "largest-city-state",
+   "title": "Largest City in Every State Over Time",
+   "search_queries": "largest city in each state (weak search signal)",
+   "data": "Census top-100 lists cover only big cities; all places only 2000-2020",
+   "licence": "PD",
+   "engine_fit": "no",
+   "extra_work": "data gap before 2000",
+   "status": "proposed"
+  },
+  {
+   "id": "railroads",
+   "title": "American Railroads 1830-1916",
+   "search_queries": "railroad history united states; transcontinental railroad",
+   "data": "Atack (Vanderbilt/NBER) rail shapefiles; UNL Railroads and the Making of Modern America; LoC 1861 dataset",
+   "licence": "BLOCKED: no licence stated on the pages, ask the authors",
+   "engine_fit": "no",
+   "extra_work": "blocked until licence/permission",
+   "status": "proposed"
+  },
+  {
+   "id": "counties",
+   "title": "US Counties Over Time",
+   "search_queries": "us counties evolution; us counties every year",
+   "data": "Newberry Atlas of Historical County Boundaries",
+   "licence": "BLOCKED: pages say both 'any lawful purpose' and CC BY-NC-SA; the channel is monetised",
+   "engine_fit": "no",
+   "extra_work": "blocked until written permission",
+   "status": "proposed"
+  },
+  {
+   "id": "gold-rush",
+   "title": "California Gold Rush Boomtowns 1848-1860",
+   "search_queries": "gold rush (generic)",
+   "data": "CA county pops 1850/1860 (Census Part III OCR is unreliable)",
+   "licence": "PD (Census)",
+   "engine_fit": "no",
+   "extra_work": "data not reliable yet",
+   "status": "proposed"
+  }
+ ]
+}
