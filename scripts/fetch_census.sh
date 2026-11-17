@@ -12,11 +12,11 @@ ls -la
 curl -fsSL -o cb_2023_us_county_20m.zip "$B/geo/tiger/GENZ2023/shp/cb_2023_us_county_20m.zip"
 mkdir -p counties && (cd counties && unzip -o -q ../cb_2023_us_county_20m.zip) && rm cb_2023_us_county_20m.zip
 # licence / terms pages, saved as evidence of the check
-mkdir -p ../licences
+mkdir -p licences
 for u in https://www.census.gov/about/policies/citation.html \
          https://www.census.gov/data/developers/about/terms-of-service.html \
          https://www.census.gov/about/policies/open-gov/open-data.html; do
-  f=../licences/census_$(basename "$u" .html).html
+  f=licences/census_$(basename "$u" .html).html
   curl -fsSL -o "$f" "$u" || echo "fail $u"
 done
-ls -la ../licences
+ls -la licences
