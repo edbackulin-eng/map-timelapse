@@ -736,7 +736,7 @@ class Renderer:
         f = F(26)
         # all city circles are obstacles for labels
         circles = [(x - rad - 4, y - rad - 4, x + rad + 4, y + rad + 4) for pop, name, x, y, rad, ap in labs]
-        placed = []; leads = []; texts = []
+        placed = []; leads = []; texts = []; lpts = []
         hit = lambda a, b: not (a[2] < b[0] or a[0] > b[2] or a[3] < b[1] or a[1] > b[3])
         for n, (pop, name, x, y, rad, ap) in enumerate(labs[:k]):
             if ap < 0.6:
@@ -761,6 +761,8 @@ class Renderer:
                 own = (x - rad - 4, y - rad - 4, x + rad + 4, y + rad + 4)
                 if any(hit(rect, c) for c in circles if c != own):
                     continue
+                if any(rect[0] - 3 <= qx <= rect[2] + 3 and rect[1] - 3 <= qy <= rect[3] + 3 for qx, qy in lpts):
+                    continue
                 lead = None
                 if dist > rad + 20:   # leader line
                     ex = rect[0] if an[0] == "l" else (rect[2] if an[0] == "r" else px_)
@@ -769,7 +771,7 @@ class Renderer:
                     pts = [(x + (ex - x) * t / nn, y + (ey - y) * t / nn) for t in range(1, nn)]
                     if any(r[0] - 3 <= qx <= r[2] + 3 and r[1] - 3 <= qy <= r[3] + 3 for qx, qy in pts for r in placed):
                         continue
-                    lead = (ex, ey)
+                    lead = (ex, ey); lpts.extend(pts)
                 else:
                     placed.append(rect)
                 if lead:
