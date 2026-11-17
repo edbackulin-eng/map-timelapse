@@ -9,6 +9,8 @@ out.mkdir(parents=True, exist_ok=True)
 ua = {"User-Agent": "map-timelapse-licence-check"}
 report = []
 for t in reg:
+    if t.get("status") != "active":
+        continue
     html = urllib.request.urlopen(urllib.request.Request(t["page"], headers=ua), timeout=60).read().decode("utf-8", "ignore")
     lic = re.findall(r'creativecommons\.org/(publicdomain/zero|licenses)/([^"\']*)', html)
     kinds = sorted({a + "/" + b for a, b in lic})

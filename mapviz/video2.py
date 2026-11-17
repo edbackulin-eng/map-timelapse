@@ -676,7 +676,7 @@ class Renderer:
         draws = self.city_state(i, lt, run_f, fin)
         self._labels = []
         for c, pop, ap in draws:
-            rad = max(4.5, math.sqrt(pop) / 55.0) * (0.55 if Z > 1.5 else 1.0) * ap
+            rad = max(4.5, pop ** 0.4 / 18.0) * (0.55 if Z > 1.5 else 1.0) * ap
             x, y = vw.px(c["ax"], c["ay"])
             x, y = (float(x) - RX0) * ss, (float(y) - RY0) * ss
             if not (-50 <= x <= RW * ss + 50 and -50 <= y <= RH * ss + 50):
@@ -732,28 +732,56 @@ class Renderer:
     def draw_labels(self, img, i, Z):
         d = ImageDraw.Draw(img, "RGBA")
         labs = sorted(self._labels, reverse=True)
-        k = 12 if Z > 1.5 else 8
-        placed = []
+        k = 14 if Z > 1.5 else 11
         f = F(26)
-        for pop, name, x, y, rad, ap in labs[:k]:
+        # all city circles are obstacles for labels
+        circles = [(x - rad - 4, y - rad - 4, x + rad + 4, y + rad + 4) for pop, name, x, y, rad, ap in labs]
+        placed = []; leads = []; texts = []
+        hit = lambda a, b: not (a[2] < b[0] or a[0] > b[2] or a[3] < b[1] or a[1] > b[3])
+        for n, (pop, name, x, y, rad, ap) in enumerate(labs[:k]):
             if ap < 0.6:
                 continue
             txt = f"{name}  {int(pop):,}"
-            wd = f.getlength(txt) + 8
+            wd = f.getlength(txt) + 10
             ht = 34
-            cands = [(rad + 8, 0, "lm"), (-rad - 8, 0, "rm"), (0, -rad - 18, "mm"), (0, rad + 18, "mm"),
-                     (rad + 8, -26, "lm"), (rad + 8, 26, "lm"), (-rad - 8, -26, "rm"), (-rad - 8, 26, "rm")]
-            for dx, dy, an in cands:
+            cands = []
+            for dist in (rad + 8, rad + 34, rad + 70, rad + 110):
+                for ang in (0, 180, 270, 90, 315, 45, 225, 135, 20, 340, 160, 200):
+                    a = math.radians(ang)
+                    cands.append((dist, dist * math.cos(a), dist * math.sin(a) * 0.8))
+            for dist, dx, dy in cands:
                 px_, py_ = x + dx, y + dy
+                an = "lm" if dx > 4 else ("rm" if dx < -4 else "mm")
                 x0 = px_ if an[0] == "l" else (px_ - wd if an[0] == "r" else px_ - wd / 2)
                 rect = (x0, py_ - ht / 2, x0 + wd, py_ + ht / 2)
                 if rect[0] < RX0 + 4 or rect[2] > W - 4 or rect[1] < 4 or rect[3] > RY1 - 4:
                     continue
-                if any(not (rect[2] < r[0] or rect[0] > r[2] or rect[3] < r[1] or rect[1] > r[3]) for r in placed):
+                if any(hit(rect, r) for r in placed):
                     continue
-                placed.append(rect)
-                T(d, (px_, py_), txt, 26, fill=WHITE, stroke=4, anchor=an)
+                own = (x - rad - 4, y - rad - 4, x + rad + 4, y + rad + 4)
+                if any(hit(rect, c) for c in circles if c != own):
+                    continue
+                lead = None
+                if dist > rad + 20:   # leader line
+                    ex = rect[0] if an[0] == "l" else (rect[2] if an[0] == "r" else px_)
+                    ey = py_ if an[0] != "m" else (rect[1] if dy > 0 else rect[3])
+                    nn = max(2, int(math.hypot(ex - x, ey - y) / 6))
+                    pts = [(x + (ex - x) * t / nn, y + (ey - y) * t / nn) for t in range(1, nn)]
+                    if any(r[0] - 3 <= qx <= r[2] + 3 and r[1] - 3 <= qy <= r[3] + 3 for qx, qy in pts for r in placed):
+                        continue
+                    lead = (ex, ey)
+                else:
+                    placed.append(rect)
+                if lead:
+                    leads.append(((x, y), lead))
+                texts.append(((px_, py_), txt, an))
+                if lead: placed.append(rect)
                 break
+        for a_, b_ in leads:
+            d.line([a_, b_], fill=(15, 15, 25, 255), width=5)
+            d.line([a_, b_], fill=(255, 255, 255, 255), width=2)
+        for pos, txt, an in texts:
+            T(d, pos, txt, 26, fill=WHITE, stroke=4, anchor=an)
 
     # ---- left panel
     def draw_panel(self, d, i, lt, Y, ii, fin):
@@ -883,7 +911,7 @@ class Renderer:
         c = int(255 * a2)
         od.rounded_rectangle([520, 120, 1860, 840], radius=36, fill=NAVY + (int(240 * a2),), outline=YEL + (c,), width=8)
         lines = [("AMERICA OVER TIME", 100, YEL), ("DATA: U.S. CENSUS BUREAU", 56, WHITE), ("MAP DATA: NATURAL EARTH  ·  ROADS: NATURAL EARTH", 44, WHITE),
-                 ("MUSIC: VITALEZZZ (CC0), OPENGAMEART.ORG", 48, WHITE), ("EVENT SOURCES: NPS, LIBRARY OF CONGRESS, NATIONAL ARCHIVES", 40, WHITE),
+                 ("MUSIC: YOIYAMI, CYNICMUSIC, TAD (CC0), OPENGAMEART.ORG", 48, WHITE), ("EVENT SOURCES: NPS, LIBRARY OF CONGRESS, NATIONAL ARCHIVES", 40, WHITE),
                  ("NEW ANIMATED MAP EVERY MONDAY & FRIDAY", 48, YEL)]
         y = 200
         for s, sz, col in lines:

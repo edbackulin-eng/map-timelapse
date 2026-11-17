@@ -14,8 +14,9 @@
    "seconds": 232,
    "loudness_lufs": -11.0,
    "mood": "epic orchestral, big dynamics",
-   "status": "active",
-   "content_id_claims": 0
+   "status": "inactive",
+   "content_id_claims": 0,
+   "inactive_reason": "too epic/tense for America Over Time (owner 17.11: calm, light, documentary)"
   },
   {
    "id": "oga-the-ancient-legend",
@@ -30,8 +31,9 @@
    "seconds": 186,
    "loudness_lufs": -15.7,
    "mood": "epic cinematic, ancient mood",
-   "status": "active",
-   "content_id_claims": 0
+   "status": "inactive",
+   "content_id_claims": 0,
+   "inactive_reason": "too epic/tense for America Over Time (owner 17.11: calm, light, documentary)"
   },
   {
    "id": "oga-inevitable",
@@ -46,8 +48,9 @@
    "seconds": 194,
    "loudness_lufs": -10.6,
    "mood": "epic orchestral, driving",
-   "status": "active",
-   "content_id_claims": 0
+   "status": "inactive",
+   "content_id_claims": 0,
+   "inactive_reason": "too epic/tense for America Over Time (owner 17.11: calm, light, documentary)"
   },
   {
    "id": "oga-arcanum",
@@ -62,6 +65,52 @@
    "seconds": 161,
    "loudness_lufs": -15.0,
    "mood": "epic cinematic",
+   "status": "inactive",
+   "content_id_claims": 0,
+   "inactive_reason": "too epic/tense for America Over Time (owner 17.11: calm, light, documentary)"
+  },
+  {
+   "id": "oga-first-light-particles",
+   "title": "First Light Particles",
+   "creator": "Yoiyami",
+   "page": "https://opengameart.org/content/first-light-particles-%E2%80%93-cc0-atmospheric-pianoambient-track",
+   "url": "https://opengameart.org/sites/default/files/first_light_particles_1.mp3",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "licence_checked": "on the OpenGameArt page: License(s) shows CC0 only (scripts/fetch_music.py re-checks)",
+   "checked_on": "2026-11-17",
+   "seconds": 132,
+   "mood": "soft piano + gentle ambient pads, calm",
+   "status": "active",
+   "content_id_claims": 0
+  },
+  {
+   "id": "oga-november-snow",
+   "title": "November Snow",
+   "creator": "cynicmusic",
+   "page": "https://opengameart.org/content/november-snow",
+   "url": "https://opengameart.org/sites/default/files/155%20November_snow-33_tape_leveled.mp3",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "licence_checked": "on the OpenGameArt page: License(s) shows CC0 only (scripts/fetch_music.py re-checks)",
+   "checked_on": "2026-11-17",
+   "seconds": 350,
+   "mood": "ambient, ethereal, relaxing",
+   "status": "active",
+   "content_id_claims": 0
+  },
+  {
+   "id": "oga-a-cup-of-tea",
+   "title": "A cup of tea (lofi Compilation)",
+   "creator": "TAD",
+   "page": "https://opengameart.org/content/lofi-compilation",
+   "url": "https://opengameart.org/sites/default/files/A%20cup%20of%20tea.mp3",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "licence_checked": "on the OpenGameArt page: License(s) shows CC0 only (scripts/fetch_music.py re-checks)",
+   "checked_on": "2026-11-17",
+   "seconds": 169,
+   "mood": "light chill piano, relaxed beat",
    "status": "active",
    "content_id_claims": 0
   }
