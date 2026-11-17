@@ -58,16 +58,17 @@ def thumb_a():
 
 def thumb_b():
     W, H = 1280, 720
-    v = View(W, H, cx=0.60, cy=0.57, fill=1.0)
+    v = View(W, H, cx=0.50, cy=0.60, fill=0.98)
     img = render(v, state_fills(), level="state")
     us = int(num(apportionment()[("United States", 2020)]["Resident Population"]))
     nj = state_density("NJ")
     text(img, (22, 6), f"{round(us / 1e6)} MILLION", 160, fill=WHITE)
     text(img, (26, 200), "1790 → 2020", 120, fill=YEL)
     t = px(v, -74.5, 40.1)
-    lab = (W - 20, H - 18)
-    arrow(img, [(lab[0] - 150, lab[1] - 120), (t[0] + 22, t[1] + 30)], w=20, head=60)
-    text(img, lab, f"NEW JERSEY: {nj:,.0f} / SQ MI", 66, fill=YEL, anchor="rd")
+    lab = (W - 18, H - 14)
+    text(img, (lab[0], lab[1] - 92), "NEW JERSEY", 88, fill=WHITE, anchor="rd")
+    text(img, lab, f"{nj:,.0f} / SQ MI", 88, fill=YEL, anchor="rd")
+    arrow(img, [(lab[0] - 120, lab[1] - 200), (t[0] + 14, t[1] + 16)], w=22, head=62)
     return img
 
 
@@ -103,9 +104,9 @@ def banner():
 # ---------------- avatar 800x800 ----------------
 def avatar():
     S = 800
-    v = View(S, S, cx=0.5, cy=0.5, fill=0.98)
+    v = View(S, S, cx=0.5, cy=0.5, fill=0.84)
     img = render(v, state_fills(), level="state", state_line_w=6)
-    text(img, (S // 2, S // 2 + 6), "AOT", 340, fill=YEL, anchor="mm", stroke=26)
+    text(img, (S // 2, S // 2 + 10), "AOT", 270, fill=YEL, anchor="mm", stroke=22)
     return img
 
 
