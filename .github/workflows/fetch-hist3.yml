@@ -1,0 +1,15 @@
+name: fetch-hist3
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash scripts/fetch_hist3.sh
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/census data/hist/pages
+          git commit -m "County counts 2000/2010 and event pages" && git pull --rebase -q && git push
