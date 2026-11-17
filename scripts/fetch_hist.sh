@@ -5,7 +5,7 @@ mkdir -p data/hist/pdf data/hist/txt && cd data/hist
 get() { # name url...
   n=$1; shift
   for u in "$@"; do
-    if curl -fsSL -A "Mozilla/5.0 (compatible; map-timelapse-research)" -o "pdf/$n.pdf" "$u" && file "pdf/$n.pdf" | grep -q PDF; then
+    if curl -fsSL --max-time 60 --connect-timeout 20 -A "Mozilla/5.0 (compatible; map-timelapse-research)" -o "pdf/$n.pdf" "$u" && file "pdf/$n.pdf" | grep -q PDF; then
       echo "OK $n <- $u"; pdftotext -layout "pdf/$n.pdf" "txt/$n.txt"; return; fi
   done; echo "FAIL $n"; rm -f "pdf/$n.pdf"
 }

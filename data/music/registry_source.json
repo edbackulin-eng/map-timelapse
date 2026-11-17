@@ -1,0 +1,70 @@
+{
+ "note": "Music registry of HugeToScale (CC0 only; no Pixabay, no incompetech). A track that gets a Content ID claim is set to status 'removed' automatically. FreePD.com was checked on 2026-11-17: the site is permanently closed (offline since 2025), so no FreePD track can be verified or downloaded; its licence page is only in the Wayback Machine, which blocks automated access.",
+ "tracks": [
+  {
+   "id": "oga-eclipse-legion",
+   "title": "Eclipse Legion",
+   "creator": "Vitalezzz",
+   "page": "https://opengameart.org/content/eclipse-legion",
+   "url": "https://opengameart.org/sites/default/files/eclipse_legion_0.mp3",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "licence_checked": "on the OpenGameArt page: the License(s) field shows CC0 only; creator confirmed by the page's attribution notice",
+   "checked_on": "2026-11-17",
+   "seconds": 232,
+   "loudness_lufs": -11.0,
+   "mood": "epic orchestral, big dynamics",
+   "status": "active",
+   "content_id_claims": 0
+  },
+  {
+   "id": "oga-the-ancient-legend",
+   "title": "The Ancient Legend",
+   "creator": "Vitalezzz",
+   "page": "https://opengameart.org/content/the-ancient-legend",
+   "url": "https://opengameart.org/sites/default/files/the_ancient_legend_2.mp3",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "licence_checked": "on the OpenGameArt page: the License(s) field shows CC0 only; creator confirmed by the page's attribution notice",
+   "checked_on": "2026-11-17",
+   "seconds": 186,
+   "loudness_lufs": -15.7,
+   "mood": "epic cinematic, ancient mood",
+   "status": "active",
+   "content_id_claims": 0
+  },
+  {
+   "id": "oga-inevitable",
+   "title": "Inevitable",
+   "creator": "Vitalezzz",
+   "page": "https://opengameart.org/content/inevitable",
+   "url": "https://opengameart.org/sites/default/files/inevitable_0.mp3",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "licence_checked": "on the OpenGameArt page: the License(s) field shows CC0 only; creator confirmed by the page's attribution notice",
+   "checked_on": "2026-11-17",
+   "seconds": 194,
+   "loudness_lufs": -10.6,
+   "mood": "epic orchestral, driving",
+   "status": "active",
+   "content_id_claims": 0
+  },
+  {
+   "id": "oga-arcanum",
+   "title": "Arcanum",
+   "creator": "Vitalezzz",
+   "page": "https://opengameart.org/content/arcanum",
+   "url": "https://opengameart.org/sites/default/files/arcanum_0.mp3",
+   "licence": "CC0 1.0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/",
+   "licence_checked": "on the OpenGameArt page: the License(s) field shows CC0 only; creator confirmed by the page's attribution notice",
+   "checked_on": "2026-11-17",
+   "seconds": 161,
+   "loudness_lufs": -15.0,
+   "mood": "epic cinematic",
+   "status": "active",
+   "content_id_claims": 0
+  }
+ ],
+ "fallback_list": "https://github.com/beautyapp800-ctrl/yt-kids/blob/main/data/music-cc0-verified.json (CC0 Freesound tracks, not epic)"
+}
