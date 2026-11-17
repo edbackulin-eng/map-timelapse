@@ -69,3 +69,25 @@ OCR vs digital file for 1910 and 1920 (102 state-values): 0 mismatches - the OCR
 - 2000: 37.69699, -91.80957 - Phelps County, MO
 - 2010: 37.517534, -92.173096 - Texas County, MO
 - 2020: 37.415725, -92.346525 - Wright County, MO
+## 5. Cities (Census 100 largest urban places 1790-1990 + 2000/2010/2020 place counts) - spot checks against published figures
+| City | Year | On screen | Published | OK |
+|---|---|---|---|---|
+| New York | 1790 | 33,131 | 33,131 | yes |
+| Philadelphia | 1790 | 28,522 | 28,522 | yes |
+| Boston | 1790 | 18,320 | 18,320 | yes |
+| Chicago | 1890 | 1,099,850 | 1,099,850 | yes |
+| New York | 1890 | 1,515,301 | 1,515,301 | yes |
+| New York | 2000 | 8,008,278 | 8,008,278 | yes |
+| Los Angeles | 2000 | 3,694,820 | 3,694,820 | yes |
+| Chicago | 2000 | 2,896,016 | 2,896,016 | yes |
+| New York | 2010 | 8,175,133 | 8,175,133 | yes |
+| Los Angeles | 2010 | 3,792,621 | 3,792,621 | yes |
+| Houston | 2010 | 2,099,451 | 2,099,451 | yes |
+
+Caveats: city values are populations of the city limits at each census (New York before 1898 = Manhattan only; Brooklyn counted separately). 2020 values are the Census Bureau's April 2020 estimates base (ESTIMATESBASE2020), which differs from the published 2020 Census count by up to ~0.15% (e.g. Houston 2,301,572 vs 2,304,580). Charleston is shown only while it is among the 100 largest places (to 1910).
+
+## 6. Frontier line
+State-level approximation: a state is 'settled' when its Census density (state population / state land area) is at least 2 per sq mi; the dashed line is drawn along borders between settled and unsettled states. County-level data for 1790-1890 exist only as scanned/OCR tables (Forstall 1996, Part III); a trial parse matched state totals in under half of the cells, so it was not used.
+
+## 7. County zoom scenes
+County populations 1900-1990 from the Census Bureau file 'Population of Counties by Decennial Census: 1900 to 1990' (original census.gov link retired; copy at data.nber.org/census/population/cencounts/1900-90.txt), density = population / land area of the 2020 county (Gazetteer). Counties shown with today's boundaries.

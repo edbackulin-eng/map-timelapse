@@ -17,3 +17,10 @@ Notes
 - 1790-1900 state values come from the 1996 Census Bureau report "Population of States and Counties of the United States:
   1790-1990" (text OCR, validated: the sum of the states equals the printed U.S. total in every census year; two OCR faults fixed,
   see `docs/verify_report.md`). 1910-2020 come from the digital `apportionment.csv`.
+
+Added for video v2
+- County populations 1900-1990: Census Bureau product (Forstall), retrieved from the NBER mirror because census.gov retired the file; cite as U.S. Census Bureau.
+- City populations: Census Bureau working paper 27 (Gibson 1998) tables, public-domain US Government work.
+- Natural Earth roads (Interstates): public domain (naturalearthdata.com/about/terms-of-use).
+- Event facts: sources in `data/sources.json` (NPS, Library of Congress, National Archives, State Dept. Historian, FHWA, Census Bureau): all US Government works.
+- Icons: drawn in code (`mapviz/icons.py`), no images.
