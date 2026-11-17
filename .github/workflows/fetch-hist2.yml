@@ -1,0 +1,16 @@
+name: fetch-hist2
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y -qq poppler-utils >/dev/null
+      - run: bash scripts/fetch_hist2.sh
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/hist/txt data/hist/pages data/cities data/ne2
+          git commit -m "Second batch of Census/NE data" && git pull --rebase -q && git push
