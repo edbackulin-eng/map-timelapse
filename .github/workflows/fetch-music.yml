@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: sudo apt-get install -y -qq ffmpeg >/dev/null
       - run: python scripts/fetch_music.py
       - run: |
           git config user.name "github-actions[bot]"
