@@ -9,8 +9,8 @@ curl -fsSL -o CenPop2020_Mean_CO.txt "$B/geo/docs/reference/cenpop2020/county/Ce
 curl -fsSL -o CenPop2020_Mean_TR.txt "$B/geo/docs/reference/cenpop2020/tract/CenPop2020_Mean_TR.txt"
 curl -fsSL -o apportionment.csv "$B/programs-surveys/decennial/2020/data/apportionment/apportionment.csv" || echo "apportionment missing"
 ls -la
-curl -fsSL -o cb_2023_us_county_20m.zip "$B/geo/tiger/GENZ2023/shp/cb_2023_us_county_20m.zip"
-mkdir -p counties && (cd counties && unzip -o -q ../cb_2023_us_county_20m.zip) && rm cb_2023_us_county_20m.zip
+curl -fsSL -o cb_2020_us_county_20m.zip "$B/geo/tiger/GENZ2020/shp/cb_2020_us_county_20m.zip"
+rm -rf counties; mkdir -p counties && (cd counties && unzip -o -q ../cb_2020_us_county_20m.zip) && rm cb_2020_us_county_20m.zip
 # licence / terms pages, saved as evidence of the check
 mkdir -p licences
 for u in https://www.census.gov/about/policies/citation.html \
