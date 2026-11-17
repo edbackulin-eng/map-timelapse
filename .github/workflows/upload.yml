@@ -1,0 +1,34 @@
+name: upload
+# Uploads the next reserve video as a PRIVATE video with publishAt = next free Monday/Friday 20:00 Europe/Kyiv slot.
+# Guards (automation/youtube.py): YT_CHANNEL_ID must equal the channel the token opens, the channel's full video list is read
+# and checked for the marker "[ref: map-timelapse/<slug>]" before every upload, the state file is committed right after.
+# Without YT_TOKEN_JSON the job does nothing. Runs daily; it keeps 2 videos scheduled ahead. Failures mail the owner (GitHub default).
+concurrency:
+  group: upload
+  cancel-in-progress: false
+permissions:
+  contents: write
+on:
+  schedule:
+    - cron: "30 11 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "1 = read the channel and print what would be uploaded, upload nothing"
+        default: "0"
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: pip install numpy pillow pyshp google-api-python-client google-auth google-auth-oauthlib
+      - name: Upload next reserve video
+        env:
+          GH_TOKEN: ${{ github.token }}
+          YT_TOKEN_JSON: ${{ secrets.YT_TOKEN_JSON }}
+          YT_CHANNEL_ID: ${{ vars.YT_CHANNEL_ID }}
+          DRY_RUN: ${{ inputs.dry_run == '1' && '1' || '' }}
+        run: python automation/publish.py

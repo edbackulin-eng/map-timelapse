@@ -5,3 +5,6 @@ out/
 client_secret*.json
 token*.json
 __pycache__/
+client_secret*.json
+youtube_token.json
+out/

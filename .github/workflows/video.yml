@@ -18,27 +18,55 @@ on:
       force:
         description: "render even if this topic is already in the reserve"
         default: "false"
-env:
-  SLUG: us-population-1790-2020
+      topic:
+        description: "topic id from data/topic_queue.json (empty = next approved topic that has no reserve video yet)"
+        default: ""
 jobs:
   plan:
     runs-on: ubuntu-latest
     outputs:
       skip: ${{ steps.p.outputs.skip }}
+      slug: ${{ steps.p.outputs.slug }}
+      module: ${{ steps.p.outputs.module }}
     steps:
+      - uses: actions/checkout@v4
       - id: p
         env:
           GH_TOKEN: ${{ github.token }}
+          FORCE: ${{ inputs.force }}
+          WANT: ${{ inputs.topic }}
         run: |
-          RES=$(gh release list -R "$GITHUB_REPOSITORY" --limit 100 --json tagName --jq '[.[]|select(.tagName|startswith("reserve-"))]|length')
-          echo "videos in reserve: $RES"
-          if gh release view "reserve-$SLUG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 && [ "${{ inputs.force }}" != "true" ]; then
-            echo "topic $SLUG already in reserve -> skip"; echo "skip=true" >> "$GITHUB_OUTPUT"
-          elif [ "$RES" -ge 4 ]; then
-            echo "reserve full (>=4) -> skip"; echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
+          python3 - <<'PY'
+          import json, os, subprocess
+          q = json.load(open("data/topic_queue.json", encoding="utf-8"))["topics"]
+          rel = json.loads(subprocess.run(["gh", "release", "list", "--limit", "100", "--json", "tagName,name"], capture_output=True, text=True).stdout or "[]")
+          reserve = {r["tagName"][8:] for r in rel if r["tagName"].startswith("reserve-") and r["name"].startswith("RESERVE")}
+          have = {r["tagName"][8:] for r in rel if r["tagName"].startswith("reserve-")}
+          try:
+              done = {e["slug"] for e in json.load(open("state/episodes.json"))}
+          except Exception:
+              done = set()
+          out = open(os.environ["GITHUB_OUTPUT"], "a")
+          def finish(skip, slug="", mod=""):
+              out.write(f"skip={skip}\nslug={slug}\nmodule={mod}\n"); out.close(); print("plan:", skip, slug, mod)
+          force = os.environ.get("FORCE") == "true"
+          if len(reserve) >= 4 and not force:
+              print("reserve full (>=4)"); finish("true")
+          else:
+              cand = [t for t in q if t.get("module") and t["status"] in ("approved", "zero", "reserve") and t.get("licence_confirmed", True) is not False]
+              cand.sort(key=lambda t: t.get("order", 999))
+              want = os.environ.get("WANT", "").strip()
+              if want:
+                  cand = [t for t in cand if t["id"] == want]
+              pick = None
+              for t in cand:
+                  if force and want or (t["id"] not in have and t["id"] not in done):
+                      pick = t; break
+              if pick is None:
+                  print("no approved, built topic without a reserve video"); finish("true")
+              else:
+                  finish("false", pick["id"], pick["module"])
+          PY
   check:
     needs: plan
     if: needs.plan.outputs.skip != 'true'
@@ -49,9 +77,17 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: pip install numpy pillow pyshp
+      - name: Sources file of the topic
+        env:
+          TOPIC: ${{ needs.plan.outputs.module }}
+        run: python scripts/build_sources.py
       - name: Sync check (counter = official census figure, colours change at the census year)
+        env:
+          TOPIC: ${{ needs.plan.outputs.module }}
         run: python scripts/sync_check.py
       - name: Label check (no flicker, no overlaps on the whole video)
+        env:
+          TOPIC: ${{ needs.plan.outputs.module }}
         run: python scripts/label_check.py
       - uses: actions/upload-artifact@v4
         if: always()
@@ -76,6 +112,8 @@ jobs:
       - run: pip install numpy pillow pyshp
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
       - name: Render segment
+        env:
+          TOPIC: ${{ needs.plan.outputs.module }}
         run: |
           python - <<'PY'
           import sys
@@ -111,11 +149,11 @@ jobs:
           ffmpeg -y -loglevel error -i video_only.mp4 -i $M/oga-first-light-particles.mp3 -i $M/oga-november-snow.mp3 -i $M/oga-a-cup-of-tea.mp3 \
             -filter_complex "[1:a][2:a]acrossfade=d=5[a12];[a12][3:a]acrossfade=d=5[a123];[a123]atrim=0:$D,afade=t=in:d=3,loudnorm=I=-20:TP=-2:LRA=7,afade=t=out:st=$(python3 -c "print($D-6)"):d=6[aout]" \
             -map 0:v -map "[aout]" -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart \
-            america-over-time_us-population_1790-2020.mp4
-          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,duration:format=duration,size -of default=nw=1 america-over-time_us-population_1790-2020.mp4 | tee probe.txt
+            america-over-time_${{ needs.plan.outputs.slug }}.mp4
+          ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,duration:format=duration,size -of default=nw=1 america-over-time_${{ needs.plan.outputs.slug }}.mp4 | tee probe.txt
       - name: Small preview (720p) so the 100+ MB master need not be downloaded
         run: |
-          ffmpeg -y -loglevel error -i america-over-time_us-population_1790-2020.mp4 -vf scale=1280:720 -c:v libx264 -crf 29 -preset veryfast -c:a aac -b:a 96k -movflags +faststart preview_720p.mp4
+          ffmpeg -y -loglevel error -i america-over-time_${{ needs.plan.outputs.slug }}.mp4 -vf scale=1280:720 -c:v libx264 -crf 29 -preset veryfast -c:a aac -b:a 96k -movflags +faststart preview_720p.mp4
           ls -la preview_720p.mp4
       - uses: actions/upload-artifact@v4
         with:
@@ -125,7 +163,7 @@ jobs:
       - name: Review sheets (frame every 5 s of the final MP4)
         run: |
           mkdir -p review
-          ffmpeg -y -loglevel error -i america-over-time_us-population_1790-2020.mp4 -vf "fps=1/5,scale=640:360" review/f_%04d.png
+          ffmpeg -y -loglevel error -i america-over-time_${{ needs.plan.outputs.slug }}.mp4 -vf "fps=1/5,scale=640:360" review/f_%04d.png
           python3 - <<'PY'
           import glob
           from PIL import Image
@@ -146,14 +184,15 @@ jobs:
         with:
           name: video
           path: |
-            america-over-time_us-population_1790-2020.mp4
+            america-over-time_${{ needs.plan.outputs.slug }}.mp4
             probe.txt
           retention-days: 7
       - name: Put the video into the reserve (DRAFT release, not public, no YouTube)
         env:
           GH_TOKEN: ${{ github.token }}
+          SLUG: ${{ needs.plan.outputs.slug }}
         run: |
-          V=america-over-time_us-population_1790-2020.mp4
+          V=america-over-time_$SLUG.mp4
           cat > notes.md <<'EOF'
           Reserve video (not uploaded anywhere). Data: U.S. Census Bureau. Map data: Natural Earth (public domain). Music: Yoiyami, cynicmusic, TAD (CC0), OpenGameArt.org. Sources of every fact: data/sources.json.
           EOF

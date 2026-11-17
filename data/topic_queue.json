@@ -1,6 +1,18 @@
 {
- "note": "Topic queue for America Over Time. status: proposed -> approved (owner) -> building -> reserve -> published. Queries from YouTube autocomplete, 17.11.2026.",
+ "note": "Topic queue for America Over Time. status: proposed -> approved (owner, with order) -> reserve (rendered, draft release) -> uploaded. A topic is rendered only when it has `module` (code written) and `licence_confirmed` is not false. Queries from YouTube autocomplete, 17.11.2026.",
  "topics": [
+  {
+   "id": "us-population-1790-2020",
+   "title": "US Population 1790-2020: How America Grew Across the Map",
+   "search_queries": "us population over time",
+   "data": "Census (repo)",
+   "licence": "PD, confirmed",
+   "engine_fit": "done",
+   "extra_work": "none",
+   "status": "zero",
+   "order": 0,
+   "module": "us-population"
+  },
   {
    "id": "sun-belt",
    "title": "Sun Belt Migration: How Americans Moved South and West",
@@ -9,7 +21,10 @@
    "licence": "PD, confirmed (Census DS-027)",
    "engine_fit": "yes",
    "extra_work": "none",
-   "status": "proposed"
+   "status": "approved",
+   "order": 1,
+   "licence_confirmed": true,
+   "module": "sun-belt"
   },
   {
    "id": "13-to-50-states",
@@ -19,7 +34,10 @@
    "licence": "PD (federal facts); page to confirm at build",
    "engine_fit": "yes",
    "extra_work": "small: admission layer",
-   "status": "proposed"
+   "status": "approved",
+   "order": 3,
+   "licence_confirmed": false,
+   "licence_gate": "confirm the licence on NPS/LoC/Census pages before the build; if not confirmed the topic is skipped"
   },
   {
    "id": "texas",
@@ -29,7 +47,9 @@
    "licence": "PD (Census)",
    "engine_fit": "yes",
    "extra_work": "small fetch",
-   "status": "proposed"
+   "status": "approved",
+   "order": 2,
+   "licence_confirmed": true
   },
   {
    "id": "florida",
@@ -39,7 +59,9 @@
    "licence": "PD (Census)",
    "engine_fit": "yes",
    "extra_work": "small fetch",
-   "status": "proposed"
+   "status": "approved",
+   "order": 7,
+   "licence_confirmed": true
   },
   {
    "id": "california",
@@ -49,7 +71,9 @@
    "licence": "PD (Census)",
    "engine_fit": "yes",
    "extra_work": "small fetch",
-   "status": "proposed"
+   "status": "approved",
+   "order": 5,
+   "licence_confirmed": true
   },
   {
    "id": "cities-decline",
@@ -59,7 +83,9 @@
    "licence": "PD, confirmed",
    "engine_fit": "yes",
    "extra_work": "none",
-   "status": "proposed"
+   "status": "approved",
+   "order": 4,
+   "licence_confirmed": true
   },
   {
    "id": "mean-center",
@@ -69,7 +95,7 @@
    "licence": "PD, confirmed",
    "engine_fit": "yes",
    "extra_work": "none",
-   "status": "proposed"
+   "status": "later"
   },
   {
    "id": "density",
@@ -79,7 +105,7 @@
    "licence": "PD, confirmed",
    "engine_fit": "yes",
    "extra_work": "small fetch",
-   "status": "proposed"
+   "status": "later"
   },
   {
    "id": "reapportionment",
@@ -89,7 +115,9 @@
    "licence": "PD, confirmed",
    "engine_fit": "yes",
    "extra_work": "none; seats 1790-1900: small fetch",
-   "status": "proposed"
+   "status": "approved",
+   "order": 10,
+   "licence_confirmed": true
   },
   {
    "id": "great-migration",
@@ -99,7 +127,10 @@
    "licence": "PD (Census); tables to parse",
    "engine_fit": "yes",
    "extra_work": "medium: table parsing",
-   "status": "proposed"
+   "status": "approved",
+   "order": 8,
+   "licence_confirmed": false,
+   "licence_gate": "confirm the licence on Census WP56/WP76 pages before the build; if not confirmed the topic is skipped"
   },
   {
    "id": "immigration",
@@ -129,7 +160,9 @@
    "licence": "PD (Census)",
    "engine_fit": "yes",
    "extra_work": "small data",
-   "status": "proposed"
+   "status": "approved",
+   "order": 6,
+   "licence_confirmed": true
   },
   {
    "id": "hispanic",
@@ -139,7 +172,7 @@
    "licence": "PD (Census)",
    "engine_fit": "yes",
    "extra_work": "small fetch",
-   "status": "proposed"
+   "status": "later"
   },
   {
    "id": "american-indian",
@@ -149,7 +182,7 @@
    "licence": "PD (Census)",
    "engine_fit": "yes",
    "extra_work": "small fetch; careful wording",
-   "status": "proposed"
+   "status": "later"
   },
   {
    "id": "13-colonies",
@@ -169,7 +202,10 @@
    "licence": "PD (federal)",
    "engine_fit": "yes",
    "extra_work": "small: dates timeline, no population counter",
-   "status": "proposed"
+   "status": "approved",
+   "order": 9,
+   "licence_confirmed": false,
+   "licence_gate": "confirm the licence on NARA/NPS/LoC pages before the build; if not confirmed the topic is skipped"
   },
   {
    "id": "slavery",
@@ -179,7 +215,7 @@
    "licence": "PD (Census)",
    "engine_fit": "unknown",
    "extra_work": "check table; sensitive topic",
-   "status": "proposed"
+   "status": "later"
   },
   {
    "id": "national-parks",
@@ -249,7 +285,7 @@
    "licence": "PD, confirmed",
    "engine_fit": "no",
    "extra_work": "large: new bar-race scene type",
-   "status": "proposed"
+   "status": "separate_task"
   },
   {
    "id": "state-race",
@@ -259,7 +295,7 @@
    "licence": "PD, confirmed",
    "engine_fit": "no",
    "extra_work": "large: bar-race scene type",
-   "status": "proposed"
+   "status": "separate_task"
   },
   {
    "id": "largest-city-state",

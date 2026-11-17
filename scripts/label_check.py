@@ -60,6 +60,6 @@ L = ["# City label check (whole video, every frame for flicker, every 5 s for ov
 L.append(f"- (info) overlaps at 1-s samples, only while the camera moves in a zoom: {len(info)}")
 for s_ in short[:40]: L.append(f"  - short: {s_}")
 for o in over[:60]: L.append(f"  - overlap: {o}")
-(root / "docs" / "label_report.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+(root / "docs" / f"label_report_{V.TP.SLUG}.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 print("\n".join(L))
 sys.exit(1 if short or over else 0)

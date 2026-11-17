@@ -67,12 +67,31 @@ T = [
     ("gold-rush", "California Gold Rush Boomtowns 1848-1860", "gold rush (generic)",
      "CA county pops 1850/1860 (Census Part III OCR is unreliable)", "PD (Census)", "no", "data not reliable yet"),
 ]
-js = [dict(id=a, title=b, search_queries=c, data=d, licence=e, engine_fit=f, extra_work=g, status="proposed") for a, b, c, d, e, f, g in T]
-note = "Topic queue for America Over Time. status: proposed -> approved (owner) -> building -> reserve -> published. Queries from YouTube autocomplete, 17.11.2026."
+ORDER = ["sun-belt", "texas", "13-to-50-states", "cities-decline", "california", "urban", "florida", "great-migration", "suffrage", "reapportionment"]
+LATER = {"mean-center", "density", "slavery", "american-indian", "hispanic"}
+SEPARATE = {"city-race", "state-race"}
+MODULE = {"sun-belt": "sun-belt"}
+GATE = {"13-to-50-states": "NPS/LoC/Census pages", "suffrage": "NARA/NPS/LoC pages", "great-migration": "Census WP56/WP76 pages"}
+js = []
+for a, b, c, d, e, f, g in T:
+    st = "approved" if a in ORDER else ("later" if a in LATER else ("separate_task" if a in SEPARATE else "proposed"))
+    t = dict(id=a, title=b, search_queries=c, data=d, licence=e, engine_fit=f, extra_work=g, status=st)
+    if a in ORDER:
+        t["order"] = ORDER.index(a) + 1
+        t["licence_confirmed"] = a not in GATE
+        if a in GATE:
+            t["licence_gate"] = "confirm the licence on " + GATE[a] + " before the build; if not confirmed the topic is skipped"
+    if a in MODULE:
+        t["module"] = MODULE[a]
+        t["status"] = "approved"
+    js.append(t)
+js.insert(0, dict(id="us-population-1790-2020", title="US Population 1790-2020: How America Grew Across the Map", search_queries="us population over time",
+                  data="Census (repo)", licence="PD, confirmed", engine_fit="done", extra_work="none", status="zero", order=0, module="us-population"))
+note = "Topic queue for America Over Time. status: proposed -> approved (owner, with order) -> reserve (rendered, draft release) -> uploaded. A topic is rendered only when it has `module` (code written) and `licence_confirmed` is not false. Queries from YouTube autocomplete, 17.11.2026."
 (root / "data" / "topic_queue.json").write_text(json.dumps(dict(note=note, topics=js), indent=1, ensure_ascii=False), encoding="utf-8")
 L = [f"# Topic queue (proposed, {len(js)} topics)", "",
      "| # | Video title | Real search queries (YouTube autocomplete) | Data source | Licence | Current engine | Extra work |", "|---|---|---|---|---|---|---|"]
 for k, t in enumerate(js, 1):
     L.append(f"| {k} | {t['title']} | {t['search_queries']} | {t['data']} | {t['licence']} | {t['engine_fit']} | {t['extra_work']} |")
 (root / "docs" / "topic_queue.md").write_text("\n".join(L) + "\n", encoding="utf-8")
-print(len(js), Counter(t["engine_fit"] for t in js))
+print(len(js), Counter(t["status"] for t in js))

@@ -19,7 +19,10 @@ import numpy as np
 import shapefile
 from PIL import Image, ImageDraw
 
-from . import story
+from . import topic as _topic
+
+TP = _topic.load()
+story = TP.story
 from .choro import NEIGHBOUR, NEIGHBOUR_LINE, OCEAN, STATE_NAMES, counties, lakes, neighbours
 from .choro import render as choro_render
 from .core import CENSUS, ROOT, albers, states
@@ -27,8 +30,9 @@ from .icons import icon
 from .video import (BLACK, FPS, H, MAPBOX, NAVY, RX0, RX1, RY0, RY1, UNCOUNTED, W, WHITE, YEARS, YEL, F, Layers, T,
                     compass, data, ease, miles, pct_txt)
 
+YEARS = TP.YEARS
 NB = len(YEARS)
-INTRO, RUN, HOLD, FIN, FADE = 8.0, 11.0, 14.0, 28.0, 1.5
+INTRO, RUN, HOLD, FIN, FADE = 8.0, TP.RUN, TP.HOLD, 28.0, 1.5
 BLK = RUN + HOLD
 B0 = INTRO + HOLD
 TOTAL_S = B0 + BLK * (NB - 1) + FIN
@@ -203,7 +207,7 @@ def facts(i):
     pop = {k: v for k, v in pop.items() if v}
     out = []
     if i == 0:
-        out.append(dict(label="THE FIRST U.S. CENSUS", text=f"{D['us_total'][y]:,} PEOPLE COUNTED", hl=[]))
+        out.append(dict(label=TP.FIRST_LABEL, text=f"{D['us_total'][y]:,} PEOPLE COUNTED", hl=[]))
     top = max(pop, key=pop.get)
     out.append(dict(label="MOST POPULOUS STATE", text=f"{nm(top)}  ·  {pop[top]:,}", hl=[top]))
     if i == 0:
@@ -236,6 +240,8 @@ def facts(i):
 
 
 def event_text(ev):
+    if ev.get("dyn"):
+        return TP.dyn(ev["dyn"], data())
     if ev["icon"] == "sun":
         D = data()
         gain = {ab: D["pop"][ab][2020] - D["pop"][ab][1970] for ab in ("TX", "FL", "AZ")}
@@ -247,7 +253,7 @@ def captions(i):
     """[(start_lt, dur, text)] for block i (lt = local time in block)."""
     D = data()
     if i == 0:
-        return [(INTRO + 5.5, 7.5, "EVERY CENSUS, EVERY DECADE: HOW 3.9 MILLION BECAME 331 MILLION")]
+        return [(INTRO + 5.5, 7.5, TP.CAP0)]
     y0, y1 = YEARS[i - 1], YEARS[i]
     t0, t1 = D["us_total"][y0], D["us_total"][y1]
     g = (t1 / t0 - 1) * 100
@@ -259,11 +265,14 @@ def captions(i):
         out.append((0.8, 7.0, f"{zoom['name'].upper()} {y0}-{y1}: {p0:,} → {p1:,} PEOPLE"))
     else:
         out.append((0.8, 7.0, f"{y0}-{y1}: THE U.S. ADDS {t1 - t0:,} PEOPLE (+{pct_txt(g)})"))
+    if TP.REGION_CAPTION:
+        a0, a1 = TP.region_share(D, y0), TP.region_share(D, y1)
+        out.append((RUN + 2.0, 8.0, f"SOUTH + WEST: {a1:.1f}% OF AMERICANS IN {y1}, {'UP' if a1 >= a0 else 'DOWN'} FROM {a0:.1f}% IN {y0}"))
     # hold caption: largest city
     cs = [(c["pop"].get(str(y1)), c["name"]) for c in cities() if c["pop"].get(str(y1))]
     if cs:
         p, n = max(cs)
-        out.append((RUN + 3.2, 7.5, f"LARGEST CITY IN {y1}: {n.upper()} ({p:,})  ·  U.S. TOTAL: {t1:,}"))
+        out.append((RUN + (12.0 if TP.REGION_CAPTION else 3.2), 7.5, f"LARGEST CITY IN {y1}: {n.upper()} ({p:,})  ·  U.S. TOTAL: {t1:,}"))
     return out
 
 
@@ -305,7 +314,7 @@ class Renderer:
             masks[ab] = m
             land |= m
         self.fe, self.fb = [], []
-        for i in range(11):
+        for i in range(11 if TP.FRONTIER else 0):
             y = YEARS[i]
             settled = np.zeros((RH, RW), bool)
             for ab, m in masks.items():
@@ -340,11 +349,10 @@ class Renderer:
                 t += 4.6
             return out
         y0, y1 = YEARS[i - 1], YEARS[i]
-        for ev in story.EVENTS:
-            if y0 < ev["year"] <= y1:
-                te = RUN * (ev["year"] - y0) / 10.0
-                out.append(dict(kind="event", t=te, dur=5.2, ev=ev))
-                busy = max(busy, te + 5.2)
+        for ev in sorted((e for e in story.EVENTS if y0 < e["year"] <= y1), key=lambda e: e["year"]):
+            te = max(RUN * (ev["year"] - y0) / 10.0, busy)
+            out.append(dict(kind="event", t=te, dur=5.2, ev=ev))
+            busy = te + 5.4
         t = max(RUN + 0.4, busy + 0.3)
         picks = self.facts[i]
         order = [picks[0], picks[1], picks[2]] if len(picks) >= 3 else picks
@@ -369,7 +377,7 @@ class Renderer:
 
     def year_at(self, i, lt):
         if i == 0 or i >= NB:
-            return 1790.0 if i == 0 else 2020.0
+            return float(YEARS[0]) if i == 0 else float(YEARS[-1])
         y0, y1 = YEARS[i - 1], YEARS[i]
         return y0 + 10.0 * min(lt / RUN, 1.0)
 
@@ -570,6 +578,8 @@ class Renderer:
         return np.asarray(img)
 
     def frontier_alpha(self, i, lt):
+        if not TP.FRONTIER:
+            return 0.0
         if i == 0:
             return 1.0
         if i > 11 or i >= NB:
@@ -891,7 +901,7 @@ class Renderer:
         if fin:
             yshow, tot = 2020, D["us_total"][2020]
         elif i == 0:
-            yshow, tot = 1790, D["us_total"][1790]
+            yshow, tot = YEARS[0], D["us_total"][YEARS[0]]
         else:
             y0, y1 = YEARS[i - 1], YEARS[i]
             f = min(lt / RUN, 1.0)
@@ -918,7 +928,7 @@ class Renderer:
                 d.line([(x, yy + 14), (x + 11, yy + 14)], fill=YEL + (255,), width=5)
             T(d, (104, yy + 14), "FRONTIER: 2+ PER SQ MI", 27, fill=WHITE, stroke=3, anchor="lm")
             yy += 38
-        if 1830 <= Y or fin:
+        if (1830 <= Y or fin) and (story.RAILS or story.TRANSCON):
             d.line([(28, yy + 14), (88, yy + 14)], fill=BLACK + (255,), width=9)
             d.line([(28, yy + 14), (88, yy + 14)], fill=WHITE + (255,), width=5)
             T(d, (104, yy + 14), "RAILROADS (SIMPLIFIED)", 27, fill=WHITE, stroke=3, anchor="lm")
@@ -999,7 +1009,7 @@ class Renderer:
         od.rounded_rectangle([520, 250, 1860, 650], radius=36, fill=NAVY + (int(235 * a),), outline=YEL + (int(255 * a),), width=8)
         c = int(255 * a)
         od.text((1190, 390), "AMERICA OVER TIME", font=F(150), fill=YEL + (c,), anchor="mm", stroke_width=10, stroke_fill=BLACK + (c,))
-        od.text((1190, 540), "U.S. POPULATION  1790 → 2020", font=F(76), fill=WHITE + (c,), anchor="mm", stroke_width=6, stroke_fill=BLACK + (c,))
+        od.text((1190, 540), TP.INTRO_LINE, font=F(76), fill=WHITE + (c,), anchor="mm", stroke_width=6, stroke_fill=BLACK + (c,))
         img.paste(ov, (0, 0), ov)
 
     def draw_finale(self, img, lt):
@@ -1011,7 +1021,7 @@ class Renderer:
         c = int(255 * a2)
         od.rounded_rectangle([520, 120, 1860, 840], radius=36, fill=NAVY + (int(240 * a2),), outline=YEL + (c,), width=8)
         lines = [("AMERICA OVER TIME", 100, YEL), ("DATA: U.S. CENSUS BUREAU", 56, WHITE), ("MAP DATA: NATURAL EARTH  ·  ROADS: NATURAL EARTH", 44, WHITE),
-                 ("MUSIC: YOIYAMI, CYNICMUSIC, TAD (CC0), OPENGAMEART.ORG", 48, WHITE), ("EVENT SOURCES: NPS, LIBRARY OF CONGRESS, NATIONAL ARCHIVES", 40, WHITE),
+                 ("MUSIC: YOIYAMI, CYNICMUSIC, TAD (CC0), OPENGAMEART.ORG", 48, WHITE), (TP.CREDIT_EVENTS, 40, WHITE),
                  ("NEW ANIMATED MAP EVERY MONDAY & FRIDAY", 48, YEL)]
         y = 200
         for s, sz, col in lines:

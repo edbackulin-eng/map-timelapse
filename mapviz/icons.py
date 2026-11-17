@@ -84,6 +84,18 @@ def icon(d, name, cx, cy, s):
         d.line([P(-6, -4), P(-6, 24)], fill=WHITE, width=int(9 * k))
         d.line([P(-6, -4), P(10, -4)], fill=WHITE, width=int(6 * k))
         d.line([P(-6, 24), P(10, 24)], fill=WHITE, width=int(6 * k))
+    elif name == "snow":
+        for a_ in (0, 60, 120):
+            r = math.radians(a_)
+            d.line([P(46 * math.cos(r), 46 * math.sin(r)), P(-46 * math.cos(r), -46 * math.sin(r))], fill=BLACK, width=int(11 * k))
+            d.line([P(46 * math.cos(r), 46 * math.sin(r)), P(-46 * math.cos(r), -46 * math.sin(r))], fill=(150, 215, 255), width=int(6 * k))
+        d.ellipse([*P(-9, -9), *P(9, 9)], fill=WHITE, outline=BLACK, width=w)
+    elif name == "rocket":
+        _poly(d, [P(0, -46), P(14, -14), P(14, 24), P(-14, 24), P(-14, -14)], WHITE, w)
+        _poly(d, [P(-14, 4), P(-30, 34), P(-14, 24)], RED, w)
+        _poly(d, [P(14, 4), P(30, 34), P(14, 24)], RED, w)
+        d.ellipse([*P(-7, -12), *P(7, 2)], fill=BLUE, outline=BLACK, width=w)
+        _poly(d, [P(-9, 26), P(9, 26), P(0, 48)], (255, 150, 0), w)
     elif name == "sun":
         for i in range(12):
             a = i * math.pi / 6
