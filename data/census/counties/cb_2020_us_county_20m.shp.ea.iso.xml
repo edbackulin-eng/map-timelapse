@@ -5,49 +5,48 @@
                          xmlns:gml="http://www.opengis.net/gml/3.2"
                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                          xmlns:gmi="http://www.isotc211.org/2005/gmi"
-                         xmlns:srv="http://www.isotc211.org/2005/srv"
                          xmlns:gmx="http://www.isotc211.org/2005/gmx"
                          xmlns:gfc="http://www.isotc211.org/2005/gfc">
    <gmx:name>
-      <gco:CharacterString>Feature Catalog for the 2023 County and Equivalent for United States Cartographic Boundary File</gco:CharacterString>
+      <gco:CharacterString/>
    </gmx:name>
    <gmx:scope>
-      <gco:CharacterString>Counties and Equivalent Areas</gco:CharacterString>
+      <gco:CharacterString/>
    </gmx:scope>
    <gmx:versionNumber>
-      <gco:CharacterString>2024-05</gco:CharacterString>
+      <gco:CharacterString>202105</gco:CharacterString>
    </gmx:versionNumber>
    <gmx:versionDate>
-      <gco:Date>2024-05</gco:Date>
+      <gco:Date>202105</gco:Date>
    </gmx:versionDate>
    <gmx:language>
-      <gco:CharacterString>eng; USA</gco:CharacterString>
+      <gco:CharacterString>eng</gco:CharacterString>
    </gmx:language>
    <gmx:characterSet>
       <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#MD_CharacterSetCode"
-                               codeListValue="utf8">utf8</gmd:MD_CharacterSetCode>
+                               codeListValue="UTF-8">UTF-8</gmd:MD_CharacterSetCode>
    </gmx:characterSet>
    <gfc:producer>
       <gmd:CI_ResponsibleParty>
          <gmd:organisationName>
-            <gco:CharacterString>U.S. Department of Commerce, U.S. Census Bureau, Geography Division</gco:CharacterString>
+            <gco:CharacterString>U.S. Department of Commerce, U.S. Census Bureau, Geography Division, Geographic Customer Services Branch</gco:CharacterString>
          </gmd:organisationName>
          <gmd:contactInfo>
             <gmd:CI_Contact>
                <gmd:phone>
                   <gmd:CI_Telephone>
                      <gmd:voice>
-                        <gco:CharacterString>301-763-1128</gco:CharacterString>
+                        <gco:CharacterString>301.763.1128</gco:CharacterString>
                      </gmd:voice>
                      <gmd:facsimile>
-                        <gco:CharacterString>301-763-4710</gco:CharacterString>
+                        <gco:CharacterString>301.763.4710</gco:CharacterString>
                      </gmd:facsimile>
                   </gmd:CI_Telephone>
                </gmd:phone>
                <gmd:address>
                   <gmd:CI_Address>
                      <gmd:deliveryPoint>
-                        <gco:CharacterString>4600 Silver Hill Road, Stop 7400</gco:CharacterString>
+                        <gco:CharacterString>4600 Silver Hill Road</gco:CharacterString>
                      </gmd:deliveryPoint>
                      <gmd:city>
                         <gco:CharacterString>Washington</gco:CharacterString>
@@ -70,22 +69,23 @@
          </gmd:contactInfo>
          <gmd:role>
             <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_RoleCode"
-                             codeListValue="pointOfContact">pointOfContact</gmd:CI_RoleCode>
+                             codeListValue="custodian">custodian
+                </gmd:CI_RoleCode>
          </gmd:role>
       </gmd:CI_ResponsibleParty>
    </gfc:producer>
    <gfc:featureType>
       <gfc:FC_FeatureType>
          <gfc:typeName>
-            <gco:LocalName>cb_2023_us_county_20m.shp</gco:LocalName>
+            <gco:LocalName>cb_2020_us_county_20m.shp</gco:LocalName>
          </gfc:typeName>
          <gfc:definition>
-            <gco:CharacterString>County and Equivalent Entities (national)</gco:CharacterString>
+            <gco:CharacterString>Current County and Equivalent (national)</gco:CharacterString>
          </gfc:definition>
          <gfc:isAbstract>
             <gco:Boolean>false</gco:Boolean>
          </gfc:isAbstract>
-         <gfc:featureCatalogue uuidref="cb_2023_us_county_20m.shp.ea.iso.xml"/>
+         <gfc:featureCatalogue uuidref="cb_2020_us_county_20m.ea.iso.xml"/>
          <gfc:carrierOfCharacteristics>
             <gfc:FC_FeatureAttribute>
                <gfc:memberName>
@@ -155,10 +155,10 @@
          <gfc:carrierOfCharacteristics>
             <gfc:FC_FeatureAttribute>
                <gfc:memberName>
-                  <gco:LocalName>GEOIDFQ</gco:LocalName>
+                  <gco:LocalName>AFFGEOID</gco:LocalName>
                </gfc:memberName>
                <gfc:definition>
-                  <gco:CharacterString>Fully qualified geographic identifier; a concatenation of census survey summary level information with the GEOID attribute value.  The GEOIDFQ attribute is calculated to facilitate joining census spatial data to census survey summary files.</gco:CharacterString>
+                  <gco:CharacterString>American FactFinder summary level code + geovariant code + '00US' + GEOID</gco:CharacterString>
                </gfc:definition>
                <gfc:cardinality gco:nilReason="unknown"/>
                <gfc:definitionReference xlink:title="U.S Census Bureau"
@@ -166,7 +166,7 @@
                <gfc:listedValue>
                   <gfc:FC_ListedValue>
                      <gfc:label>
-                        <gco:CharacterString>Fully Qualified GEOID</gco:CharacterString>
+                        <gco:CharacterString>American FactFinder geographic identifier</gco:CharacterString>
                      </gfc:label>
                      <gfc:definitionReference xlink:title="U.S Census Bureau"
                                               xlink:href="http://www.ngdc.noaa.gov/docucomp/eb139e38-ee29-4d59-b157-5e874d4420c4"/>
@@ -443,7 +443,7 @@
                               <gco:Integer>0</gco:Integer>
                            </gco:lower>
                            <gco:upper>
-                              <gco:UnlimitedInteger>9,999,999,999,999</gco:UnlimitedInteger>
+                              <gco:UnlimitedInteger>9999999</gco:UnlimitedInteger>
                            </gco:upper>
                         </gco:MultiplicityRange>
                      </gco:range>
@@ -469,7 +469,7 @@
                               <gco:Integer>0</gco:Integer>
                            </gco:lower>
                            <gco:upper>
-                              <gco:UnlimitedInteger>9,999,999,999,999</gco:UnlimitedInteger>
+                              <gco:UnlimitedInteger>9999999</gco:UnlimitedInteger>
                            </gco:upper>
                         </gco:MultiplicityRange>
                      </gco:range>
