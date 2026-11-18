@@ -118,7 +118,10 @@ def main():
         vid = youtube.upload(yt, mp4, title, desc, tags, slot)
         cover = ROOT / "assets" / "covers" / f"{slug}.jpg"
         if cover.exists():
-            youtube.set_thumbnail(yt, vid, cover)
+            try:
+                youtube.set_thumbnail(yt, vid, cover)
+            except Exception as e:  # channel may lack custom-thumbnail rights (phone verification): never lose the state of an uploaded video
+                print(f"WARN: thumbnail not set: {e}")
         else:
             print(f"WARN: no cover {cover}")
         state.append(dict(slug=slug, title=title, status="scheduled", youtube_id=vid, publish_at=slot.strftime("%Y-%m-%dT%H:%M:%SZ"),
