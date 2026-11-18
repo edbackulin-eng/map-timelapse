@@ -113,8 +113,8 @@ def main():
             continue
         work = ROOT / "out" / "upload" / slug
         work.mkdir(parents=True, exist_ok=True)
-        sh("gh", "release", "download", f"reserve-{slug}", "-p", "america-over-time_*.mp4", "-D", str(work), "--clobber")
-        mp4 = next(work.glob("america-over-time_*.mp4"))
+        sh("gh", "release", "download", f"reserve-{slug}", "-p", f"america-over-time_{slug}.mp4", "-D", str(work), "--clobber")
+        mp4 = work / f"america-over-time_{slug}.mp4"
         vid = youtube.upload(yt, mp4, title, desc, tags, slot)
         cover = ROOT / "assets" / "covers" / f"{slug}.jpg"
         if cover.exists():
