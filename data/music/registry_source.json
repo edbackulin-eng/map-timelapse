@@ -111,8 +111,9 @@
    "checked_on": "2026-11-17",
    "seconds": 169,
    "mood": "light chill piano, relaxed beat",
-   "status": "active",
-   "content_id_claims": 0
+   "status": "removed",
+   "content_id_claims": 1,
+   "removed_reason": "Content ID claim 2026-11-18: 'Slow strong' (Jack the Simple), The Orchard Music/Monkee Records, matched 7:51-10:06 of US Population"
   }
  ],
  "fallback_list": "https://github.com/beautyapp800-ctrl/yt-kids/blob/main/data/music-cc0-verified.json (CC0 Freesound tracks, not epic)"

@@ -24,3 +24,7 @@ Added for video v2
 - Natural Earth roads (Interstates): public domain (naturalearthdata.com/about/terms-of-use).
 - Event facts: sources in `data/sources.json` (NPS, Library of Congress, National Archives, State Dept. Historian, FHWA, Census Bureau): all US Government works.
 - Icons: drawn in code (`mapviz/icons.py`), no images.
+
+## Music rule (all channels, owner 18.11.2026)
+A new music track goes into a video only after a TEST upload: a short private video with that track alone, checked in YouTube Studio (Content) for a Content ID claim. Claim or doubt -> status `removed` in the registry. CC0 on the source page does not protect against Content ID.
+Removed: TAD "A cup of tea" (claim "Slow strong", Jack the Simple / The Orchard Music, 18.11.2026).
