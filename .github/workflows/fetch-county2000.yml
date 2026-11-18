@@ -23,7 +23,9 @@ jobs:
                   if r["SUMLEV"] != "050":
                       continue
                   g = r["STATE"].zfill(2) + r["COUNTY"].zfill(3)
-                  out.setdefault(g, {"name": r["CTYNAME"], "st": r["STNAME"]})[y] = int(r[col])
+                  e = out.setdefault(g, {"name": r["CTYNAME"], "st": r["STNAME"]})
+                  if r[col].strip().isdigit():
+                      e[y] = int(r[col])
           with open("data/census/county_2000_2010.csv", "w", newline="", encoding="utf-8") as f:
               w = csv.writer(f)
               w.writerow(["GEOID", "STNAME", "CTYNAME", "CENSUS2000POP", "CENSUS2010POP"])
