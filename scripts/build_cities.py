@@ -12,6 +12,12 @@ CUR = [("New York","NY","New York"),("Philadelphia","PA","Philadelphia"),("Bosto
  ("Kansas City","MO","Kansas City"),("Omaha","NE","Omaha"),("Portland","OR","Portland"),
  ("Dallas","TX","Dallas"),("Houston","TX","Houston"),("San Antonio","TX","San Antonio"),("Miami","FL","Miami"),
  ("Phoenix","AZ","Phoenix"),("Las Vegas","NV","Las Vegas"),("San Diego","CA","San Diego"),("Memphis","TN","Memphis")]
+import sys
+# optional: python scripts/build_cities.py data/cities_tx.json "Fort Worth|TX|Fort Worth" ...   (a topic's own city list)
+OUT = root / "data/cities.json"
+if len(sys.argv) > 2:
+    OUT = root / sys.argv[1]
+    CUR = [tuple(a.split("|")) for a in sys.argv[2:]]
 def stem(n):
     n = re.sub(r"\s*\*\s*$", "", n).strip()
     return re.sub(r"\s+(city|town|borough|village|township|district|\(.*\))$", "", n).strip()
@@ -62,7 +68,7 @@ for disp, st, key in CUR:
         if v: pops[y] = v
     if disp == 'Charleston': pops = {y: v for y, v in pops.items() if y < 1920}
     cities.append(dict(name=disp, st=st, lon=lon, lat=lat, pop={str(y): pops[y] for y in sorted(pops)}))
-json.dump(cities, open(root / "data/cities.json", "w"), indent=0)
+json.dump(cities, open(OUT, "w"), indent=0)
 for c in cities:
     ys = sorted(int(y) for y in c["pop"]); gaps = [y for y in YEARS if y >= ys[0] and str(y) not in c["pop"]]
     print(f"{c['name']:15s} {ys[0]}..{ys[-1]} n={len(ys)} gaps={gaps}  2020={c['pop'].get('2020')}")

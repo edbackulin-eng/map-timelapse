@@ -1,0 +1,38 @@
+name: fetch-county2000
+# Census 2000 and 2010 county counts (public domain, U.S. Census Bureau population estimates files) -> data/census/county_2000_2010.csv
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          set -e
+          B=https://www2.census.gov/programs-surveys/popest/datasets
+          curl -fsSL -o /tmp/c09.csv $B/2000-2009/counties/totals/co-est2009-alldata.csv
+          curl -fsSL -o /tmp/c19.csv $B/2010-2019/counties/totals/co-est2019-alldata.csv
+          python3 - <<'EOF'
+          import csv
+          out = {}
+          for path, col, y in (("/tmp/c09.csv", "CENSUS2000POP", 2000), ("/tmp/c19.csv", "CENSUS2010POP", 2010)):
+              rows = list(csv.DictReader(open(path, encoding="latin-1")))
+              print(path, list(rows[0])[:12], len(rows))
+              for r in rows:
+                  if r["SUMLEV"] != "050":
+                      continue
+                  g = r["STATE"].zfill(2) + r["COUNTY"].zfill(3)
+                  out.setdefault(g, {"name": r["CTYNAME"], "st": r["STNAME"]})[y] = int(r[col])
+          with open("data/census/county_2000_2010.csv", "w", newline="", encoding="utf-8") as f:
+              w = csv.writer(f)
+              w.writerow(["GEOID", "STNAME", "CTYNAME", "CENSUS2000POP", "CENSUS2010POP"])
+              for g in sorted(out):
+                  d = out[g]
+                  w.writerow([g, d["st"], d["name"], d.get(2000, ""), d.get(2010, "")])
+          print(len(out), "counties")
+          EOF
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/census/county_2000_2010.csv && git commit -m "Census 2000/2010 county counts" && git pull --rebase && git push
