@@ -4,11 +4,6 @@ Counter, U.S. population and state colours all derive from the master year Y(t).
 
 | Census | Counter one frame before | Counter at run end | Fade p one frame before | Fade p at run end | Fade p +0.75 s | Fade p +1.5 s | Population at run end = Census total |
 |---|---|---|---|---|---|---|---|
-| 1860 | 1859 | 1860 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1870 | 1869 | 1870 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1880 | 1879 | 1880 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1890 | 1889 | 1890 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1900 | 1899 | 1900 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 1910 | 1909 | 1910 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 1920 | 1919 | 1920 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 1930 | 1929 | 1930 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
@@ -22,4 +17,4 @@ Counter, U.S. population and state colours all derive from the master year Y(t).
 | 2010 | 2009 | 2010 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 2020 | 2019 | 2020 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 
-Result: all 17 census transitions in sync.
+Result: all 12 census transitions in sync.

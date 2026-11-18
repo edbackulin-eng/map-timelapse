@@ -754,7 +754,8 @@ class Renderer:
                 continue
             rr = rad * ss
             d.ellipse([x - rr - 3 * ss, y - rr - 3 * ss, x + rr + 3 * ss, y + rr + 3 * ss], fill=(15, 15, 25, 255))
-            d.ellipse([x - rr, y - rr, x + rr, y + rr], fill=(255, 255, 255, 235))
+            cf = TP.city_fill(c, i, pop, fin) if hasattr(TP, "city_fill") else (255, 255, 255)
+            d.ellipse([x - rr, y - rr, x + rr, y + rr], fill=tuple(int(v) for v in cf) + (235,))
             self._labels.append((pop, c["name"], x / ss + RX0, y / ss + RY0, rad, ap))
         ov = ov.resize((RW, RH), Image.LANCZOS)
         img.paste(ov, (RX0, RY0), ov)
@@ -845,6 +846,10 @@ class Renderer:
             return self._plans[e]
         prev = self.label_plan(e - 1) if e > 0 else {}
         geom, Z = self.city_geom((e + 0.5) * self.EP)
+        zs = [self.city_geom(min(tq, TOTAL_S - 1e-3))[1] for tq in (e * self.EP + 0.02, (e + 1) * self.EP - 0.02)] + [Z]
+        if max(zs) / min(zs) > 1.08:      # the camera is moving: no new placements in this epoch
+            self._plans[e] = {}
+            return {}
         ok = None   # a label needs a visible, fully grown circle during the WHOLE epoch
         obst = {}   # name -> union of the circle boxes over the epoch (circles grow while a decade runs)
         for c in geom:
@@ -869,7 +874,7 @@ class Renderer:
         for pop, name, x, y, rad, ap in labs[:k]:
             if ap < 0.6:
                 continue
-            wd = f.getlength(f"{name}  {int(pop):,}") + 10
+            wd = f.getlength(f"{name}  {int(pop):,}") + 10 + 14   # slack: the number's width changes while it counts
             ht = 34
             cands = []
             if name in prev:
@@ -1010,6 +1015,11 @@ class Renderer:
             d.ellipse([44, yy + 3, 68, yy + 27], fill=(15, 15, 25, 255))
             d.ellipse([47, yy + 6, 65, yy + 24], fill=(255, 255, 255, 255))
             T(d, (104, yy + 14), TP.CITY_LEGEND, 27, fill=WHITE, stroke=3, anchor="lm")
+            yy += 38
+        for col, lab in getattr(TP, "LEGEND_CIRCLES", []):
+            d.ellipse([44, yy + 3, 68, yy + 27], fill=(15, 15, 25, 255))
+            d.ellipse([47, yy + 6, 65, yy + 24], fill=tuple(col) + (255,))
+            T(d, (104, yy + 14), lab, 27, fill=WHITE, stroke=3, anchor="lm")
             yy += 38
         if Y <= 1891 and not fin and TP.FRONTIER:
             for x in range(28, 88, 20):

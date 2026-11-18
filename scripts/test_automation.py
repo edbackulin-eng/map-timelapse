@@ -58,7 +58,7 @@ s2 = youtube.next_slot(["2026-11-20T18:00:00Z"], datetime(2026, 11, 17, 12, 0, t
 check("taken slot skipped -> Monday", s2.strftime("%Y-%m-%d") == "2026-11-23")
 check("scheduled_ahead counts future publishAt", youtube.scheduled_ahead(vids, datetime(2026, 11, 20, tzinfo=timezone.utc)) == 1)
 
-for mod in ("us_population", "sun_belt", "texas", "california"):
+for mod in ("us_population", "sun_belt", "texas", "california", "cities_decline"):
     t = importlib.import_module("mapviz.topics." + mod)
     title, desc, tags = meta.build(t, t.SLUG)
     check(f"{mod}: title<=100, desc<=5000, ref marker, 3-5 hashtags, tags", len(title) <= 100 and len(desc) <= 5000 and f"[ref: map-timelapse/{t.SLUG}]" in desc

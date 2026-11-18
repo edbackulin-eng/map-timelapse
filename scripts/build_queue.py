@@ -70,7 +70,7 @@ T = [
 ORDER = ["sun-belt", "texas", "13-to-50-states", "cities-decline", "california", "urban", "florida", "great-migration", "suffrage", "reapportionment"]
 LATER = {"mean-center", "density", "slavery", "american-indian", "hispanic"}
 SEPARATE = {"city-race", "state-race"}
-MODULE = {"sun-belt": "sun-belt", "texas": "texas", "california": "california"}
+MODULE = {"sun-belt": "sun-belt", "texas": "texas", "california": "california", "cities-decline": "cities-decline"}
 GATE = {"13-to-50-states": "NPS/LoC/Census pages", "suffrage": "NARA/NPS/LoC pages", "great-migration": "Census WP56/WP76 pages"}
 js = []
 for a, b, c, d, e, f, g in T:

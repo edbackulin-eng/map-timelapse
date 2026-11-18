@@ -87,7 +87,8 @@
    "extra_work": "none",
    "status": "approved",
    "order": 4,
-   "licence_confirmed": true
+   "licence_confirmed": true,
+   "module": "cities-decline"
   },
   {
    "id": "mean-center",
