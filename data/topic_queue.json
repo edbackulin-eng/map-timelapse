@@ -66,7 +66,7 @@
   },
   {
    "id": "california",
-   "title": "California Population Growth 1850-2020",
+   "title": "California Population Growth 1850-2020: From Gold Rush to 39 Million",
    "search_queries": "california population; california population decline",
    "data": "same as Texas",
    "licence": "PD (Census)",
@@ -74,7 +74,8 @@
    "extra_work": "small fetch",
    "status": "approved",
    "order": 5,
-   "licence_confirmed": true
+   "licence_confirmed": true,
+   "module": "california"
   },
   {
    "id": "cities-decline",

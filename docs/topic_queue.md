@@ -7,7 +7,7 @@
 | 3 | US Expansion from 13 to 50 States | us expansion from 13 to 50 states; us expansion timeline | Natural Earth states + admission dates (Census / NPS / Library of Congress facts) + state pops (repo) | PD (federal facts); page to confirm at build | yes | small: admission layer |
 | 4 | Texas Population Growth 1850-2020: How Texas Became a Giant | texas population growth | Census state + county pops (1900-1990 in repo; 2000-2020 county totals to fetch) | PD (Census) | yes | small fetch |
 | 5 | Florida Population Growth 1830-2020 | florida population growth; florida population boom | same as Texas | PD (Census) | yes | small fetch |
-| 6 | California Population Growth 1850-2020 | california population; california population decline | same as Texas | PD (Census) | yes | small fetch |
+| 6 | California Population Growth 1850-2020: From Gold Rush to 39 Million | california population; california population decline | same as Texas | PD (Census) | yes | small fetch |
 | 7 | American Cities in Decline: Detroit, St. Louis, Cleveland | american cities in decline | Census twps0027 city tables 1790-1990 (in repo) + 2000-2020 place counts (repo) | PD, confirmed | yes | none |
 | 8 | The Mean Center of US Population 1790-2020 | mean center of population; change in mean center of population | Census COP2020 Table 1 (in repo) + counties for zooms | PD, confirmed | yes | none |
 | 9 | US Population Density Over Time (by county) | us population density over time | Census county pops 1900-2020 + land area (Gazetteer, in repo) | PD, confirmed | yes | small fetch |

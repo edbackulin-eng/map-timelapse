@@ -14,7 +14,7 @@ T = [
      "Census state + county pops (1900-1990 in repo; 2000-2020 county totals to fetch)", "PD (Census)", "yes", "small fetch"),
     ("florida", "Florida Population Growth 1830-2020", "florida population growth; florida population boom",
      "same as Texas", "PD (Census)", "yes", "small fetch"),
-    ("california", "California Population Growth 1850-2020", "california population; california population decline",
+    ("california", "California Population Growth 1850-2020: From Gold Rush to 39 Million", "california population; california population decline",
      "same as Texas", "PD (Census)", "yes", "small fetch"),
     ("cities-decline", "American Cities in Decline: Detroit, St. Louis, Cleveland", "american cities in decline",
      "Census twps0027 city tables 1790-1990 (in repo) + 2000-2020 place counts (repo)", "PD, confirmed", "yes", "none"),
@@ -70,7 +70,7 @@ T = [
 ORDER = ["sun-belt", "texas", "13-to-50-states", "cities-decline", "california", "urban", "florida", "great-migration", "suffrage", "reapportionment"]
 LATER = {"mean-center", "density", "slavery", "american-indian", "hispanic"}
 SEPARATE = {"city-race", "state-race"}
-MODULE = {"sun-belt": "sun-belt", "texas": "texas"}
+MODULE = {"sun-belt": "sun-belt", "texas": "texas", "california": "california"}
 GATE = {"13-to-50-states": "NPS/LoC/Census pages", "suffrage": "NARA/NPS/LoC pages", "great-migration": "Census WP56/WP76 pages"}
 js = []
 for a, b, c, d, e, f, g in T:

@@ -4,12 +4,6 @@ Counter, U.S. population and state colours all derive from the master year Y(t).
 
 | Census | Counter one frame before | Counter at run end | Fade p one frame before | Fade p at run end | Fade p +0.75 s | Fade p +1.5 s | Population at run end = Census total |
 |---|---|---|---|---|---|---|---|
-| 1800 | 1799 | 1800 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1810 | 1809 | 1810 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1820 | 1819 | 1820 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1830 | 1829 | 1830 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1840 | 1839 | 1840 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
-| 1850 | 1849 | 1850 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 1860 | 1859 | 1860 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 1870 | 1869 | 1870 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 1880 | 1879 | 1880 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
@@ -28,4 +22,4 @@ Counter, U.S. population and state colours all derive from the master year Y(t).
 | 2010 | 2009 | 2010 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 | 2020 | 2019 | 2020 | 0.00 | 0.00 | 0.50 | 1.00 | yes  |
 
-Result: all 23 census transitions in sync.
+Result: all 17 census transitions in sync.
