@@ -45,6 +45,71 @@ def T(d, xy, s, size, fill=WHITE, stroke=None, anchor="la"):
     d.text(xy, s, font=F(size), fill=fill, anchor=anchor, stroke_width=stroke, stroke_fill=BLACK)
 
 
+# ---- changes: growth = green triangle up, decline = red triangle down (a "+" next to a number reads as "-" on a phone)
+import re as _re
+UP_COL, DOWN_COL = (70, 235, 100), (255, 75, 75)
+CHG_RE = _re.compile(r"([▲▼]\d[\d.,]*(?: MILLION|%)?)")
+CHG_SCALE = 1.22
+
+
+def up(s):
+    return "▲" + s
+
+
+def down(s):
+    return "▼" + s
+
+
+def chg(v, fmt="{:.1f}%"):
+    """signed change -> '▲12.3%' or '▼5.0%' (markup that rich_text() draws in colour)"""
+    return (up if v >= 0 else down)(fmt.format(abs(v)))
+
+
+def rich_parts(s):
+    return [p_ for p_ in CHG_RE.split(s) if p_]
+
+
+def rich_len(s, size, stroke=None):
+    n = 0.0
+    for p_ in rich_parts(s):
+        if CHG_RE.fullmatch(p_):
+            sz = int(size * CHG_SCALE)
+            n += sz * 0.62 + F(sz).getlength(p_[1:]) + size * 0.12
+        else:
+            n += F(size).getlength(p_)
+    return n
+
+
+def rich_text(d, xy, s, size, fill=WHITE, stroke=None, anchor="la", alpha=255):
+    """like T() but the changes (▲12.3% / ▼5.0%) are drawn as a coloured triangle + number, 22% bigger.
+    anchor: 'la' (left, top) or 'mm' (centre) - the only ones used by the video."""
+    stroke = max(3, size // 12) if stroke is None else stroke
+    x, y = xy
+    fill = tuple(fill[:3]) + (alpha,)
+    blk = BLACK + (alpha,)
+    asc, desc = F(size).getmetrics()
+    base = y + (asc - desc) / 2 if anchor == "mm" else y + asc
+    if anchor == "mm":
+        x -= rich_len(s, size) / 2
+    for p_ in rich_parts(s):
+        if CHG_RE.fullmatch(p_):
+            sz = int(size * CHG_SCALE)
+            col = UP_COL if p_[0] == "▲" else DOWN_COL
+            h, w = sz * 0.62, sz * 0.66
+            top, bot = base - h - sz * 0.04, base - sz * 0.04
+            tri = [(x + w / 2, top), (x + w, bot), (x, bot)] if p_[0] == "▲" else [(x, top), (x + w, top), (x + w / 2, bot)]
+            # dark outline, then fill
+            d.polygon(tri, fill=blk, outline=blk)
+            d.line(tri + [tri[0]], fill=blk, width=max(2, stroke - 1), joint="curve")
+            d.polygon(tri, fill=col + (alpha,))
+            x += w + size * 0.12
+            d.text((x, base), p_[1:], font=F(sz), fill=col + (alpha,), anchor="ls", stroke_width=stroke, stroke_fill=blk)
+            x += F(sz).getlength(p_[1:])
+        else:
+            d.text((x, base), p_, font=F(size), fill=fill, anchor="ls", stroke_width=stroke, stroke_fill=blk)
+            x += F(size).getlength(p_)
+
+
 def ease(x):
     x = min(1.0, max(0.0, x))
     return x * x * (3 - 2 * x)

@@ -7,6 +7,7 @@ from functools import lru_cache
 import shapefile
 
 from ..core import CENSUS, ROOT
+from ..video import down, up
 
 
 @lru_cache(None)
@@ -66,10 +67,10 @@ def make(st, name, county_from=1900):
             gr = {g: (cp[g] / cp0[g] - 1) * 100 for g in cp if g in cp0 and cp0[g] >= 10000}
             if gr:
                 g = max(gr, key=gr.get)
-                out.append(dict(label=f"FASTEST-GROWING COUNTY SINCE {py}", text=f"{county_names()[g].upper()}  ·  +{X.pct_txt(gr[g])}", hl=[g]))
+                out.append(dict(label=f"FASTEST-GROWING COUNTY SINCE {py}", text=f"{county_names()[g].upper()}  ·  {up(X.pct_txt(gr[g]))}", hl=[g]))
             else:
                 g_ = (ser[y] / ser[py] - 1) * 100
-                out.append(dict(label=f"{NAME} GROWTH SINCE {py}", text=f"+{X.pct_txt(g_)}" if g_ >= 0 else f"{g_:.1f}%", hl=[]))
+                out.append(dict(label=f"{NAME} GROWTH SINCE {py}", text=up(X.pct_txt(g_)) if g_ >= 0 else down(f"{abs(g_):.1f}%"), hl=[]))
             s0 = 100.0 * ser[py] / D["us_total"][py]
             out.append(dict(label="SHARE OF ALL AMERICANS", text=f"{share:.1f}%  (WAS {s0:.1f}% IN {py})", hl=[]))
             r0, _ = rank(D, st, py)
@@ -94,7 +95,7 @@ def make(st, name, county_from=1900):
             out.append((0.8, 7.0, f"{zoom['name'].upper()} {y0}-{y1}: {c['pop'][str(y0)]:,} → {c['pop'][str(y1)]:,} PEOPLE"))
         else:
             verb = "ADDS" if d >= 0 else "LOSES"
-            out.append((0.8, 7.0, f"{y0}-{y1}: {NAME} {verb} {abs(d):,} PEOPLE ({'+' if g >= 0 else ''}{X.pct_txt(g) if g >= 0 else f'{g:.1f}%'})"))
+            out.append((0.8, 7.0, f"{y0}-{y1}: {NAME} {verb} {abs(d):,} PEOPLE ({up(X.pct_txt(g)) if g >= 0 else down(f'{abs(g):.1f}%')})"))
         cs = [(c["pop"].get(str(y1)), c["name"]) for c in X.cities() if c["pop"].get(str(y1))]
         if cs:
             p, n = max(cs)

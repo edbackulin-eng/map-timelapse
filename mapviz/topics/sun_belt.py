@@ -3,6 +3,7 @@ import csv
 from types import SimpleNamespace
 
 from .. import story as _s
+from ..video import down, up
 from ..core import ROOT
 
 SLUG = "sun-belt"
@@ -61,7 +62,7 @@ def dyn(name, D):
         lose = {n: v for n, v in ch.items() if v < 0}
         top = [n for n in ("Texas", "Florida") if n in gain] or sorted(gain, key=lambda n: -gain[n])[:2]
         big = [n for n in ("California", "New York", "Illinois") if n in lose]
-        return (f"{len(gain)} STATES GAIN HOUSE SEATS ({', '.join(f'{n.upper()} +{gain[n]}' for n in top)}); "
+        return (f"{len(gain)} STATES GAIN HOUSE SEATS ({', '.join(f'{n.upper()} {up(str(gain[n]))}' for n in top)}); "
                 f"{len(lose)} LOSE ONE ({', '.join(n.upper() for n in big)}...)")
     raise KeyError(name)
 

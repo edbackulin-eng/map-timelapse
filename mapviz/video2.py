@@ -28,7 +28,7 @@ from .choro import render as choro_render
 from .core import CENSUS, ROOT, albers, states
 from .icons import icon
 from .video import (BLACK, FPS, H, MAPBOX, NAVY, RX0, RX1, RY0, RY1, UNCOUNTED, W, WHITE, YEARS, YEL, F, Layers, T,
-                    compass, data, ease, miles, pct_txt)
+                    compass, data, ease, miles, pct_txt, chg, up, down, rich_len, rich_text, CHG_RE)
 
 YEARS = TP.YEARS
 NB = len(YEARS)
@@ -93,11 +93,10 @@ def dilate(a, r):
 
 
 def wrap(text, size, width):
-    words, lines, cur = text.split(), [], ""
-    f = F(size)
+    words, lines, cur = re.findall(r"[▲▼]\d[\d.,]*(?: MILLION|%)?|\S+", text), [], ""
     for w_ in words:
         t = (cur + " " + w_).strip()
-        if f.getlength(t) <= width or not cur:
+        if rich_len(t, size) <= width or not cur:
             cur = t
         else:
             lines.append(cur)
@@ -236,17 +235,17 @@ def facts(i):
         py = YEARS[i - 1]
         gr = {a: (pop[a] / D["pop"][a][py] - 1) * 100 for a in pop if py in D["pop"][a] and D["pop"][a][py] >= 25000}
         fa = max(gr, key=gr.get)
-        out.append(dict(label=f"FASTEST GROWTH SINCE {py}", text=f"{nm(fa)}  ·  +{pct_txt(gr[fa])}", hl=[fa]))
+        out.append(dict(label=f"FASTEST GROWTH SINCE {py}", text=f"{nm(fa)}  ·  {up(pct_txt(gr[fa]))}", hl=[fa]))
         new = [a for a in pop if py not in D["pop"][a]]
         if new:
             names = [nm(a) for a in sorted(new, key=lambda a: -pop[a])]
-            txt = ", ".join(names[:3]) + (f" +{len(names) - 3} MORE" if len(names) > 3 else "")
+            txt = ", ".join(names[:3]) + (f" AND {len(names) - 3} MORE" if len(names) > 3 else "")
             out.append(dict(label="FIRST COUNTED IN THE CENSUS", text=txt, hl=new))
         else:
             gn = {a: pop[a] - D["pop"][a][py] for a in pop if py in D["pop"][a]}
             ga = max(gn, key=gn.get)
             v = gn[ga]
-            vt = f"+{v / 1e6:.1f} MILLION" if v >= 1e6 else f"+{v:,}"
+            vt = up(f"{v / 1e6:.1f} MILLION") if v >= 1e6 else up(f"{v:,}")
             out.append(dict(label=f"BIGGEST GAIN SINCE {py}", text=f"{nm(ga)}  ·  {vt}", hl=[ga]))
     c = D["center"][y]
     if i == 0:
@@ -285,7 +284,7 @@ def captions(i):
         p0, p1 = c["pop"].get(str(y0)), c["pop"].get(str(y1))
         out.append((0.8, 7.0, f"{zoom['name'].upper()} {y0}-{y1}: {p0:,} → {p1:,} PEOPLE"))
     else:
-        out.append((0.8, 7.0, f"{y0}-{y1}: THE U.S. ADDS {t1 - t0:,} PEOPLE (+{pct_txt(g)})"))
+        out.append((0.8, 7.0, f"{y0}-{y1}: THE U.S. ADDS {t1 - t0:,} PEOPLE ({up(pct_txt(g))})"))
     if TP.REGION_CAPTION:
         a0, a1 = TP.region_share(D, y0), TP.region_share(D, y1)
         out.append((RUN + 2.0, 8.0, f"SOUTH + WEST: {a1:.1f}% OF AMERICANS IN {y1}, {'UP' if a1 >= a0 else 'DOWN'} FROM {a0:.1f}% IN {y0}"))
@@ -1056,8 +1055,8 @@ class Renderer:
                 a = ease((lt - st) / 0.5) * (1 - ease((lt - (st + du - 0.5)) / 0.5))
                 if a <= 0.02:
                     continue
-                size = 52 if len(txt) <= 62 else 46
-                T(d, (W // 2, 962), txt, size, fill=WHITE if a > 0.98 else tuple(int(v) for v in lerp_col((8, 18, 60), WHITE, a)), stroke=5, anchor="mm")
+                size = 52 if rich_len(txt, 52) <= 1780 else 46
+                rich_text(d, (W // 2, 962), txt, size, fill=WHITE, stroke=5, anchor="mm", alpha=int(255 * min(1.0, a)))
         if not shown:
             T(d, (W // 2, 972), "DATA: U.S. CENSUS BUREAU  ·  MAP: NATURAL EARTH", 36, fill=(190, 200, 225), stroke=3, anchor="mm")
 
@@ -1088,7 +1087,7 @@ class Renderer:
                 od.text((150, 62), ev["title"], font=F(31), fill=WHITE + (A,), stroke_width=3, stroke_fill=BLACK + (A,))
                 y = 102
                 for ln in wrap(event_text(ev), 27, 335)[:4]:
-                    od.text((150, y), ln, font=F(27), fill=WHITE + (A,), stroke_width=3, stroke_fill=BLACK + (A,))
+                    rich_text(od, (150, y), ln, 27, fill=WHITE, stroke=3, alpha=A)
                     y += 31
             else:
                 f = s["f"]
@@ -1096,7 +1095,7 @@ class Renderer:
                 od.text((24, 70), f["label"], font=F(28), fill=YEL + (A,), stroke_width=3, stroke_fill=BLACK + (A,))
                 y = 108
                 for ln in wrap(f["text"], 42, 450)[:2]:
-                    od.text((24, y), ln, font=F(42), fill=WHITE + (A,), stroke_width=4, stroke_fill=BLACK + (A,))
+                    rich_text(od, (24, y), ln, 42, fill=WHITE, stroke=4, alpha=A)
                     y += 48
             img.paste(ov, (472 + dx, 694), ov)
 

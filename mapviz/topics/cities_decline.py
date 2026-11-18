@@ -2,6 +2,7 @@
 from types import SimpleNamespace
 
 from .. import story as _s
+from ..video import down, up
 from .sun_belt import SOURCES as _SB
 
 SLUG = "cities-decline"
@@ -69,9 +70,9 @@ def facts(i, X):
     out = [dict(label=f"CITIES THAT SHRANK, {y0}-{y}", text=f"{len(lose)} OF THESE {len(both)}", hl=[])]
     if lose:
         n = min(lose, key=ch.get)
-        out.append(dict(label=f"BIGGEST DROP SINCE {y0}", text=f"{n.upper()}  ·  {ch[n]:.1f}%", hl=[]))
+        out.append(dict(label=f"BIGGEST DROP SINCE {y0}", text=f"{n.upper()}  ·  {down(f'{abs(ch[n]):.1f}%')}", hl=[]))
     g = max(ch, key=ch.get)
-    out.append(dict(label=f"FASTEST GROWTH SINCE {y0}", text=f"{g.upper()}  ·  +{X.pct_txt(ch[g])}", hl=[]))
+    out.append(dict(label=f"FASTEST GROWTH SINCE {y0}", text=f"{g.upper()}  ·  {up(X.pct_txt(ch[g]))}", hl=[]))
     below = {}
     for c in _cities(X):
         v = _pop(c, y)
@@ -81,7 +82,7 @@ def facts(i, X):
             below[c["name"]] = ((v / pk - 1) * 100, pky)
     if below:
         n = min(below, key=lambda k: below[k][0])
-        out.append(dict(label="FURTHEST BELOW ITS PEAK", text=f"{n.upper()}  ·  {below[n][0]:.0f}% SINCE {below[n][1]}", hl=[]))
+        out.append(dict(label="FURTHEST BELOW ITS PEAK", text=f"{n.upper()}  ·  {down(f'{abs(below[n][0]):.0f}%')} SINCE {below[n][1]}", hl=[]))
     else:
         cs = {c["name"]: _pop(c, y) for c in _cities(X) if _pop(c, y)}
         top = max(cs, key=cs.get)
@@ -121,7 +122,7 @@ def dyn(name, D):
     if name == "detroit":
         c = next(c for c in cs if c["name"] == "Detroit")
         a, b = c["pop"]["1950"], c["pop"]["2020"]
-        return f"DETROIT: {b:,} PEOPLE IN 2020, DOWN {100 * (1 - b / a):.0f}% FROM {a:,} IN 1950"
+        return f"DETROIT: {b:,} PEOPLE IN 2020, {down(f'{100 * (1 - b / a):.0f}%')} FROM {a:,} IN 1950"
     raise KeyError(name)
 
 

@@ -122,7 +122,7 @@ def facts(i, X):
     out = []
     if new:
         names = [nm[a].upper() for a in new]
-        txt = ", ".join(names[:3]) + (f" +{len(names) - 3} MORE" if len(names) > 3 else "")
+        txt = ", ".join(names[:3]) + (f" AND {len(names) - 3} MORE" if len(names) > 3 else "")
         out.append(dict(label=f"NEW STATES SINCE {y0}", text=txt, hl=new))
     else:
         out.append(dict(label=f"NEW STATES SINCE {y0}", text="NONE", hl=[]))
