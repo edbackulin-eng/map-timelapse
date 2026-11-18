@@ -121,7 +121,7 @@ def main():
             try:
                 youtube.set_thumbnail(yt, vid, cover)
             except Exception as e:  # channel may lack custom-thumbnail rights (phone verification): never lose the state of an uploaded video
-                print(f"WARN: thumbnail not set: {e}")
+                print("note: custom thumbnail skipped (channel not phone-verified yet); cover kept in assets/covers, set later by automation/set_covers.py")
         else:
             print(f"WARN: no cover {cover}")
         state.append(dict(slug=slug, title=title, status="scheduled", youtube_id=vid, publish_at=slot.strftime("%Y-%m-%dT%H:%M:%SZ"),
