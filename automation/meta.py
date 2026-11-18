@@ -25,7 +25,7 @@ def build(topic, slug_for_ref):
             "DATA AND SOURCES\n"
             "- Population: U.S. Census Bureau (public domain)\n"
             "- Map data: Natural Earth (public domain)\n"
-            "- Music: Yoiyami, cynicmusic, TAD (CC0), OpenGameArt.org\n"
+            "- Music: Yoiyami, cynicmusic (CC0), OpenGameArt.org\n"
             + "\n".join(lines) + "\n"
             f"Full list of sources for every event: {REPO_URL}/blob/main/data/sources/{topic.SLUG}.json\n\n"
             "New animated maps every Monday and Friday.\n\n"

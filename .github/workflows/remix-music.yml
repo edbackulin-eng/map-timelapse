@@ -17,9 +17,10 @@ jobs:
           for tag in $(gh release list --limit 100 --json tagName,name -q '.[]|select(.tagName|startswith("reserve-"))|.tagName'); do
             slug=${tag#reserve-}; f=america-over-time_$slug.mp4
             mkdir -p w/$slug; gh release download $tag -p "$f" -D w/$slug --clobber || { echo "skip $tag"; continue; }
-            bash scripts/mix_music.sh w/$slug/$f w/$slug/new.mp4
-            ffprobe -v error -show_entries format=duration -of csv=p=0 w/$slug/new.mp4
-            gh release upload $tag w/$slug/new.mp4#$f --clobber 2>/dev/null || { mv w/$slug/new.mp4 w/$slug/$f.new; cp w/$slug/$f.new w/$slug/$f; gh release upload $tag w/$slug/$f --clobber; }
+            mkdir -p w/$slug/out
+            bash scripts/mix_music.sh w/$slug/$f w/$slug/out/$f
+            ffprobe -v error -show_entries format=duration -of csv=p=0 w/$slug/out/$f
+            gh release upload $tag w/$slug/out/$f --clobber
             rm -rf w/$slug
             echo "remixed $slug"
           done
