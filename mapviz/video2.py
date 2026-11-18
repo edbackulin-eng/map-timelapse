@@ -38,6 +38,9 @@ B0 = INTRO + HOLD
 TOTAL_S = B0 + BLK * (NB - 1) + FIN
 TOTAL_FRAMES = int(round(TOTAL_S * FPS))
 RW, RH = RX1 - RX0, RY1 - RY0
+FOCUS = getattr(TP, "FOCUS", None)              # state mode: camera on one state, county map all the time
+SHOW_CENTER = getattr(TP, "SHOW_CENTER", FOCUS is None)
+COUNTY_FROM = 1900                              # first year with county counts for every county
 
 STOPS8 = [(140, 0, 30), (225, 25, 30), (255, 110, 0), (255, 215, 0), (130, 222, 30), (0, 190, 110), (0, 135, 120), (10, 50, 125)]
 BREAKS8 = [2, 6, 18, 45, 100, 250, 1000]
@@ -107,7 +110,7 @@ def wrap(text, size, width):
 # ------------------------------------------------------------------ data loaders
 @lru_cache(None)
 def cities():
-    cs = json.load(open(ROOT / "data/cities.json"))
+    cs = json.load(open(ROOT / getattr(TP, "CITIES_FILE", "data/cities.json")))
     for c in cs:
         c["ax"], c["ay"] = (float(v) for v in albers(c["lon"], c["lat"]))
         c["pops"] = [c["pop"].get(str(y)) for y in YEARS]
@@ -127,7 +130,21 @@ def county_hist():
     with open(CENSUS / "CenPop2020_Mean_CO.txt", encoding="utf-8-sig") as f:
         for r in csv.DictReader(f):
             out.setdefault(r["STATEFP"] + r["COUNTYFP"], {})[2020] = int(r["POPULATION"])
+    p0010 = CENSUS / "county_2000_2010.csv"
+    if p0010.exists():
+        with open(p0010, encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                for y, col in ((2000, "CENSUS2000POP"), (2010, "CENSUS2010POP")):
+                    if r[col].strip():
+                        out.setdefault(r["GEOID"], {})[y] = int(r[col])
     return out
+
+
+def ctx():
+    """what a topic module needs to write its own facts / captions"""
+    from types import SimpleNamespace
+    return SimpleNamespace(D=data(), YEARS=YEARS, RUN=RUN, HOLD=HOLD, INTRO=INTRO, county_hist=county_hist, county_area=county_area,
+                           cities=cities, STATE_NAMES=STATE_NAMES, pct_txt=pct_txt, zooms=story.ZOOMS, counties=counties)
 
 
 @lru_cache(None)
@@ -200,6 +217,8 @@ def partial(pts, frac):
 
 # ------------------------------------------------------------------ facts (toasts)
 def facts(i):
+    if hasattr(TP, "facts"):
+        return TP.facts(i, ctx())
     D = data()
     y = YEARS[i]
     nm = lambda ab: STATE_NAMES[ab].upper()
@@ -251,6 +270,8 @@ def event_text(ev):
 
 def captions(i):
     """[(start_lt, dur, text)] for block i (lt = local time in block)."""
+    if hasattr(TP, "captions"):
+        return TP.captions(i, ctx())
     D = data()
     if i == 0:
         return [(INTRO + 5.5, 7.5, TP.CAP0)]
@@ -283,6 +304,8 @@ class Renderer:
         self.D = data()
         v = self.L.view
         self.base = VW(v.s, v.ox, v.oy)
+        if FOCUS:
+            self.base = self.focus_view()
         self.cm = {ab: [(cls8(self.D["dens"][ab][y]) if y in self.D["dens"].get(ab, {}) else None) for y in YEARS]
                    for ab in self.L.st}
         self.facts = [facts(i) for i in range(NB)]
@@ -301,6 +324,18 @@ class Renderer:
         self.build_frontier()
         self.build_county_geom()
         self.finale = None
+
+    def focus_view(self):
+        rings = dict(states())[FOCUS]
+        x0 = min(r[:, 0].min() for r in rings); x1 = max(r[:, 0].max() for r in rings)
+        y0 = min(r[:, 1].min() for r in rings); y1 = max(r[:, 1].max() for r in rings)
+        mx0, my0, mx1, my1 = MAPBOX
+        fill = getattr(TP, "VIEW_FILL", 0.9)
+        s = min((mx1 - mx0) / (x1 - x0), (my1 - my0) / (y1 - y0)) * fill
+        dx, dy = getattr(TP, "VIEW_SHIFT", (0, 0))           # pixels
+        cxp, cyp = (mx0 + mx1) / 2 + dx, (my0 + my1) / 2 + dy
+        xc, yc = (x0 + x1) / 2, (y0 + y1) / 2
+        return VW(s, cxp - xc * s, cyp + yc * s)
 
     # ---- frontier (state-level density >= 2 per sq mi), edge between settled and unsettled states
     def build_frontier(self):
@@ -330,6 +365,7 @@ class Renderer:
     def build_county_geom(self):
         cg = counties()
         self.cg_ids = list(cg.keys())
+        self.cg_index = {g: k for k, g in enumerate(self.cg_ids)}
         self.cg_st = [cg[g][0] for g in self.cg_ids]
         self.cg_rings = [cg[g][1] for g in self.cg_ids]
         bb = np.array([[min(r[:, 0].min() for r in rings), max(r[:, 0].max() for r in rings),
@@ -344,7 +380,7 @@ class Renderer:
         busy = 0.0
         if i == 0:
             t = INTRO + 0.6
-            for k in (0, 1, 3):
+            for k in ((0, 1, 3) if len(self.facts[0]) >= 4 else range(len(self.facts[0]))):
                 out.append(dict(kind="fact", t=t, dur=4.4, f=self.facts[0][k]))
                 t += 4.6
             return out
@@ -401,17 +437,19 @@ class Renderer:
             return UNCOUNTED
         return pos_color(a + (b - a) * p)
 
-    def county_colour(self, g, i, p):
-        if i == 0 or i >= NB:
+    def county_colour(self, g, i, p, st=None):
+        if (i == 0 and not FOCUS) or i >= NB:
             return None
         D = county_hist()
         ar = county_area().get(g, 0)
         h = D.get(g, {})
-        ya, yb = YEARS[i - 1], YEARS[i]
-        def c(y):
+        ya, yb = YEARS[max(i - 1, 0)], YEARS[i]
+        def c(y, k):
             v = h.get(y)
+            if FOCUS and y < COUNTY_FROM:
+                return self.cm[st][k]           # before county counts: the state average
             return None if (v is None or ar <= 0) else cls8(v / ar)
-        a, b = c(ya), c(yb)
+        a, b = c(ya, max(i - 1, 0)), c(yb, i)
         if a is None and b is None:
             return UNCOUNTED
         if a is None:
@@ -494,23 +532,28 @@ class Renderer:
         scol = {}
         for ab, rings in self.sg_items:
             col = tuple(int(v) for v in self.state_colour(ab, i, p))
+            if FOCUS and ab != FOCUS:
+                col = tuple(int(v) for v in lerp_col(col, NEIGHBOUR, 0.6))
             scol[ab] = col
             for r in rings:
                 if r[:, 0].max() < x0 or r[:, 0].min() > x1 or r[:, 1].max() < y0 or r[:, 1].min() > y1:
                     continue
                 d.polygon(poly(r), fill=col)
-        ca = ease((Z - 1.6) / 1.6)
+        ca = 1.0 if FOCUS else ease((Z - 1.6) / 1.6)
         if ca > 0.01:
             bb = self.cg_bb
             vis = np.where((bb[:, 1] >= x0) & (bb[:, 0] <= x1) & (bb[:, 3] >= y0) & (bb[:, 2] <= y1))[0]
             for k in vis:
                 g = self.cg_ids[k]
-                cc = self.county_colour(g, i, p)
+                if FOCUS and self.cg_st[k] != FOCUS:
+                    continue
+                cc = self.county_colour(g, i, p, self.cg_st[k])
                 if cc is None:
                     continue
                 col = tuple(int(v) for v in lerp_col(scol.get(self.cg_st[k], UNCOUNTED), cc, ca))
+                own = not (FOCUS and YEARS[i] < COUNTY_FROM)     # state mode before county counts: no county lines
                 for r in self.cg_rings[k]:
-                    d.polygon(poly(r), fill=col, outline=(40, 40, 55) if ca > 0.5 else None, width=ss)
+                    d.polygon(poly(r), fill=col, outline=(40, 40, 55) if (ca > 0.5 and own) else None, width=ss)
         for r in lakes():
             if r[:, 0].max() < x0 or r[:, 0].min() > x1 or r[:, 1].max() < y0 or r[:, 1].min() > y1:
                 continue
@@ -521,6 +564,14 @@ class Renderer:
                     continue
                 q = poly(r)
                 d.line(q + q[:1], fill=(22, 22, 34), width=int(2.6 * ss) + int(ss * Z ** 0.4), joint="curve")
+        for g, pulse in getattr(self, "_hl", []):
+            k = self.cg_index.get(g)
+            if k is None:
+                continue
+            for r in self.cg_rings[k]:
+                q = poly(r)
+                d.line(q + q[:1], fill=(15, 15, 25), width=int(9 * ss), joint="curve")
+                d.line(q + q[:1], fill=tuple(int(v) for v in lerp_col((150, 130, 0), YEL, pulse)), width=int(5 * ss), joint="curve")
         img = img.resize((RW, RH), Image.LANCZOS)
         return np.asarray(img).astype(np.float32)
 
@@ -535,7 +586,13 @@ class Renderer:
         vw, Z, zdef = self.zoom_view(i, lt) if not fin else (self.base, 1.0, None)
         run_f = 1.0 if (i == 0 or fin or lt >= RUN) else lt / RUN
         # ---- map base
-        if Z > 1.02:
+        self._hl = []
+        if FOCUS and not fin:
+            for s_ in self.schedule[i]:
+                ct = lt - s_["t"]
+                if s_["kind"] == "fact" and 0 <= ct < s_["dur"]:
+                    self._hl += [(g, 0.72 + 0.28 * math.sin(ct * 5.0)) for g in s_["f"].get("hl", [])]
+        if Z > 1.02 or FOCUS:
             cv = self.map_dynamic(vw, Z, ii, p)
         else:
             cv = self.map_fast(ii, p, t)
@@ -553,7 +610,7 @@ class Renderer:
                     cv[arr_b] *= 1 - 0.85 * fa * wgt
                     on = arr_e & dash
                     cv[on] = cv[on] * (1 - fa * wgt) + np.array(YEL, np.float32) * fa * wgt
-        if fin:
+        if fin and not FOCUS:
             a = ease(lt / 4.0)
             if self.finale is None:
                 self.finale = self.build_finale()
@@ -574,7 +631,8 @@ class Renderer:
         if fin:
             self.draw_finale(img, lt)
         d = ImageDraw.Draw(img, "RGBA")
-        T(d, (W // 2, 1058), "AREAS AS TODAY'S STATES  ·  ALASKA & HAWAII ARE COUNTED IN THE TOTALS, NOT SHOWN", 30, fill=WHITE, stroke=3, anchor="mm")
+        T(d, (W // 2, 1058), getattr(TP, "FOOTER", "AREAS AS TODAY'S STATES  ·  ALASKA & HAWAII ARE COUNTED IN THE TOTALS, NOT SHOWN"), 30,
+          fill=WHITE, stroke=3, anchor="mm")
         return np.asarray(img)
 
     def frontier_alpha(self, i, lt):
@@ -663,7 +721,9 @@ class Renderer:
                     tri = [tip, (bx + W_ * math.sin(ang), by - W_ * math.cos(ang)), (bx - W_ * math.sin(ang), by + W_ * math.cos(ang))]
                     d.polygon(tri, fill=m["color"] + (a255,), outline=(255, 255, 255, a255), width=3 * ss)
         # centre of population trail + dot
-        if not fin:
+        if not SHOW_CENTER:
+            pass
+        elif not fin:
             cen = [self.cent[y] for y in YEARS[:ii]]
             if i > 0 and lt < RUN:
                 a_, b_ = self.cent[YEARS[i - 1]], self.cent[YEARS[i]]
@@ -673,15 +733,16 @@ class Renderer:
                 cen.append(self.cent[YEARS[ii]])
         else:
             cen = [self.cent[y] for y in YEARS]
-        ca = np.array(cen)
-        q = pts(ca)
+        ca = np.array(cen if SHOW_CENTER else [(0.0, 0.0)])
+        q = pts(ca) if SHOW_CENTER else []
         if len(q) > 1:
             d.line(q, fill=(0, 0, 0, 255), width=int(11 * ss), joint="curve")
             d.line(q, fill=YEL + (255,), width=int(5 * ss), joint="curve")
-        cx, cy = q[-1]
-        r = (15 + 4 * math.sin(lt * 6)) * ss if (not fin and i > 0 and lt >= RUN) else 15 * ss
-        d.ellipse([cx - r - 5 * ss, cy - r - 5 * ss, cx + r + 5 * ss, cy + r + 5 * ss], fill=(0, 0, 0, 255))
-        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(255, 40, 40, 255), outline=(255, 255, 255, 255), width=4 * ss)
+        if q:
+            cx, cy = q[-1]
+            r = (15 + 4 * math.sin(lt * 6)) * ss if (not fin and i > 0 and lt >= RUN) else 15 * ss
+            d.ellipse([cx - r - 5 * ss, cy - r - 5 * ss, cx + r + 5 * ss, cy + r + 5 * ss], fill=(0, 0, 0, 255))
+            d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(255, 40, 40, 255), outline=(255, 255, 255, 255), width=4 * ss)
         # cities
         draws = self.city_state(i, lt, run_f, fin)
         self._labels = []
@@ -919,17 +980,18 @@ class Renderer:
         d.rectangle([0, 0, 452, 912], fill=NAVY + (240,))
         d.line([(452, 0), (452, 912)], fill=YEL + (255,), width=5)
         D = self.D
+        ser = D["pop"][FOCUS] if FOCUS else D["us_total"]
         if fin:
-            yshow, tot = 2020, D["us_total"][2020]
+            yshow, tot = YEARS[-1], ser[YEARS[-1]]
         elif i == 0:
-            yshow, tot = YEARS[0], D["us_total"][YEARS[0]]
+            yshow, tot = YEARS[0], ser[YEARS[0]]
         else:
             y0, y1 = YEARS[i - 1], YEARS[i]
             f = min(lt / RUN, 1.0)
             yshow = y1 if f >= 1 else int(math.floor(Y + 1e-6))
-            tot = int(round(D["us_total"][y0] + (D["us_total"][y1] - D["us_total"][y0]) * f))
+            tot = int(round(ser[y0] + (ser[y1] - ser[y0]) * f))
         T(d, (226, 108), str(yshow), 190, fill=YEL, stroke=10, anchor="mm")
-        T(d, (28, 205), "U.S. POPULATION", 32, fill=WHITE, stroke=3)
+        T(d, (28, 205), getattr(TP, "COUNTER_LABEL", "U.S. POPULATION"), 32, fill=WHITE, stroke=3)
         T(d, (28, 232), f"{tot:,}", 82, fill=YEL, stroke=6)
         T(d, (28, 336), "PEOPLE PER SQ MI", 32, fill=WHITE, stroke=3)
         yy = 376
@@ -940,10 +1002,16 @@ class Renderer:
         d.rectangle([28, yy, 88, yy + 28], fill=UNCOUNTED + (255,), outline=BLACK + (255,), width=3)
         T(d, (104, yy + 14), "NOT YET COUNTED", 27, fill=WHITE, stroke=3, anchor="lm")
         yy += 38
-        d.ellipse([42, yy + 1, 70, yy + 29], fill=(255, 40, 40, 255), outline=WHITE + (255,), width=3)
-        T(d, (104, yy + 14), "CENTER OF POPULATION", 27, fill=WHITE, stroke=3, anchor="lm")
-        yy += 38
-        if Y <= 1891 and not fin:
+        if SHOW_CENTER:
+            d.ellipse([42, yy + 1, 70, yy + 29], fill=(255, 40, 40, 255), outline=WHITE + (255,), width=3)
+            T(d, (104, yy + 14), "CENTER OF POPULATION", 27, fill=WHITE, stroke=3, anchor="lm")
+            yy += 38
+        if getattr(TP, "CITY_LEGEND", None):
+            d.ellipse([44, yy + 3, 68, yy + 27], fill=(15, 15, 25, 255))
+            d.ellipse([47, yy + 6, 65, yy + 24], fill=(255, 255, 255, 255))
+            T(d, (104, yy + 14), TP.CITY_LEGEND, 27, fill=WHITE, stroke=3, anchor="lm")
+            yy += 38
+        if Y <= 1891 and not fin and TP.FRONTIER:
             for x in range(28, 88, 20):
                 d.line([(x, yy + 14), (x + 11, yy + 14)], fill=BLACK + (255,), width=9)
                 d.line([(x, yy + 14), (x + 11, yy + 14)], fill=YEL + (255,), width=5)
@@ -963,7 +1031,7 @@ class Renderer:
     def draw_bottom(self, img, d, i, lt, fin):
         d.rectangle([0, 912, W, H], fill=NAVY + (255,))
         d.line([(0, 912), (W, 912)], fill=YEL + (255,), width=5)
-        caps = self.caps[min(i, NB - 1)] if not fin else [(4.0, 9.0, "2020: 331,449,281 PEOPLE IN THE 50 STATES AND D.C.")]
+        caps = self.caps[min(i, NB - 1)] if not fin else [(4.0, 9.0, getattr(TP, "FINAL_CAPTION", "2020: 331,449,281 PEOPLE IN THE 50 STATES AND D.C."))]
         shown = False
         for st, du, txt in caps:
             if st <= lt < st + du:

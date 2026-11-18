@@ -20,8 +20,9 @@ img = ImageEnhance.Color(img).enhance(1.12)
 img = ImageEnhance.Contrast(img).enhance(1.06)
 text(img, (W // 2, 2), C["big"], 210, fill=YEL, anchor="ma")
 text(img, (W - 26, H - 12), C["small"], 112, fill=WHITE, anchor="rd")
-(a_lon, a_lat), (b_lon, b_lat) = C["arrow"]
-arrow(img, [px(v, a_lon, a_lat), px(v, b_lon, b_lat)], w=30, head=90)
+if C.get("arrow"):
+    (a_lon, a_lat), (b_lon, b_lat) = C["arrow"]
+    arrow(img, [px(v, a_lon, a_lat), px(v, b_lon, b_lat)], w=30, head=90)
 out = root / "assets" / "covers"; out.mkdir(parents=True, exist_ok=True)
 img.save(out / f"{TP.SLUG}.jpg", quality=92)
 img.resize((210, 118), Image.LANCZOS).save(root / "out" / f"cover_check_{TP.SLUG}.png")

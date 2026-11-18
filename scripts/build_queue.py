@@ -10,7 +10,7 @@ T = [
      "Census apportionment 1910-2020 + city tables + centers of population (all already in repo)", "PD, confirmed (Census DS-027)", "yes", "none"),
     ("13-to-50-states", "US Expansion from 13 to 50 States", "us expansion from 13 to 50 states; us expansion timeline",
      "Natural Earth states + admission dates (Census / NPS / Library of Congress facts) + state pops (repo)", "PD (federal facts); page to confirm at build", "yes", "small: admission layer"),
-    ("texas", "Texas Population Growth 1850-2020", "texas population growth",
+    ("texas", "Texas Population Growth 1850-2020: How Texas Became a Giant", "texas population growth",
      "Census state + county pops (1900-1990 in repo; 2000-2020 county totals to fetch)", "PD (Census)", "yes", "small fetch"),
     ("florida", "Florida Population Growth 1830-2020", "florida population growth; florida population boom",
      "same as Texas", "PD (Census)", "yes", "small fetch"),
@@ -70,7 +70,7 @@ T = [
 ORDER = ["sun-belt", "texas", "13-to-50-states", "cities-decline", "california", "urban", "florida", "great-migration", "suffrage", "reapportionment"]
 LATER = {"mean-center", "density", "slavery", "american-indian", "hispanic"}
 SEPARATE = {"city-race", "state-race"}
-MODULE = {"sun-belt": "sun-belt"}
+MODULE = {"sun-belt": "sun-belt", "texas": "texas"}
 GATE = {"13-to-50-states": "NPS/LoC/Census pages", "suffrage": "NARA/NPS/LoC pages", "great-migration": "Census WP56/WP76 pages"}
 js = []
 for a, b, c, d, e, f, g in T:

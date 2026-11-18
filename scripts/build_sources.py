@@ -20,6 +20,13 @@ out["layers"] = {
     "state_populations": ["census_states", "census_apport"], "cities": ["census_cities"], "zoom_counties": ["census_counties", "census_apport"],
     "centers_of_population": ["census_centers"], "interstates": ["ne_roads", "interstate"],
 }
+if getattr(TP, "FOCUS", None):
+    out["layers"]["counties"] = dict(sources=["census_counties", "census_counties_0010", "census_centers"],
+                                     note="county density on today's county boundaries (2020 land area); before 1900 the map shows the state average.")
+    out["sources"]["census_counties_0010"] = dict(title="County population totals: Census 2000 (co-est2009-alldata) and Census 2010 (co-est2019-alldata)",
+                                                  publisher="U.S. Census Bureau", url="https://www2.census.gov/programs-surveys/popest/datasets/",
+                                                  supports="CENSUS2000POP and CENSUS2010POP of every county")
+    out["layers"]["cities"] = ["census_cities"]
 if story.RAILS or story.TRANSCON:
     out["layers"]["railroads"] = dict(sources=["railmaps", "golden_spike"],
                                       note="SIMPLIFIED polylines through well-known cities; construction dates are decade-level approximations except the 1863-1869 transcontinental (NPS).")

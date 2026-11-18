@@ -41,7 +41,7 @@
   },
   {
    "id": "texas",
-   "title": "Texas Population Growth 1850-2020",
+   "title": "Texas Population Growth 1850-2020: How Texas Became a Giant",
    "search_queries": "texas population growth",
    "data": "Census state + county pops (1900-1990 in repo; 2000-2020 county totals to fetch)",
    "licence": "PD (Census)",
@@ -49,7 +49,8 @@
    "extra_work": "small fetch",
    "status": "approved",
    "order": 2,
-   "licence_confirmed": true
+   "licence_confirmed": true,
+   "module": "texas"
   },
   {
    "id": "florida",
