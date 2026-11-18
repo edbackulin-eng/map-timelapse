@@ -386,7 +386,7 @@ class Renderer:
             return out
         y0, y1 = YEARS[i - 1], YEARS[i]
         for ev in sorted((e for e in story.EVENTS if y0 < e["year"] <= y1), key=lambda e: e["year"]):
-            te = max(RUN * (ev["year"] - y0) / 10.0, busy)
+            te = max(RUN * (ev["year"] - y0) / (y1 - y0), busy)
             out.append(dict(kind="event", t=te, dur=5.2, ev=ev))
             busy = te + 5.4
         t = max(RUN + 0.4, busy + 0.3)
@@ -415,7 +415,7 @@ class Renderer:
         if i == 0 or i >= NB:
             return float(YEARS[0]) if i == 0 else float(YEARS[-1])
         y0, y1 = YEARS[i - 1], YEARS[i]
-        return y0 + 10.0 * min(lt / RUN, 1.0)
+        return y0 + (y1 - y0) * min(lt / RUN, 1.0)
 
     def fade_p(self, i, lt):
         if i == 0 or i >= NB or lt < RUN:
@@ -423,6 +423,8 @@ class Renderer:
         return ease((lt - RUN) / FADE)
 
     def state_colour(self, ab, i, p):
+        if hasattr(TP, "state_fill"):
+            return TP.state_fill(ab, getattr(self, "_Y", YEARS[0]))
         if i >= NB:
             i, p = NB - 1, 1.0
         a = self.cm[ab][i - 1] if i > 0 else self.cm[ab][i]
@@ -511,7 +513,7 @@ class Renderer:
                         continue
                     x0, y0, x1, y1 = s["box"]
                     reg = cv[y0 - RY0:y1 - RY0, x0 - RX0:x1 - RX0]
-                    reg -= reg * s["dark"] * 0.55
+                    reg -= reg * s["dark"] * 0.55 * getattr(TP, "HL_DARK", 1.0)
                     reg += (np.array(YEL, np.float32) - reg) * s["yel"] * pulse
 
     def map_dynamic(self, vw, Z, i, p):
@@ -583,6 +585,7 @@ class Renderer:
         ii = NB - 1 if fin else i
         p = self.fade_p(i, lt) if not fin else 1.0
         Y = self.year_at(i, lt)
+        self._Y = Y
         vw, Z, zdef = self.zoom_view(i, lt) if not fin else (self.base, 1.0, None)
         run_f = 1.0 if (i == 0 or fin or lt >= RUN) else lt / RUN
         # ---- map base
@@ -610,7 +613,7 @@ class Renderer:
                     cv[arr_b] *= 1 - 0.85 * fa * wgt
                     on = arr_e & dash
                     cv[on] = cv[on] * (1 - fa * wgt) + np.array(YEL, np.float32) * fa * wgt
-        if fin and not FOCUS:
+        if fin and not FOCUS and getattr(TP, "FINALE_COUNTIES", True):
             a = ease(lt / 4.0)
             if self.finale is None:
                 self.finale = self.build_finale()
@@ -620,6 +623,8 @@ class Renderer:
         img = Image.fromarray(full)
         # ---- highlight of facts is drawn as outline in fast path only
         self.draw_overlay(img, vw, Z, i, lt, Y, run_f, ii, fin)
+        if hasattr(TP, "draw_extra"):
+            TP.draw_extra(self, img, t, i, lt, Y, fin)
         d = ImageDraw.Draw(img, "RGBA")
         self.draw_panel(d, i, lt, Y, ii, fin)
         self.draw_bottom(img, d, i, lt, fin)
@@ -672,7 +677,7 @@ class Renderer:
         zs = 1.0 if Z < 1.5 else 1.4
         # interstates 1956-1992 (schematic)
         g = min(1.0, max(0.0, (Y - 1956) / (1992 - 1956)))
-        if g > 0 or i >= NB:
+        if getattr(TP, "SHOW_ROADS", True) and (g > 0 or i >= NB):
             if i >= NB:
                 g = 1.0
             for a, th in self.roads:
@@ -995,17 +1000,19 @@ class Renderer:
             f = min(lt / RUN, 1.0)
             yshow = y1 if f >= 1 else int(math.floor(Y + 1e-6))
             tot = int(round(ser[y0] + (ser[y1] - ser[y0]) * f))
+        if hasattr(TP, "counter_value"):
+            tot = TP.counter_value(Y if not fin else YEARS[-1] + 0.99)
         T(d, (226, 108), str(yshow), 190, fill=YEL, stroke=10, anchor="mm")
         T(d, (28, 205), getattr(TP, "COUNTER_LABEL", "U.S. POPULATION"), 32, fill=WHITE, stroke=3)
         T(d, (28, 232), f"{tot:,}", 82, fill=YEL, stroke=6)
-        T(d, (28, 336), "PEOPLE PER SQ MI", 32, fill=WHITE, stroke=3)
+        T(d, (28, 336), getattr(TP, "LEGEND_TITLE", "PEOPLE PER SQ MI"), 32, fill=WHITE, stroke=3)
         yy = 376
-        for k, lab in enumerate(LABELS8):
-            d.rectangle([28, yy, 88, yy + 28], fill=STOPS8[k] + (255,), outline=BLACK + (255,), width=3)
+        for col, lab in getattr(TP, "LEGEND", list(zip(STOPS8, LABELS8))):
+            d.rectangle([28, yy, 88, yy + 28], fill=tuple(col) + (255,), outline=BLACK + (255,), width=3)
             T(d, (104, yy + 14), lab, 27, fill=WHITE, stroke=3, anchor="lm")
             yy += 36
         d.rectangle([28, yy, 88, yy + 28], fill=UNCOUNTED + (255,), outline=BLACK + (255,), width=3)
-        T(d, (104, yy + 14), "NOT YET COUNTED", 27, fill=WHITE, stroke=3, anchor="lm")
+        T(d, (104, yy + 14), getattr(TP, "LEGEND_NONE", "NOT YET COUNTED"), 27, fill=WHITE, stroke=3, anchor="lm")
         yy += 38
         if SHOW_CENTER:
             d.ellipse([42, yy + 1, 70, yy + 29], fill=(255, 40, 40, 255), outline=WHITE + (255,), width=3)
@@ -1032,7 +1039,7 @@ class Renderer:
             d.line([(28, yy + 14), (88, yy + 14)], fill=WHITE + (255,), width=5)
             T(d, (104, yy + 14), "RAILROADS (SIMPLIFIED)", 27, fill=WHITE, stroke=3, anchor="lm")
             yy += 38
-        if Y >= 1956 or fin:
+        if (Y >= 1956 or fin) and getattr(TP, "SHOW_ROADS", True):
             d.line([(28, yy + 14), (88, yy + 14)], fill=WHITE + (255,), width=9)
             d.line([(28, yy + 14), (88, yy + 14)], fill=(30, 70, 220, 255), width=5)
             T(d, (104, yy + 14), "INTERSTATES (SCHEMATIC)", 27, fill=WHITE, stroke=3, anchor="lm")

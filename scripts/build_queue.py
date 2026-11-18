@@ -8,7 +8,7 @@ T = [
     # id, title, search queries, data, licence, engine fit, extra work
     ("sun-belt", "Sun Belt Migration: How Americans Moved South and West", "sun belt migration; rust belt to sunbelt migration",
      "Census apportionment 1910-2020 + city tables + centers of population (all already in repo)", "PD, confirmed (Census DS-027)", "yes", "none"),
-    ("13-to-50-states", "US Expansion from 13 to 50 States", "us expansion from 13 to 50 states; us expansion timeline",
+    ("13-to-50-states", "US Expansion from 13 to 50 States: Every Admission on the Map", "us expansion from 13 to 50 states; us expansion timeline",
      "Natural Earth states + admission dates (Census / NPS / Library of Congress facts) + state pops (repo)", "PD (federal facts); page to confirm at build", "yes", "small: admission layer"),
     ("texas", "Texas Population Growth 1850-2020: How Texas Became a Giant", "texas population growth",
      "Census state + county pops (1900-1990 in repo; 2000-2020 county totals to fetch)", "PD (Census)", "yes", "small fetch"),
@@ -70,8 +70,14 @@ T = [
 ORDER = ["sun-belt", "texas", "13-to-50-states", "cities-decline", "california", "urban", "florida", "great-migration", "suffrage", "reapportionment"]
 LATER = {"mean-center", "density", "slavery", "american-indian", "hispanic"}
 SEPARATE = {"city-race", "state-race"}
-MODULE = {"sun-belt": "sun-belt", "texas": "texas", "california": "california", "cities-decline": "cities-decline"}
-GATE = {"13-to-50-states": "NPS/LoC/Census pages", "suffrage": "NARA/NPS/LoC pages", "great-migration": "Census WP56/WP76 pages"}
+MODULE = {"sun-belt": "sun-belt", "texas": "texas", "california": "california", "cities-decline": "cities-decline", "13-to-50-states": "expansion"}
+GATE = {"suffrage": "NARA/NPS/LoC pages", "great-migration": "Census WP56/WP76 pages"}
+CONFIRMED = {   # licences checked on the source pages before the build
+    "texas": "2026-11-18: Census PD; NARA; NOAA/NWS weather.gov/disclaimer; NPS nps.gov/aboutus/disclaimer.htm; NASA; FHWA fhwa.dot.gov/disclaim.cfm",
+    "california": "2026-11-18: Census PD; NPS; USGS usgs.gov copyrights-and-credits (U.S. public domain); FHWA",
+    "cities-decline": "2026-11-18: Census PD; NARA; FHWA fhwa.dot.gov/disclaim.cfm",
+    "13-to-50-states": "2026-11-18: admission dates U.S. Senate pages (federal work); State Dept state.gov/copyright-information (public domain); NARA; Census PD",
+}
 js = []
 for a, b, c, d, e, f, g in T:
     st = "approved" if a in ORDER else ("later" if a in LATER else ("separate_task" if a in SEPARATE else "proposed"))
@@ -79,6 +85,8 @@ for a, b, c, d, e, f, g in T:
     if a in ORDER:
         t["order"] = ORDER.index(a) + 1
         t["licence_confirmed"] = a not in GATE
+        if a in CONFIRMED:
+            t["licence_note"] = CONFIRMED[a]
         if a in GATE:
             t["licence_gate"] = "confirm the licence on " + GATE[a] + " before the build; if not confirmed the topic is skipped"
     if a in MODULE:

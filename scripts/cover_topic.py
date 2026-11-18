@@ -14,8 +14,12 @@ C = TP.COVER
 root = Path(__file__).resolve().parent.parent
 W, H = 1280, 720
 v = View(W, H, cx=C["cx"], cy=C["cy"], fill=C["fill"], center=C["center"])
-fills = {g: STOPS[cls(d)] for g, d in county_density_2020().items()}
-img = render(v, fills, level="county", county_line_alpha=90)
+if C.get("mode") == "statehood":
+    fills = {ab: TP.era_colour(ab) for ab in TP.admissions()}
+    img = render(v, fills, level="state")
+else:
+    fills = {g: STOPS[cls(d)] for g, d in county_density_2020().items()}
+    img = render(v, fills, level="county", county_line_alpha=90)
 img = ImageEnhance.Color(img).enhance(1.12)
 img = ImageEnhance.Contrast(img).enhance(1.06)
 text(img, (W // 2, 2), C["big"], 210, fill=YEL, anchor="ma")

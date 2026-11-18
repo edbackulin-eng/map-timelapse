@@ -28,7 +28,7 @@
   },
   {
    "id": "13-to-50-states",
-   "title": "US Expansion from 13 to 50 States",
+   "title": "US Expansion from 13 to 50 States: Every Admission on the Map",
    "search_queries": "us expansion from 13 to 50 states; us expansion timeline",
    "data": "Natural Earth states + admission dates (Census / NPS / Library of Congress facts) + state pops (repo)",
    "licence": "PD (federal facts); page to confirm at build",
@@ -36,8 +36,9 @@
    "extra_work": "small: admission layer",
    "status": "approved",
    "order": 3,
-   "licence_confirmed": false,
-   "licence_gate": "confirm the licence on NPS/LoC/Census pages before the build; if not confirmed the topic is skipped"
+   "licence_confirmed": true,
+   "licence_note": "2026-11-18: admission dates U.S. Senate pages (federal work); State Dept state.gov/copyright-information (public domain); NARA; Census PD",
+   "module": "expansion"
   },
   {
    "id": "texas",
@@ -50,6 +51,7 @@
    "status": "approved",
    "order": 2,
    "licence_confirmed": true,
+   "licence_note": "2026-11-18: Census PD; NARA; NOAA/NWS weather.gov/disclaimer; NPS nps.gov/aboutus/disclaimer.htm; NASA; FHWA fhwa.dot.gov/disclaim.cfm",
    "module": "texas"
   },
   {
@@ -75,6 +77,7 @@
    "status": "approved",
    "order": 5,
    "licence_confirmed": true,
+   "licence_note": "2026-11-18: Census PD; NPS; USGS usgs.gov copyrights-and-credits (U.S. public domain); FHWA",
    "module": "california"
   },
   {
@@ -88,6 +91,7 @@
    "status": "approved",
    "order": 4,
    "licence_confirmed": true,
+   "licence_note": "2026-11-18: Census PD; NARA; FHWA fhwa.dot.gov/disclaim.cfm",
    "module": "cities-decline"
   },
   {

@@ -4,7 +4,7 @@
 |---|---|---|---|---|---|---|
 | 1 | US Population 1790-2020: How America Grew Across the Map | us population over time | Census (repo) | PD, confirmed | done | none |
 | 2 | Sun Belt Migration: How Americans Moved South and West | sun belt migration; rust belt to sunbelt migration | Census apportionment 1910-2020 + city tables + centers of population (all already in repo) | PD, confirmed (Census DS-027) | yes | none |
-| 3 | US Expansion from 13 to 50 States | us expansion from 13 to 50 states; us expansion timeline | Natural Earth states + admission dates (Census / NPS / Library of Congress facts) + state pops (repo) | PD (federal facts); page to confirm at build | yes | small: admission layer |
+| 3 | US Expansion from 13 to 50 States: Every Admission on the Map | us expansion from 13 to 50 states; us expansion timeline | Natural Earth states + admission dates (Census / NPS / Library of Congress facts) + state pops (repo) | PD (federal facts); page to confirm at build | yes | small: admission layer |
 | 4 | Texas Population Growth 1850-2020: How Texas Became a Giant | texas population growth | Census state + county pops (1900-1990 in repo; 2000-2020 county totals to fetch) | PD (Census) | yes | small fetch |
 | 5 | Florida Population Growth 1830-2020 | florida population growth; florida population boom | same as Texas | PD (Census) | yes | small fetch |
 | 6 | California Population Growth 1850-2020: From Gold Rush to 39 Million | california population; california population decline | same as Texas | PD (Census) | yes | small fetch |
