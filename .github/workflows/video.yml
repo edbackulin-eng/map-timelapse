@@ -144,12 +144,7 @@ jobs:
         run: |
           for k in $(seq 0 23); do echo "file 'seg$k.mp4'"; done > list.txt
           ffmpeg -y -loglevel error -f concat -safe 0 -i list.txt -c copy video_only.mp4
-          M=assets/music
-          D=$(ffprobe -v error -show_entries format=duration -of csv=p=0 video_only.mp4)
-          ffmpeg -y -loglevel error -i video_only.mp4 -i $M/oga-first-light-particles.mp3 -i $M/oga-november-snow.mp3 -i $M/oga-a-cup-of-tea.mp3 \
-            -filter_complex "[1:a][2:a]acrossfade=d=5[a12];[a12][3:a]acrossfade=d=5[a123];[a123]atrim=0:$D,afade=t=in:d=3,loudnorm=I=-20:TP=-2:LRA=7,afade=t=out:st=$(python3 -c "print($D-6)"):d=6[aout]" \
-            -map 0:v -map "[aout]" -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart \
-            america-over-time_${{ needs.plan.outputs.slug }}.mp4
+          bash scripts/mix_music.sh video_only.mp4 america-over-time_${{ needs.plan.outputs.slug }}.mp4
           ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,duration:format=duration,size -of default=nw=1 america-over-time_${{ needs.plan.outputs.slug }}.mp4 | tee probe.txt
       - name: Small preview (720p) so the 100+ MB master need not be downloaded
         run: |
@@ -194,7 +189,7 @@ jobs:
         run: |
           V=america-over-time_$SLUG.mp4
           cat > notes.md <<'EOF'
-          Reserve video (not uploaded anywhere). Data: U.S. Census Bureau. Map data: Natural Earth (public domain). Music: Yoiyami, cynicmusic, TAD (CC0), OpenGameArt.org. Sources of every fact: data/sources.json.
+          Reserve video (not uploaded anywhere). Data: U.S. Census Bureau. Map data: Natural Earth (public domain). Music: Yoiyami, cynicmusic (CC0), OpenGameArt.org. Sources of every fact: data/sources.json.
           EOF
           TAG="reserve-$SLUG"
           if gh release view "$TAG" >/dev/null 2>&1; then

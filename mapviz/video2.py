@@ -1126,7 +1126,7 @@ class Renderer:
         c = int(255 * a2)
         od.rounded_rectangle([520, 120, 1860, 840], radius=36, fill=NAVY + (int(240 * a2),), outline=YEL + (c,), width=8)
         lines = [("AMERICA OVER TIME", 100, YEL), ("DATA: U.S. CENSUS BUREAU", 56, WHITE), ("MAP DATA: NATURAL EARTH  ·  ROADS: NATURAL EARTH", 44, WHITE),
-                 ("MUSIC: YOIYAMI, CYNICMUSIC, TAD (CC0), OPENGAMEART.ORG", 48, WHITE), (TP.CREDIT_EVENTS, 40, WHITE),
+                 ("MUSIC: YOIYAMI, CYNICMUSIC (CC0), OPENGAMEART.ORG", 48, WHITE), (TP.CREDIT_EVENTS, 40, WHITE),
                  ("NEW ANIMATED MAP EVERY MONDAY & FRIDAY", 48, YEL)]
         y = 200
         for s, sz, col in lines:

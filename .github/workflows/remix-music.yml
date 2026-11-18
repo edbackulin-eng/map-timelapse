@@ -1,0 +1,25 @@
+name: remix-music
+# Replaces the audio of every reserve MP4 (no re-render): used after the Content ID claim on "A cup of tea".
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  remix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Remix
+        run: |
+          for tag in $(gh release list --limit 100 --json tagName,name -q '.[]|select(.tagName|startswith("reserve-"))|.tagName'); do
+            slug=${tag#reserve-}; f=america-over-time_$slug.mp4
+            mkdir -p w/$slug; gh release download $tag -p "$f" -D w/$slug --clobber || { echo "skip $tag"; continue; }
+            bash scripts/mix_music.sh w/$slug/$f w/$slug/new.mp4
+            ffprobe -v error -show_entries format=duration -of csv=p=0 w/$slug/new.mp4
+            gh release upload $tag w/$slug/new.mp4#$f --clobber 2>/dev/null || { mv w/$slug/new.mp4 w/$slug/$f.new; cp w/$slug/$f.new w/$slug/$f; gh release upload $tag w/$slug/$f --clobber; }
+            rm -rf w/$slug
+            echo "remixed $slug"
+          done
