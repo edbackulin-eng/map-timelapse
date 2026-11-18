@@ -125,8 +125,8 @@
   "nps_ww2": {
    "title": "World War II and the American Home Front (National Historic Landmarks theme study)",
    "publisher": "National Park Service",
-   "url": "https://planning.lacity.gov/odocument/885c8f2d-af61-451e-b7a2-c77fce107429/WWII_and_the_American_Home_Front.pdf",
-   "supports": "More than 30 million Americans moved during the war, to bases and manufacturing centers (copy of the NPS PDF hosted on planning.lacity.gov; locate the NPS original before publishing)."
+   "url": "https://irma.nps.gov/DataStore/DownloadFile/638007",
+   "supports": "More than 30 million Americans moved during the war, to bases and manufacturing centers (NPS IRMA DataStore original, draft Feb 2004, p. 45; linked from nps.gov/subjects/nationalhistoriclandmarks/full-list-of-theme-studies.htm)."
   },
   "gi_bill": {
    "title": "Servicemen's Readjustment Act (1944)",
@@ -174,7 +174,7 @@
    "title": "WARTIME MOVES",
    "text": "OVER 30 MILLION AMERICANS MOVE DURING WORLD WAR II, MANY TO BASES AND FACTORIES",
    "source": "nps_ww2",
-   "url": "https://planning.lacity.gov/odocument/885c8f2d-af61-451e-b7a2-c77fce107429/WWII_and_the_American_Home_Front.pdf"
+   "url": "https://irma.nps.gov/DataStore/DownloadFile/638007"
   },
   {
    "year": 1944,
@@ -207,7 +207,7 @@
   {
    "year": 2020,
    "title": "HOUSE SEATS SHIFT",
-   "text": "6 STATES GAIN HOUSE SEATS (TEXAS +2, COLORADO +1); 7 LOSE ONE (CALIFORNIA, NEW YORK, ILLINOIS...)",
+   "text": "6 STATES GAIN HOUSE SEATS (TEXAS +2, FLORIDA +1); 7 LOSE ONE (CALIFORNIA, NEW YORK, ILLINOIS...)",
    "source": "census_apport",
    "url": "https://www2.census.gov/programs-surveys/decennial/2020/data/apportionment/apportionment.csv"
   }

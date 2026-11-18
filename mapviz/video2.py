@@ -699,17 +699,34 @@ class Renderer:
         img.paste(ov, (RX0, RY0), ov)
         # labels (collision-avoiding), migration captions
         self.draw_labels(img, (lt if i == 0 else B0 + BLK * (i - 1) + lt), Z)
-        if Z < 1.5:
-            d2 = ImageDraw.Draw(img, "RGBA")
-            for m in self.migs:
-                if m["label"] and m["y0"] <= Y <= m["y1"] + 3 and not fin:
-                    f = min(1.0, (Y - m["y0"]) / max(m["y1"] - m["y0"], 1))
-                    if f < 0.3:
-                        continue
-                    path = partial(m["path"], f)
-                    mid = path[len(path) // 2]
-                    x, y = vw.px(mid[0], mid[1])
-                    T(d2, (float(x), float(y) - 36), m["label"], 34, fill=WHITE, stroke=5, anchor="mm")
+        d2 = ImageDraw.Draw(img, "RGBA")
+        for x, y, lab, _ in self.mig_captions(lt if i == 0 else B0 + BLK * (i - 1) + lt):
+            T(d2, (x, y), lab, 34, fill=WHITE, stroke=5, anchor="mm")
+
+    def mig_captions(self, t):
+        """[(x, y, label, rect)] of the migration-arrow captions at time t (also obstacles for the city labels)."""
+        i, lt = self.locate(t)
+        fin = i >= NB
+        if fin:
+            return []
+        vw, Z, _ = self.zoom_view(i, lt)
+        if Z >= 1.5:
+            return []
+        Y = self.year_at(i, lt)
+        out = []
+        f34 = F(34)
+        for m in self.migs:
+            if m["label"] and m["y0"] <= Y <= m["y1"] + 3:
+                f = min(1.0, (Y - m["y0"]) / max(m["y1"] - m["y0"], 1))
+                if f < 0.3:
+                    continue
+                path = partial(m["path"], f)
+                mid = path[len(path) // 2]
+                x, y = vw.px(mid[0], mid[1])
+                x, y = float(x), float(y) - 36
+                wd = f34.getlength(m["label"]) + 12
+                out.append((x, y, m["label"], (x - wd / 2, y - 22, x + wd / 2, y + 22)))
+        return out
 
     def city_state(self, i, lt, run_f, fin):
         out = []
@@ -780,8 +797,12 @@ class Renderer:
         labs = sorted((c for c in geom if c[1] in ok), reverse=True)
         k = 14 if Z > 1.5 else 11
         f = F(26)
+        mig = []   # migration captions anywhere in the epoch: union box per caption
+        for k_ in range(9):
+            for n_, (_, _, lab, r) in enumerate(self.mig_captions(min(e * self.EP + k_ * self.EP / 8, TOTAL_S - 1e-3))):
+                obst.setdefault("__mig_" + lab, []).append(r)
         circles = obst
-        rmax = {n: max((b[2] - b[0]) / 2 - 5 for b in obst[n]) for n in circles}
+        rmax = {n: max((b[2] - b[0]) / 2 - 5 for b in obst[n]) for n in circles if not n.startswith("__mig_")}
         placed, lpts, plan = [], [], {}
         hit = lambda a, b: not (a[2] < b[0] or a[0] > b[2] or a[3] < b[1] or a[1] > b[3])
         for pop, name, x, y, rad, ap in labs[:k]:

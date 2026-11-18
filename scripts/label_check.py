@@ -50,6 +50,9 @@ for n in range(nfr + 1):
             for c_nm, (pop, x, y, rad, ap) in cur.items():
                 if c_nm != names[a_i] and hit(rects[names[a_i]], (x - rad, y - rad, x + rad, y + rad)):
                     (over if strict else info).append((round(t, 1), "text/circle", names[a_i], c_nm))
+            for mx, my, lab, mr in r.mig_captions(t):
+                if hit(rects[names[a_i]], mr):
+                    (over if strict else info).append((round(t, 1), "text/arrow caption", names[a_i], lab))
             q = rects[names[a_i]]
             if q[0] < V.RX0 or q[2] > V.W or q[1] < 0 or q[3] > V.RY1:
                 (over if strict else info).append((round(t, 1), "outside", names[a_i], ""))
