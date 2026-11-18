@@ -56,6 +56,11 @@ def reserve_releases():
     return {r["tagName"][len("reserve-"):]: r for r in out if r["tagName"].startswith("reserve-") and r["name"].startswith("RESERVE")}
 
 
+def _state_ahead(state):
+    now = datetime.now(timezone.utc)
+    return sum(1 for e in state if e.get("publish_at") and datetime.fromisoformat(e["publish_at"].replace("Z", "+00:00")) > now)
+
+
 def candidates():
     q = json.loads(QUEUE.read_text(encoding="utf-8"))["topics"]
     ready = [t for t in q if t.get("module") and t["status"] in ("approved", "reserve", "zero")]
@@ -80,8 +85,10 @@ def main():
     print(f"the channel has {len(videos)} videos; scheduled ahead: {youtube.scheduled_ahead(videos)}")
     done = 0
     rel = reserve_releases()
+    sim_taken = []
     for t in candidates():
-        if youtube.scheduled_ahead(videos) >= BUFFER or done >= MAX_PER_RUN:
+        ahead = max(youtube.scheduled_ahead(videos), _state_ahead(state)) + len(sim_taken)
+        if ahead >= BUFFER or done >= MAX_PER_RUN:
             break
         slug = t["id"]
         if slug not in rel:
@@ -95,10 +102,13 @@ def main():
                 state.append(dict(slug=slug, title=title, status="scheduled", youtube_id=ex["id"], publish_at=ex["publish_at"]))
                 persist(state, f"state: {slug} found on the channel ({ex['id']})")
             continue
-        slot = youtube.next_slot(youtube.channel_dates(videos))
+        # taken slots: the channel's list + our state file (a fresh upload can lag in the API) + simulated dry-run uploads
+        taken = list(youtube.channel_dates(videos)) + [e["publish_at"] for e in state if e.get("publish_at")] + sim_taken
+        slot = youtube.next_slot(taken)
         print(f"{slug}: slot {slot.isoformat()}")
         if DRY:
             print("DRY RUN: would upload", title, "\n", desc[:600])
+            sim_taken.append(slot.strftime("%Y-%m-%dT%H:%M:%SZ"))
             done += 1
             continue
         work = ROOT / "out" / "upload" / slug
