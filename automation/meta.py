@@ -3,7 +3,6 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-REPO_URL = "https://github.com/edbackulin-eng/map-timelapse"
 
 # channel keywords (docs/channel_brief.md section 4)
 CHANNEL_TAGS = ["animated map", "map timelapse", "US history map", "United States map", "US population history", "census data",
@@ -19,7 +18,8 @@ def build(topic, slug_for_ref):
         used[e["source"]] = srcs["sources"][e["source"]]
     for m in srcs.get("migrations", []):
         used[m["source"]] = srcs["sources"][m["source"]]
-    lines = [f"- {v['publisher']}: {v['title']} {v['url']}" for v in list(used.values())[:10]]
+    # no links: YouTube rejects URLs in descriptions of channels without phone verification (and no personal GitHub link either)
+    lines = [f"- {v['publisher']}: {v['title']}" for v in list(used.values())[:10]]
     desc = (f"{topic.HOOK}\n\n"
             "No narration: an animated map, a year counter, a legend and short captions. Every number comes from official open data.\n\n"
             "DATA AND SOURCES\n"
@@ -27,7 +27,7 @@ def build(topic, slug_for_ref):
             "- Map data: Natural Earth (public domain)\n"
             "- Music: Yoiyami, cynicmusic (CC0), OpenGameArt.org\n"
             + "\n".join(lines) + "\n"
-            f"Full list of sources for every event: {REPO_URL}/blob/main/data/sources/{topic.SLUG}.json\n\n"
+            "\n"
             "New animated maps every Monday and Friday.\n\n"
             + " ".join(topic.HASHTAGS) + "\n\n"
             + f"[ref: map-timelapse/{slug_for_ref}]")
