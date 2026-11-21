@@ -130,8 +130,18 @@ def next_slot(taken=(), now=None, cfg=SCHEDULE):
     raise RuntimeError("no free slot in 120 days")
 
 
+def plain_description(text, limit=5000):
+    """owner 21.11: the channel has no advanced features, so no links: every source as plain text without
+    http(s)://, no angle brackets, at most 5000 bytes."""
+    import re
+    text = re.sub(r"https?://", "", str(text or "")).replace("<", "").replace(">", "")
+    raw = text.encode("utf-8")
+    return raw[:limit].decode("utf-8", "ignore").rsplit("\n", 1)[0] if len(raw) > limit else text
+
+
 def upload(yt, video, title, description, tags, publish_at):
     """Private + publishAt. selfDeclaredMadeForKids=false, containsSyntheticMedia=false, category 27 (Education)."""
+    description = plain_description(description)
     from googleapiclient.http import MediaFileUpload
     status = {"privacyStatus": "private", "selfDeclaredMadeForKids": False, "containsSyntheticMedia": False,
               "publishAt": publish_at.strftime("%Y-%m-%dT%H:%M:%SZ")}
